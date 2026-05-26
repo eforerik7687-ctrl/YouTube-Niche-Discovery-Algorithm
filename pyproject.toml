@@ -1,0 +1,32 @@
+[project]
+name = "youtube-niche-finder"
+version = "0.1.0"
+description = "YouTube Niche Discovery System - find blue ocean niches via keyword co-occurrence networks"
+requires-python = ">=3.10"
+dependencies = [
+    "tubescrape>=0.1.0",
+    "networkx>=3.0",
+    "python-louvain>=0.16",
+    "pandas>=2.0",
+    "python-dateutil>=2.8",
+    "python-dotenv>=1.0",
+    "pyvis>=0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "mypy>=1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
