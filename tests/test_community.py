@@ -97,3 +97,33 @@ class TestDetectNiches:
         G = Graph()
         niches = detector.detect_niches(G)
         assert niches == {}
+
+
+class TestComputeNicheConcepts:
+    def test_compute_niche_concepts_aggregates_correctly(self, detector):
+        """Niche concepts should aggregate channel concepts with coverage and avg_score."""
+        propagated = {
+            "ChannelA": {"python": 1.5, "tutorial": 0.8},
+            "ChannelB": {"python": 1.2, "coding": 0.9},
+            "ChannelC": {"python": 0.6, "tutorial": 0.3},
+        }
+        niches = {0: ["ChannelA", "ChannelB", "ChannelC"]}
+        result = detector.compute_niche_concepts(niches, propagated)
+        assert 0 in result
+        concepts = result[0]
+        # python appears in 3/3 channels -> coverage 1.0
+        py = [c for c in concepts if c["concept"] == "python"][0]
+        assert py["coverage"] == 1.0
+        assert py["avg_score"] == pytest.approx((1.5 + 1.2 + 0.6) / 3)
+
+    def test_compute_niche_concepts_empty_niche(self, detector):
+        """Empty niche should return empty list."""
+        result = detector.compute_niche_concepts({}, {})
+        assert result == {}
+
+    def test_compute_niche_concepts_top_n_limits(self, detector):
+        """top_n parameter should limit number of concepts returned."""
+        propagated = {f"Ch{i}": {f"c{j}": 1.0 for j in range(10)} for i in range(5)}
+        niches = {0: list(propagated.keys())}
+        result = detector.compute_niche_concepts(niches, propagated, top_n=3)
+        assert len(result[0]) <= 3

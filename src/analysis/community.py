@@ -58,6 +58,39 @@ class CommunityDetector:
             niches[cid] = sorted(members)
         return niches
 
+    @staticmethod
+    def compute_niche_concepts(
+        niches: Dict[int, List[str]],
+        propagated: Dict[str, Dict[str, float]],
+        top_n: int = 20,
+    ) -> Dict[int, List[Dict]]:
+        """Aggregate channel concepts per niche.
+
+        Each concept gets:
+        - coverage: % of channels in niche that have this concept
+        - avg_score: mean propagated score across channels that have it
+
+        Returns: {niche_id: [{concept, coverage, avg_score}, ...]} sorted by coverage desc
+        """
+        result: Dict[int, List[Dict]] = {}
+        for nid, channels in niches.items():
+            concept_scores: Dict[str, List[float]] = {}
+            for ch in channels:
+                for concept, score in propagated.get(ch, {}).items():
+                    concept_scores.setdefault(concept, []).append(score)
+
+            total = len(channels)
+            ranked = []
+            for concept, scores in concept_scores.items():
+                ranked.append({
+                    "concept": concept,
+                    "coverage": round(len(scores) / total, 4),
+                    "avg_score": round(sum(scores) / len(scores), 4),
+                })
+            ranked.sort(key=lambda x: (-x["coverage"], -x["avg_score"]))
+            result[nid] = ranked[:top_n]
+        return result
+
     def export_network(
         self,
         G: nx.Graph,
