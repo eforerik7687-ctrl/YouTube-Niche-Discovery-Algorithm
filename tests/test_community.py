@@ -9,13 +9,23 @@ from src.config import Config
 
 @pytest.fixture
 def propagator():
-    config = Config(search_modifiers=["tutorial", "review"])
+    config = Config()
     return KeywordPropagator(config, MagicMock())
 
 
 @pytest.fixture
 def detector(propagator):
     return CommunityDetector(propagator)
+
+
+@pytest.fixture
+def sample_similarities():
+    return {
+        ("ChannelA", "ChannelB"): 0.8,
+        ("ChannelB", "ChannelC"): 0.7,
+        ("ChannelC", "ChannelA"): 0.6,
+        ("ChannelD", "ChannelE"): 0.9,
+    }
 
 
 class TestBuildChannelGraph:
@@ -36,32 +46,11 @@ class TestBuildChannelGraph:
         assert G.number_of_edges() == 0
 
 
-class TestDetectCommunities:
-    def test_basic_clustering(self, detector):
-        G = detector.build_channel_graph({
-            ("ChA", "ChB"): 0.9,
-            ("ChB", "ChC"): 0.8,
-            ("ChD", "ChE"): 0.7,
-        })
-        communities = detector.detect_communities(G)
-        assert len(communities) == 5
-        # ChA, ChB, ChC should be in one community; ChD, ChE in another
-        assert communities["ChA"] == communities["ChB"]
-        assert communities["ChD"] == communities["ChE"]
-
-    def test_no_edges(self, detector):
-        G = nx_module = pytest.importorskip("networkx").Graph()
-        G.add_node("solo")
-        communities = detector.detect_communities(G)
-        assert communities == {"solo": 0}
-
-
 class TestExportNetwork:
     def test_returns_path(self, detector, tmp_path):
         G = detector.build_channel_graph({
             ("ChannelA", "ChannelB"): 0.5,
         })
-        communities = {"ChannelA": 0, "ChannelB": 1}
         channel_keywords = {
             "ChannelA": {"python tutorial": 1.0},
             "ChannelB": {"javascript tutorial": 1.0},
@@ -70,7 +59,7 @@ class TestExportNetwork:
 
         output = tmp_path / "graph.html"
         path = detector.export_network(
-            G, communities, channel_keywords, propagated,
+            G, channel_keywords, propagated,
             output_path=str(output),
         )
         assert path == str(output)
@@ -78,3 +67,19 @@ class TestExportNetwork:
         content = output.read_text()
         assert "ChannelA" in content
         assert "network" in content.lower()
+
+
+class TestDetectNiches:
+    def test_detect_niches_returns_communities(self, detector, sample_similarities):
+        """Louvain should partition graph into communities (niches)."""
+        G = detector.build_channel_graph(sample_similarities)
+        niches = detector.detect_niches(G)
+        assert isinstance(niches, dict)
+        assert all(isinstance(k, int) for k in niches.keys())
+        assert all(isinstance(v, list) for v in niches.values())
+        all_channels = set()
+        for ch_list in niches.values():
+            all_channels.update(ch_list)
+        # All 5 channels from the fixture should appear
+        expected = {"ChannelA", "ChannelB", "ChannelC", "ChannelD", "ChannelE"}
+        assert all_channels == expected
