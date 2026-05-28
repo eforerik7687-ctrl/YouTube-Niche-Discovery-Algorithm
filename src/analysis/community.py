@@ -105,7 +105,7 @@ class CommunityDetector:
 
         Node size = channel total views (from channel_data)
         Node color = dominant seed keyword per channel
-        Hover tooltip = top-5 keywords + 4 metrics
+        Hover tooltip = top-5 concepts + 4 metrics
         Click node = open YouTube channel (exact URL if known, else search)
         """
         net = Network(height="700px", width="100%", bgcolor="#ffffff")
@@ -149,17 +149,18 @@ class CommunityDetector:
             sid = _dominant_seed(channel)
             data = channel_data.get(channel, {})
 
-            # Get top-5 keywords for this channel
-            top5 = self.propagator.rank_keywords(propagated, channel, top_n=5)
+            # Get top-5 concepts for this channel, sorted by score descending
+            channel_concepts = propagated.get(channel, {})
+            top5 = sorted(channel_concepts.items(), key=lambda x: -x[1])[:5]
 
             total_views = data.get("total_views", 0)
             size = max(10, min(80, total_views / 10_000))
 
             sep = "─" * 20
-            kw_lines = "\n".join(f"  • {kw}: {score:.2f}" for kw, score in top5) if top5 else "  (none)"
+            conc_lines = "\n".join(f"  • {concept}: {score:.2f}" for concept, score in top5) if top5 else "  (none)"
             tooltip_text = (
                 f"{channel}\n{sep}\n"
-                f"Top Keywords:\n{kw_lines}\n{sep}\n"
+                f"Top Concepts:\n{conc_lines}\n{sep}\n"
                 f"Views: {total_views:,}\n"
                 f"Videos: {data.get('video_count', 0)}\n"
                 f"Opportunity: {data.get('opportunity_score', 0):.2f}\n"
