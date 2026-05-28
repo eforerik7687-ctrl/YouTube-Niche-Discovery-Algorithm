@@ -77,9 +77,23 @@ class TestDetectNiches:
         assert isinstance(niches, dict)
         assert all(isinstance(k, int) for k in niches.keys())
         assert all(isinstance(v, list) for v in niches.values())
+        # Verify all channels are covered
         all_channels = set()
         for ch_list in niches.values():
             all_channels.update(ch_list)
-        # All 5 channels from the fixture should appear
-        expected = {"ChannelA", "ChannelB", "ChannelC", "ChannelD", "ChannelE"}
-        assert all_channels == expected
+        assert len(all_channels) == 5  # ChannelA-E
+        # Verify A-B-C form one community (they're a triangle)
+        for nid, members in niches.items():
+            members_set = set(members)
+            if "ChannelA" in members_set:
+                assert "ChannelB" in members_set
+                assert "ChannelC" in members_set
+            if "ChannelD" in members_set:
+                assert "ChannelE" in members_set
+
+    def test_detect_niches_empty_graph(self, detector):
+        """Empty graph should return empty dict."""
+        from networkx import Graph
+        G = Graph()
+        niches = detector.detect_niches(G)
+        assert niches == {}

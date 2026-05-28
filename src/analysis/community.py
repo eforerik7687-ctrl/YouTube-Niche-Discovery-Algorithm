@@ -49,6 +49,8 @@ class CommunityDetector:
             niches: Dict[int, List[str]] = {}
             for node, cid in partition.items():
                 niches.setdefault(cid, []).append(node)
+            for cid in sorted(niches.keys()):
+                niches[cid] = sorted(niches[cid])
             return niches
 
         niches: Dict[int, List[str]] = {}
