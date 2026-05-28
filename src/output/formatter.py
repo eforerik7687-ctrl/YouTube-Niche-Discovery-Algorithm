@@ -56,6 +56,31 @@ class OutputFormatter:
         )
         return str(path)
 
+    def save_concepts(
+        self,
+        channel_concepts: Dict[str, List[Dict]],
+        niche_concepts: Dict[int, List[Dict]],
+        filename: str = "concepts.json",
+    ) -> str:
+        """Export both channel-level and niche-level concepts to JSON.
+
+        Args:
+            channel_concepts: {channel_name: [{concept, score}, ...]}
+            niche_concepts: {niche_id: [{concept, coverage, avg_score}, ...]}
+
+        Returns: path to saved JSON file
+        """
+        output = {
+            "channel_concepts": channel_concepts,
+            "niche_concepts": niche_concepts,
+        }
+        path = self.output_dir / filename
+        path.write_text(
+            json.dumps(output, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        return str(path)
+
     def save_edges(
         self,
         edges: List[CooccurrenceEdge],

@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 
@@ -49,3 +50,26 @@ class TestOutputFormatter:
         data = json.loads(open(path, encoding="utf-8").read())
         assert data[0]["source"] == "a"
         assert data[0]["weight"] == 3
+
+
+class TestSaveConcepts:
+    def test_saves_json_with_correct_structure(self, tmp_path):
+        from src.output.formatter import OutputFormatter
+        formatter = OutputFormatter(str(tmp_path))
+        ch_conc = {"ChannelA": [{"concept": "python", "score": 1.5}]}
+        niche_conc = {0: [{"concept": "python", "coverage": 1.0, "avg_score": 1.5}]}
+        path = formatter.save_concepts(ch_conc, niche_conc)
+        import json
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        assert "channel_concepts" in data
+        assert "niche_concepts" in data
+        assert data["channel_concepts"]["ChannelA"][0]["concept"] == "python"
+
+    def test_saves_empty_concepts(self, tmp_path):
+        from src.output.formatter import OutputFormatter
+        formatter = OutputFormatter(str(tmp_path))
+        path = formatter.save_concepts({}, {})
+        import json
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+        assert data["channel_concepts"] == {}
+        assert data["niche_concepts"] == {}
