@@ -169,18 +169,20 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
     if G.number_of_nodes() > 0:
         channel_data = _build_channel_data(videos, channel_keywords, propagator.channel_stats)
 
+        # Cluster keywords (Louvain communities → keyword aggregation)
+        clusters = detector.detect_niches(G)
+        cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+
+        # Export graph with niche-based colors
         graph_path = detector.export_network(
             G, channel_keywords,
             channel_data=channel_data,
             channel_urls=propagator.channel_urls,
             seed_keywords=keywords,
+            niches=clusters,
             output_path=str(Path(config.output_dir) / "graph_7plus7.html"),
         )
         paths["graph"] = graph_path
-
-        # Cluster keywords (Louvain communities → keyword aggregation)
-        clusters = detector.detect_niches(G)
-        cluster_kws = detector.compute_niche_concepts(clusters, propagated)
 
         # Word cloud per niche
         wordcloud_path = detector.export_niche_wordcloud(

@@ -3,102 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Niche Finder Dashboard</title>
+<title>YouTube Niche Discovery Researcher</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0b0e1a;color:#e0d8ff;font-family:'Segoe UI',sans-serif;min-height:100vh}
-.header{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);padding:24px 32px;border-bottom:1px solid rgba(255,255,255,0.06)}
-.header h1{font-weight:300;font-size:24px;color:#c8b8ff}
-.header p{color:#8878b0;font-size:13px;margin-top:4px}
-.form-section{max-width:700px;margin:24px auto;padding:24px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px}
-.form-section h2{font-weight:400;font-size:16px;margin-bottom:16px;color:#c8b8ff}
-.mode-group{display:flex;gap:12px;margin-bottom:20px}
-.mode-btn{padding:10px 24px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:#8878b0;cursor:pointer;font-size:14px;transition:all .2s}
-.mode-btn.active{background:rgba(200,184,255,0.15);border-color:#c8b8ff;color:#c8b8ff}
-.mode-btn:hover{background:rgba(255,255,255,0.05)}
-.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.kw-input{padding:10px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#e0d8ff;font-size:14px;outline:none;transition:border .2s}
-.kw-input:focus{border-color:#c8b8ff}
-.kw-input::placeholder{color:#555}
-.btn-run{padding:12px 32px;border-radius:8px;border:none;background:linear-gradient(135deg,#6c5ce7,#a78bfa);color:#fff;font-size:15px;cursor:pointer;transition:opacity .2s;width:100%}
-.btn-run:hover{opacity:.85}
-.btn-run:disabled{opacity:.4;cursor:not-allowed}
-.status{margin-top:12px;font-size:13px;color:#8878b0;text-align:center;min-height:20px}
-.tabs{max-width:1400px;margin:0 auto;padding:0 24px}
-.tab-headers{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.08)}
-.tab-btn{padding:12px 28px;cursor:pointer;color:#665;font-size:14px;border-bottom:2px solid transparent;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none}
-.tab-btn.active{color:#c8b8ff;border-bottom-color:#c8b8ff}
-.tab-content{display:none;min-height:600px;margin-top:16px}
-.tab-content.active{display:block}
-.tab-content iframe{width:100%;height:85vh;border:none;border-radius:8px;background:#fff}
+body{background:#0b0e1a;color:#e0d8ff;font-family:'Inter','Segoe UI',sans-serif;min-height:100vh}
+.header{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.header h1{font-weight:500;font-size:22px;color:#c8b8ff;letter-spacing:-0.3px}
+.header p{color:#8878b0;font-size:13px;margin-top:2px}
+.panels{display:flex;height:calc(100vh - 80px)}
+.panel{flex:1;display:flex;flex-direction:column;border-right:1px solid rgba(255,255,255,0.06)}
+.panel:last-child{border-right:none}
+.panel-header{padding:10px 16px;font-size:13px;color:#8878b0;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);text-transform:uppercase;letter-spacing:0.5px}
+.panel iframe{flex:1;width:100%;border:none;background:#fff}
+@media(max-width:900px){.panels{flex-direction:column;height:auto}.panel{height:50vh;border-right:none;border-bottom:1px solid rgba(255,255,255,0.06)}}
 </style>
 </head>
 <body>
 <div class="header">
   <h1>YouTube Niche Discovery Researcher</h1>
-  <p>YouTube Keyword Co-occurrence Niche Discovery</p>
+  <p>Niche Keyword Analysis — Minecraft Meme &amp; Animation Ecosystem</p>
 </div>
-
-<div class="form-section">
-  <h2>New Analysis</h2>
-  <div class="mode-group" id="modeGroup">
-    <button class="mode-btn active" data-mode="long">Long Videos</button>
-    <button class="mode-btn" data-mode="shorts">Shorts</button>
+<div class="panels">
+  <div class="panel">
+    <div class="panel-header">Word Cloud</div>
+    <iframe src="niche_wordcloud.html"></iframe>
   </div>
-  <div class="input-grid" id="kwGrid">
-    <input class="kw-input" placeholder="Keyword 1" maxlength="60">
-    <input class="kw-input" placeholder="Keyword 2" maxlength="60">
-    <input class="kw-input" placeholder="Keyword 3" maxlength="60">
-    <input class="kw-input" placeholder="Keyword 4" maxlength="60">
-    <input class="kw-input" placeholder="Keyword 5" maxlength="60">
-    <input class="kw-input" placeholder="Keyword 6" maxlength="60">
-  </div>
-  <button class="btn-run" id="btnRun">Run Analysis</button>
-  <div class="status" id="status"></div>
-</div>
-
-<div class="tabs">
-  <div class="tab-headers">
-    <button class="tab-btn active" data-tab="cloud">Word Cloud</button>
-    <button class="tab-btn" data-tab="graph">Graph</button>
-  </div>
-  <div class="tab-content active" id="tab-cloud">
-    <iframe src="niche_wordcloud.html" id="cloudFrame"></iframe>
-  </div>
-  <div class="tab-content" id="tab-graph">
-    <iframe src="graph_7plus7.html" id="graphFrame"></iframe>
+  <div class="panel">
+    <div class="panel-header">Network Graph</div>
+    <iframe src="graph_7plus7.html"></iframe>
   </div>
 </div>
-
-<script>
-// Mode toggle
-document.querySelectorAll('.mode-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.mode-btn').forEach(function(b){b.classList.remove('active')});
-    this.classList.add('active');
-  });
-});
-
-// Tab switching
-document.querySelectorAll('.tab-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
-    document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active')});
-    this.classList.add('active');
-    document.getElementById('tab-'+this.dataset.tab).classList.add('active');
-  });
-});
-
-// Run pipeline — clone repo and run locally
-document.getElementById('btnRun').addEventListener('click', function(){
-  var kws = [];
-  document.querySelectorAll('.kw-input').forEach(function(inp){
-    if(inp.value.trim()) kws.push(inp.value.trim());
-  });
-  if(kws.length === 0){document.getElementById('status').textContent='Please enter at least 1 keyword';return;}
-  var mode = document.querySelector('.mode-btn.active').dataset.mode;
-  document.getElementById('status').innerHTML='To run: <code>git clone https://github.com/eforerik7687-ctrl/YouTube-Niche-Discovery-Algorithm.git</code><br>Then: <code>python src/cli.py ' + kws.join(' ') + ' -o output</code>';
-});
-</script>
 </body>
 </html>

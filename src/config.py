@@ -27,8 +27,8 @@ class Config:
     proxy_list: List[str] = field(default_factory=list)
 
     # Anti-ban: random delay range in seconds before each yt.search()
-    delay_min: float = 0.2
-    delay_max: float = 0.5
+    delay_min: float = 0.0
+    delay_max: float = 0.0
     # Anti-ban: jitter for SuggestQueries calls
     suggest_delay_min: float = 0.1
     suggest_delay_max: float = 0.5

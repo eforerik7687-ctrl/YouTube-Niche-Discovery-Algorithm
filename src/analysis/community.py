@@ -340,26 +340,33 @@ canvas {{
         channel_data: Optional[Dict[str, Dict]] = None,
         channel_urls: Optional[Dict[str, str]] = None,
         seed_keywords: Optional[List[str]] = None,
+        niches: Optional[Dict[int, List[str]]] = None,
         output_path: str = "output/graph.html",
     ) -> str:
         """Generate interactive Pyvis network graph with channels as nodes.
 
         Node size = channel total views (from channel_data)
-        Node color = dominant seed keyword per channel
+        Node color = niche (Louvain community), distinct per cluster
         Hover tooltip = top-5 keywords + views/videos
         Click node = open YouTube channel (exact URL if known, else search)
         """
         net = Network(height="700px", width="100%", bgcolor="#ffffff")
 
-        # Colors per seed keyword
-        seed_colors = [
-            "#FF6B6B",  # Red
-            "#4ECDC4",  # Teal
-            "#45B7D1",  # Blue
-            "#DDA0DD",  # Plum
-            "#F7DC6F",  # Gold
-        ]
-        seeds = seed_keywords or []
+        # Build channel→niche_id lookup
+        ch_to_niche: Dict[str, int] = {}
+        if niches:
+            for nid, members in niches.items():
+                for ch in members:
+                    ch_to_niche[ch] = nid
+
+        # Generate up to 80 distinct colors using HSL spread
+        niche_colors = []
+        num_colors = max(len(niches) if niches else 5, 5)
+        for i in range(num_colors):
+            hue = (i * 360 / num_colors) % 360
+            sat = 70 + (i % 3) * 10  # vary saturation 70-90
+            lit = 50 + (i % 5) * 5   # vary lightness 50-70
+            niche_colors.append(f"hsl({hue},{sat}%,{lit}%)")
 
         # For each channel, determine dominant seed by counting keyword matches
         def _dominant_seed(ch: str) -> int:
@@ -385,7 +392,7 @@ canvas {{
             channel_data = {}
 
         for channel in G.nodes():
-            sid = _dominant_seed(channel)
+            nid = ch_to_niche.get(channel, 0)
             data = channel_data.get(channel, {})
 
             # Get top-5 real keywords for this channel
@@ -410,7 +417,7 @@ canvas {{
                 label=channel,
                 title=tooltip_text,
                 size=size,
-                color=seed_colors[sid % len(seed_colors)],
+                color=niche_colors[nid % len(niche_colors)],
             )
 
         for ch_a, ch_b, edge_data in G.edges(data=True):
@@ -449,16 +456,16 @@ canvas {{
 
         net.save_graph(output_path)
 
-        # Build legend: count channels per seed
-        seed_counts: Dict[int, int] = {}
+        # Build legend: count channels per niche
+        niche_counts: Dict[int, int] = {}
         for ch in G.nodes():
-            sid = _dominant_seed(ch)
-            seed_counts[sid] = seed_counts.get(sid, 0) + 1
+            nid = ch_to_niche.get(ch, 0)
+            niche_counts[nid] = niche_counts.get(nid, 0) + 1
 
         legend_rows = "".join(
-            f'<div class="legend-row"><span class="legend-dot" style="background:{seed_colors[sid % len(seed_colors)]}"></span>'
-            f'<span class="legend-label">{seeds[sid] if sid < len(seeds) else "?"}</span><span class="legend-count">{seed_counts.get(sid, 0)}</span></div>'
-            for sid in sorted(seed_counts.keys())
+            f'<div class="legend-row"><span class="legend-dot" style="background:{niche_colors[nid % len(niche_colors)]}"></span>'
+            f'<span class="legend-label">Niche {nid}</span><span class="legend-count">{niche_counts.get(nid, 0)}</span></div>'
+            for nid in sorted(niche_counts.keys())
         )
 
         # Post-processing: physics freeze + click-to-channel + legend
