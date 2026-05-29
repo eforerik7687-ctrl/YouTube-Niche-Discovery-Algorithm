@@ -153,6 +153,10 @@ class KeywordPropagator:
                     channel = getattr(video, "channel", "") or ""
                     if not channel:
                         continue
+                    video_url = getattr(video, "url", "") or ""
+                    # Shorts mode: skip non-Shorts videos
+                    if self.config.shorts_mode and "/shorts/" not in video_url:
+                        continue
                     if channel not in channel_keywords:
                         channel_keywords[channel] = {}
                     # Capture channel URL from YouTube API
@@ -170,8 +174,6 @@ class KeywordPropagator:
                         except (ValueError, TypeError):
                             pass
                     self.channel_stats[channel]["video_count"] += 1
-                    # Shorts detection via URL
-                    video_url = getattr(video, "url", "") or ""
                     if "/shorts/" in video_url:
                         self.channel_stats[channel]["shorts_count"] += 1
                     # The suggestion itself is the keyword (YouTube's judgment)

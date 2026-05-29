@@ -36,6 +36,9 @@ class Config:
     # Seed keywords
     seed_keywords: List[str] = field(default_factory=list)
 
+    # Shorts mode: only process videos with /shorts/ URL
+    shorts_mode: bool = True
+
     @classmethod
     def from_env(cls) -> "Config":
         proxy_str = os.getenv("PROXY_LIST", "")
