@@ -219,5 +219,16 @@
               drawGraph();
         </script>
     
-</body>
+
+<script type="text/javascript">
+var channelUrls = {};
+if (typeof network !== 'undefined') {
+  network.on("click", function(params) {
+    if (params.nodes.length > 0) {
+      var url = channelUrls[params.nodes[0]];
+      if (url) window.open(url, '_blank');
+    }
+  });
+}
+</script></body>
 </html>
