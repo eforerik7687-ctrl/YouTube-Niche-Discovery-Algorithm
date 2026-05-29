@@ -31,7 +31,7 @@ class YouTubeCollector:
         return self._yt
 
     def collect(self, keywords: List[str]) -> List[VideoRecord]:
-        """Search YouTube for each keyword, collecting this_year data."""
+        """Search YouTube for each keyword, collect all matching videos."""
         records: List[VideoRecord] = []
         yt = self._get_client()
 
@@ -41,21 +41,41 @@ class YouTubeCollector:
                 max_results=self.config.max_results_per_keyword,
                 sort_by=self.config.sort_by,
                 type="video",
+                upload_date="this_year",
             )
             for video in results.videos:
+                title_lower = video.title.lower()
+                if "livestream" in title_lower:
+                    continue
                 published = self._parse_published(video.published_text)
                 records.append(
                     VideoRecord(
                         title=video.title,
-                        video_id=video.id,
-                        view_count=video.view_count,
+                        video_id=self._extract_video_id(video.url),
+                        view_count=self._parse_view_count(video.view_count),
                         published=published or datetime.now(timezone.utc),
                         duration=video.duration or "",
-                        channel=getattr(video, "channel", "") or "",
+                        channel=video.channel or "",
+                        channel_url=getattr(video, "channel_url", "") or "",
                         keyword=keyword,
                     )
                 )
         return records
+
+    @staticmethod
+    def _is_short(duration: str) -> bool:
+        """Return True if duration is under 60 seconds (YouTube Shorts)."""
+        if not duration:
+            return False
+        total = 0
+        parts = str(duration).split(":")
+        if len(parts) == 3:  # H:MM:SS
+            total = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
+        elif len(parts) == 2:  # M:SS
+            total = int(parts[0]) * 60 + int(parts[1])
+        elif len(parts) == 1:  # seconds
+            total = int(parts[0])
+        return total <= 60
 
     def filter_by_window(
         self, videos: List[VideoRecord], days: int
@@ -63,6 +83,29 @@ class YouTubeCollector:
         """Filter videos published within the last N days."""
         cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         return [v for v in videos if v.published >= cutoff]
+
+    @staticmethod
+    def _parse_view_count(value) -> int:
+        """Parse view count from various YouTube formats."""
+        if value is None:
+            return 0
+        text = str(value).lower().replace(",", "")
+        # Extract the first number (with optional decimal)
+        match = re.search(r"([\d.]+)\s*([kmb]?)", text)
+        if not match:
+            return 0
+        num = float(match.group(1))
+        suffix = match.group(2)
+        multipliers = {"k": 1000, "m": 1000000, "b": 1000000000}
+        return int(num * multipliers.get(suffix, 1))
+
+    @staticmethod
+    def _extract_video_id(url: str) -> str:
+        """Extract video ID from YouTube URL."""
+        if not url:
+            return ""
+        match = re.search(r"(?:v=|youtu\.be/|shorts/)([a-zA-Z0-9_-]{11})", url)
+        return match.group(1) if match else url
 
     def _parse_published(self, text: Optional[str]) -> Optional[datetime]:
         """Parse tubescrape's relative time text (e.g. '3 days ago') to datetime."""

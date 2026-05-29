@@ -21,20 +21,25 @@ class Config:
     output_dir: str = "output"
     raw_dir: str = "output/raw"
 
-    # Proxy (optional)
+    # Single proxy (optional)
     proxy: str = ""
+    # Proxy rotation list (comma-separated in env)
+    proxy_list: List[str] = field(default_factory=list)
+
+    # Anti-ban: random delay range in seconds before each yt.search()
+    delay_min: float = 0.2
+    delay_max: float = 0.5
+    # Anti-ban: jitter for SuggestQueries calls
+    suggest_delay_min: float = 0.1
+    suggest_delay_max: float = 0.5
 
     # Seed keywords
     seed_keywords: List[str] = field(default_factory=list)
 
-    # Search modifiers for KeywordPropagator
-    search_modifiers: List[str] = field(default_factory=lambda: [
-        "tutorial", "vs", "best", "review", "beginner", "advanced",
-        "top", "how to", "guide", "course", "2026",
-    ])
-
     @classmethod
     def from_env(cls) -> "Config":
+        proxy_str = os.getenv("PROXY_LIST", "")
+        proxy_list = [p.strip() for p in proxy_str.split(",") if p.strip()]
         return cls(
             recent_window=int(os.getenv("RECENT_WINDOW", "7")),
             medium_window=int(os.getenv("MEDIUM_WINDOW", "30")),
@@ -42,6 +47,11 @@ class Config:
             max_results_per_keyword=int(os.getenv("MAX_RESULTS_PER_KEYWORD", "200")),
             sort_by=os.getenv("SORT_BY", "upload_date"),
             proxy=os.getenv("PROXY", ""),
+            proxy_list=proxy_list,
+            delay_min=float(os.getenv("DELAY_MIN", "0.5")),
+            delay_max=float(os.getenv("DELAY_MAX", "2.0")),
+            suggest_delay_min=float(os.getenv("SUGGEST_DELAY_MIN", "0.1")),
+            suggest_delay_max=float(os.getenv("SUGGEST_DELAY_MAX", "0.5")),
             seed_keywords=[
                 kw.strip()
                 for kw in os.getenv("SEED_KEYWORDS", "").split(",")

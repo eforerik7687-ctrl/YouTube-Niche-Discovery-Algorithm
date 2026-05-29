@@ -57,7 +57,7 @@ class TestSaveConcepts:
         from src.output.formatter import OutputFormatter
         formatter = OutputFormatter(str(tmp_path))
         ch_conc = {"ChannelA": [{"concept": "python", "score": 1.5}]}
-        niche_conc = {0: [{"concept": "python", "coverage": 1.0, "avg_score": 1.5}]}
+        niche_conc = {0: [{"concept": "python", "coverage": 1.0}]}
         path = formatter.save_concepts(ch_conc, niche_conc)
         import json
         data = json.loads(Path(path).read_text(encoding="utf-8"))

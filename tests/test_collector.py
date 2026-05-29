@@ -24,7 +24,7 @@ def sample_videos():
     return [
         VideoRecord(
             title=v["title"],
-            video_id=v["id"],
+            video_id=YouTubeCollector._extract_video_id(v["url"]),
             view_count=v["view_count"],
             published=datetime.fromisoformat(v["published"]).replace(tzinfo=timezone.utc),
             duration=v["duration"],
@@ -81,3 +81,45 @@ class TestParsePublished:
     def test_live_stream_text(self, config):
         collector = YouTubeCollector(config)
         assert collector._parse_published("Streamed 1 day ago") is not None
+
+
+class TestIsShort:
+    def test_under_60s(self):
+        assert YouTubeCollector._is_short("0:45") is True
+
+    def test_exactly_60s(self):
+        assert YouTubeCollector._is_short("1:00") is True
+
+    def test_over_60s(self):
+        assert YouTubeCollector._is_short("1:01") is False
+
+    def test_hours_format(self):
+        assert YouTubeCollector._is_short("0:00:45") is True
+        assert YouTubeCollector._is_short("0:01:30") is False
+
+    def test_empty(self):
+        assert YouTubeCollector._is_short("") is False
+        assert YouTubeCollector._is_short(None) is False
+        collector = YouTubeCollector(config)
+        assert collector._parse_published("Streamed 1 day ago") is not None
+
+
+class TestParseViewCount:
+    def test_commas_and_views(self):
+        assert YouTubeCollector._parse_view_count("288,015 views") == 288015
+
+    def test_k_suffix(self):
+        assert YouTubeCollector._parse_view_count("1.2K views") == 1200
+
+    def test_m_suffix(self):
+        assert YouTubeCollector._parse_view_count("1.5M views") == 1500000
+
+    def test_plain_number(self):
+        assert YouTubeCollector._parse_view_count(500) == 500
+
+    def test_watching(self):
+        assert YouTubeCollector._parse_view_count("547 watching") == 547
+
+    def test_empty(self):
+        assert YouTubeCollector._parse_view_count("") == 0
+        assert YouTubeCollector._parse_view_count(None) == 0

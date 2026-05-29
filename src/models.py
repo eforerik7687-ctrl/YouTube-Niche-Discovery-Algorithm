@@ -12,6 +12,7 @@ class VideoRecord:
     published: datetime
     duration: str
     channel: str
+    channel_url: str
     keyword: str  # the search keyword that found this video
 
     def to_dict(self) -> dict:

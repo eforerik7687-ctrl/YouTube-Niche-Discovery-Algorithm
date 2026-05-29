@@ -1,4 +1,5 @@
 import json as json_mod
+import math
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -64,38 +65,278 @@ class CommunityDetector:
         propagated: Dict[str, Dict[str, float]],
         top_n: int = 20,
     ) -> Dict[int, List[Dict]]:
-        """Aggregate channel concepts per niche.
+        """Aggregate propagated keywords per niche (with induction from neighbors).
 
-        Each concept gets:
-        - coverage: % of channels in niche that have this concept
-        - avg_score: mean propagated score across channels that have it
+        Each keyword gets:
+        - coverage: % of channels in niche that have this keyword
 
-        Returns: {niche_id: [{concept, coverage, avg_score}, ...]} sorted by coverage desc
+        Returns: {niche_id: [{keyword, coverage}, ...]} sorted by coverage desc
         """
         result: Dict[int, List[Dict]] = {}
         for nid, channels in niches.items():
-            concept_scores: Dict[str, List[float]] = {}
+            kw_counts: Dict[str, int] = {}
             for ch in channels:
-                for concept, score in propagated.get(ch, {}).items():
-                    concept_scores.setdefault(concept, []).append(score)
+                for kw in propagated.get(ch, {}):
+                    kw_counts[kw] = kw_counts.get(kw, 0) + 1
 
             total = len(channels)
             ranked = []
-            for concept, scores in concept_scores.items():
+            for kw, count in kw_counts.items():
                 ranked.append({
-                    "concept": concept,
-                    "coverage": round(len(scores) / total, 4),
-                    "avg_score": round(sum(scores) / len(scores), 4),
+                    "keyword": kw,
+                    "coverage": round(count / total, 4),
                 })
-            ranked.sort(key=lambda x: (-x["coverage"], -x["avg_score"]))
+            ranked.sort(key=lambda x: -x["coverage"])
             result[nid] = ranked[:top_n]
         return result
+
+    def export_niche_wordcloud(
+        self,
+        niches: Dict[int, List[str]],
+        niche_concepts: Dict[int, List[Dict]],
+        output_path: str = "output/niche_wordcloud.html",
+        concepts_per_niche: int = 30,
+    ) -> str:
+        """Generate interactive HTML with canvas-based word cloud per niche sorted descending by channel count."""
+        # Prepare JSON data for client-side rendering
+        data = []
+        sorted_nids = sorted(
+            niches.keys(),
+            key=lambda nid: len(niches[nid]),
+            reverse=True,  # descending by channel count
+        )
+        for nid in sorted_nids:
+            concepts = niche_concepts.get(nid, [])[:concepts_per_niche]
+            if not concepts:
+                continue
+            max_coverage = max(c["coverage"] for c in concepts) or 1
+            words = []
+            for c in concepts:
+                weight = c["coverage"] / max_coverage
+                words.append({
+                    "text": c["keyword"],
+                    "weight": round(weight, 4),
+                    "coverage": c["coverage"],
+                })
+            data.append({
+                "id": nid,
+                "channel_count": len(niches[nid]),
+                "words": words,
+            })
+
+        niches_json = json_mod.dumps(data, ensure_ascii=False)
+
+        html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niche Keywords Word Clouds</title>
+<style>
+* {{ margin:0; padding:0; box-sizing:border-box; }}
+body {{
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #fff;
+    padding: 40px 20px;
+    min-height: 100vh;
+}}
+h1 {{
+    text-align: center;
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.3px;
+    color: #e0d8ff;
+    margin-bottom: 6px;
+}}
+.subtitle {{
+    text-align: center;
+    color: #8878b0;
+    font-size: 14px;
+    margin-bottom: 32px;
+}}
+.grid {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}}
+.niche-card {{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 14px 16px 8px;
+    backdrop-filter: blur(8px);
+}}
+.niche-header {{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+}}
+.niche-title {{
+    font-weight: 500;
+    font-size: 15px;
+    color: #c8b8ff;
+}}
+.niche-count {{
+    color: #8878b0;
+    font-size: 12px;
+    font-weight: 400;
+}}
+canvas {{
+    display: block;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #1a1740, #2d2860);
+}}
+.no-concepts {{
+    text-align: center;
+    color: #665;
+    padding: 40px;
+    font-style: italic;
+}}
+</style>
+</head>
+<body>
+<h1>Niche Keywords</h1>
+<p class="subtitle">Each niche&rsquo;s defining keywords &mdash; word size reflects coverage</p>
+<div id="container" class="grid"></div>
+
+<script>
+(function() {{
+    var niches = {niches_json};
+    var container = document.getElementById('container');
+
+    if (niches.length === 0) {{
+        container.innerHTML = '<div class="no-concepts">No niche concepts found.</div>';
+        return;
+    }}
+
+    niches.forEach(function(niche) {{
+        var card = document.createElement('div');
+        card.className = 'niche-card';
+
+        var header = document.createElement('div');
+        header.className = 'niche-header';
+        header.innerHTML = '<span class="niche-title">Niche ' + niche.id + '</span><span class="niche-count">' + niche.channel_count + ' channels</span>';
+        card.appendChild(header);
+
+        var canvas = document.createElement('canvas');
+        canvas.width = 860;
+        canvas.height = 280;
+        card.appendChild(canvas);
+
+        container.appendChild(card);
+        drawWordCloud(canvas, niche.words);
+    }});
+
+    // Pagination: 4 per page
+    var cards = container.getElementsByClassName('niche-card');
+    var pageSize = 4, page = 0, totalPages = Math.ceil(cards.length / pageSize);
+    function showPage(p){{page = Math.max(0, Math.min(p, totalPages - 1));for (var i = 0; i < cards.length; i++)cards[i].style.display = (i >= page * pageSize && i < (page + 1) * pageSize) ? '' : 'none';pgText.textContent = (page + 1) + ' / ' + totalPages;}}
+    var nav = document.createElement('div');nav.style.cssText = 'text-align:center;margin-bottom:24px;';
+    var prevBtn = document.createElement('button');prevBtn.textContent = '← Previous';prevBtn.style.cssText = 'background:rgba(255,255,255,0.1);color:#c8b8ff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 20px;font-size:14px;cursor:pointer;margin:0 8px;';prevBtn.onclick = function(){{ showPage(page - 1); }};
+    var nextBtn = document.createElement('button');nextBtn.textContent = 'Next →';nextBtn.style.cssText = prevBtn.style.cssText;nextBtn.onclick = function(){{ showPage(page + 1); }};
+    var pgText = document.createElement('span');pgText.style.cssText = 'color:#8878b0;font-size:14px;margin:0 12px;';
+    nav.appendChild(prevBtn);nav.appendChild(pgText);nav.appendChild(nextBtn);
+    container.parentNode.insertBefore(nav, container);
+    showPage(0);
+
+    function drawWordCloud(canvas, words) {{
+        var ctx = canvas.getContext('2d');
+        var cx = canvas.width / 2;
+        var cy = canvas.height / 2;
+
+        if (!words || words.length === 0) return;
+
+        var maxWeight = 0;
+        for (var i = 0; i < words.length; i++) {{
+            if (words[i].weight > maxWeight) maxWeight = words[i].weight;
+        }}
+        if (maxWeight === 0) maxWeight = 1;
+
+        var bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        bgGrad.addColorStop(0, '#1a1740');
+        bgGrad.addColorStop(1, '#2d2860');
+        ctx.fillStyle = bgGrad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        words.sort(function(a, b) {{ return b.weight - a.weight; }});
+
+        var placed = [];
+        var step = 0.15;
+        var maxAngle = Math.PI * 30;
+
+        for (var wi = 0; wi < words.length; wi++) {{
+            var word = words[wi];
+            var ratio = word.weight / maxWeight;
+            var fontSize = 14 + ratio * 42;
+            ctx.font = (ratio > 0.3 ? 'bold ' : '') + fontSize + 'px "Segoe UI", "Arial", sans-serif';
+            var tw = ctx.measureText(word.text).width;
+            var th = fontSize * 1.3;
+
+            var placedFlag = false;
+            for (var angle = 0; angle < maxAngle; angle += step) {{
+                var radius = angle * 2.5;
+                var x = cx + radius * Math.cos(angle) - tw / 2;
+                var y = cy + radius * Math.sin(angle) - th / 2;
+
+                if (x < 5 || y < 5 || x + tw > canvas.width - 5 || y + th > canvas.height - 5) continue;
+
+                var overlap = false;
+                for (var p = 0; p < placed.length; p++) {{
+                    if (x < placed[p].x + placed[p].w && x + tw > placed[p].x &&
+                        y < placed[p].y + placed[p].h && y + th > placed[p].y) {{
+                        overlap = true;
+                        break;
+                    }}
+                }}
+
+                if (!overlap) {{
+                    placed.push({{ x: x, y: y, w: tw, h: th }});
+                    ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.5 + 0.5 * ratio).toFixed(2) + ')';
+                    ctx.fillText(word.text, x, y + fontSize - 2);
+                    placedFlag = true;
+                    break;
+                }}
+            }}
+
+            if (!placedFlag) {{
+                for (var att = 0; att < 50; att++) {{
+                    var rx = 20 + Math.random() * (canvas.width - 40 - tw);
+                    var ry = 20 + Math.random() * (canvas.height - 40 - th);
+                    var hit = false;
+                    for (var p = 0; p < placed.length; p++) {{
+                        if (rx < placed[p].x + placed[p].w && rx + tw > placed[p].x &&
+                            ry < placed[p].y + placed[p].h && ry + th > placed[p].y) {{
+                            hit = true;
+                            break;
+                        }}
+                    }}
+                    if (!hit) {{
+                        placed.push({{ x: rx, y: ry, w: tw, h: th }});
+                        ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.5 + 0.5 * ratio).toFixed(2) + ')';
+                        ctx.fillText(word.text, rx, ry + fontSize - 2);
+                        break;
+                    }}
+                }}
+            }}
+        }}
+    }}
+}})();
+</script>
+</body>
+</html>"""
+        Path(output_path).write_text(html, encoding="utf-8")
+        return output_path
 
     def export_network(
         self,
         G: nx.Graph,
         channel_keywords: Dict[str, Dict[str, float]],
-        propagated: Dict[str, Dict[str, float]],
         channel_data: Optional[Dict[str, Dict]] = None,
         channel_urls: Optional[Dict[str, str]] = None,
         seed_keywords: Optional[List[str]] = None,
@@ -105,7 +346,7 @@ class CommunityDetector:
 
         Node size = channel total views (from channel_data)
         Node color = dominant seed keyword per channel
-        Hover tooltip = top-5 concepts + 4 metrics
+        Hover tooltip = top-5 keywords + views/videos
         Click node = open YouTube channel (exact URL if known, else search)
         """
         net = Network(height="700px", width="100%", bgcolor="#ffffff")
@@ -120,16 +361,15 @@ class CommunityDetector:
         ]
         seeds = seed_keywords or []
 
-        # For each channel, determine dominant seed
+        # For each channel, determine dominant seed by counting keyword matches
         def _dominant_seed(ch: str) -> int:
-            """Return index of seed that contributes most score to this channel."""
-            kws = propagated.get(ch, {})
+            """Return index of seed that most keywords relate to."""
+            kws = channel_keywords.get(ch, {})
             if not kws or not seeds:
                 return 0
             scores = [0] * len(seeds)
-            for kw, score in kws.items():
+            for kw in kws:
                 kw_lower = kw.lower()
-                # Match longest seed first (handles "steal a brianrot")
                 best_idx = -1
                 best_len = -1
                 for i, s in enumerate(seeds):
@@ -137,8 +377,7 @@ class CommunityDetector:
                         best_idx = i
                         best_len = len(s)
                 if best_idx >= 0:
-                    scores[best_idx] += score
-            # Tie → first seed wins
+                    scores[best_idx] += 1
             max_score = max(scores)
             return scores.index(max_score) if max_score > 0 else 0
 
@@ -149,22 +388,22 @@ class CommunityDetector:
             sid = _dominant_seed(channel)
             data = channel_data.get(channel, {})
 
-            # Get top-5 concepts for this channel, sorted by score descending
-            channel_concepts = propagated.get(channel, {})
-            top5 = sorted(channel_concepts.items(), key=lambda x: -x[1])[:5]
+            # Get top-5 real keywords for this channel
+            channel_kws = channel_keywords.get(channel, {})
+            top5 = sorted(channel_kws.items(), key=lambda x: -x[1])[:5]
 
             total_views = data.get("total_views", 0)
-            size = max(10, min(80, total_views / 10_000))
+            video_count = data.get("video_count", 0)
+            # Log10 scale: 0→4, 1K→9, 10K→11, 100K→13, 1M→15, 10M→17, 100M→19
+            size = max(4, min(19, 4 + int(math.log10(total_views + 1) * 1.9)))
 
             sep = "─" * 20
-            conc_lines = "\n".join(f"  • {concept}: {score:.2f}" for concept, score in top5) if top5 else "  (none)"
+            kw_lines = "\n".join(f"  • {kw}" for kw, _ in top5) if top5 else "  (none)"
             tooltip_text = (
                 f"{channel}\n{sep}\n"
-                f"Top Concepts:\n{conc_lines}\n{sep}\n"
+                f"Keywords:\n{kw_lines}\n{sep}\n"
                 f"Views: {total_views:,}\n"
-                f"Videos: {data.get('video_count', 0)}\n"
-                f"Opportunity: {data.get('opportunity_score', 0):.2f}\n"
-                f"Supply: {data.get('supply_growth', 0):.4f}  |  Demand: {data.get('demand_growth', 0):.4f}"
+                f"Videos: {video_count}"
             )
             net.add_node(
                 channel,

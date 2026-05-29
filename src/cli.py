@@ -1,9 +1,10 @@
 """CLI entry point for YouTube Niche Finder pipeline."""
 
 import argparse
+import json
 import sys
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -16,23 +17,48 @@ from src.analysis.propagator import KeywordPropagator
 from src.analysis.community import CommunityDetector
 from src.output.formatter import OutputFormatter
 
+_ALL_LANGS = ["en", "hi", "es", "pt", "ar", "ru", "ko"]
+_ALL_GEOS = ["US", "IN", "GB", "PH", "NG", "AU", "CA"]
+
 
 def _build_channel_data(
     videos: List,
     channel_keywords: Dict[str, Dict[str, float]],
+    channel_stats: Optional[Dict[str, Dict]] = None,
 ) -> Dict[str, Dict]:
-    """Build channel_data dict for graph export from collected videos."""
-    channel_views = {}
+    """Build channel_data dict for graph export from videos + discovery stats.
+
+    Merges seed (Step 1) and discovery (Step 4) stats, taking the max
+    of each so that seed's 1-2 videos don't override discovery's 20+.
+    """
+    # Seed stats (Step 1)
+    seed_views = {}
+    seed_videos = {}
     for v in videos:
         ch = v.channel
-        channel_views[ch] = channel_views.get(ch, 0) + v.view_count
+        seed_views[ch] = seed_views.get(ch, 0) + v.view_count
+        seed_videos[ch] = seed_videos.get(ch, 0) + 1
+
+    if channel_stats is None:
+        channel_stats = {}
+
     channel_data = {}
     for ch, kws in channel_keywords.items():
-        real_views = channel_views.get(ch, 0)
-        proxy_size = real_views or len(kws) * 10000
+        # Merge seed + discovery, take max of each
+        merge_views = seed_views.get(ch, 0)
+        merge_videos = seed_videos.get(ch, 0)
+        if ch in channel_stats:
+            merge_views = max(merge_views, channel_stats[ch].get("total_views", 0))
+            merge_videos = max(merge_videos, channel_stats[ch].get("video_count", 0))
+
+        # Last resort if both are 0
+        if merge_views == 0 and merge_videos == 0:
+            merge_views = len(kws) * 10000
+            merge_videos = len(kws)
+
         channel_data[ch] = {
-            "total_views": proxy_size,
-            "video_count": len(kws),
+            "total_views": merge_views,
+            "video_count": merge_videos,
             "opportunity_score": 0,
             "supply_growth": 0,
             "demand_growth": 0,
@@ -40,63 +66,18 @@ def _build_channel_data(
     return channel_data
 
 
-def _run_discovery(
-    keywords: List[str],
-    config: Config,
-    yt,
-    label: str,
-    languages: List[str] = None,
-    geos: List[str] = None,
-) -> dict:
-    """Run propagator discover → similarity → propagate → export graphs."""
-    propagator = KeywordPropagator(config, yt)
-    channel_keywords = propagator.discover(keywords, languages=languages, geos=geos)
-    print(f"[{label}] Found {len(channel_keywords)} channels")
-
-    if not channel_keywords:
-        print(f"[{label}] No channels found, skipping.")
-        return {}
-
-    similarities = propagator.compute_similarity(channel_keywords, min_similarity=0.5)
-    print(f"[{label}] Found {len(similarities)} channel similarity pairs")
-
-    propagated = propagator.propagate(channel_keywords, similarities)
-    keywords_found = set()
-    for ch_kws in propagated.values():
-        keywords_found.update(ch_kws.keys())
-    print(f"[{label}] Discovered {len(keywords_found)} unique keywords via propagation")
-
-    detector = CommunityDetector(propagator)
-    G = detector.build_channel_graph(similarities)
-
-    if G.number_of_nodes() == 0:
-        return {}
-
-    channel_data = _build_channel_data([], channel_keywords)
-
-    graph_path = detector.export_network(
-        G, channel_keywords, propagated,
-        channel_data=channel_data,
-        channel_urls=propagator.channel_urls,
-        seed_keywords=keywords,
-        output_path=str(Path(config.output_dir) / f"graph_{label}.html"),
-    )
-    all_pair_path = detector.export_all_pairs(
-        channel_keywords, propagated,
-        channel_urls=propagator.channel_urls,
-        seed_keywords=keywords,
-        output_path=str(Path(config.output_dir) / f"all_pairs_{label}.html"),
-    )
-
-    return {
-        "graph": graph_path,
-        "all_pairs": all_pair_path,
-        "similarities": similarities,
-        "propagated": propagated,
-    }
-
-
 def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
+    """Run the YouTube Niche Finder pipeline with 7+7 merged discovery.
+
+    Pipeline flow:
+      1. Collect videos for seed keywords
+      2. Compute niche metrics (supply/demand/opportunity)
+      3. Fetch YouTube Search Suggestions (7 languages + 7 geos)
+      4. Discover channels via merged 7+7 search suggestions
+      5. Cosine similarity + keyword propagation
+      6. Louvain community detection + niche concept aggregation
+      7. Export single graph, all-pairs matrix, concepts, word cloud
+    """
     if config is None:
         config = Config.from_env()
     if not keywords:
@@ -122,22 +103,18 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
     stats = calculator.compute(videos)
     print(f"[pipeline] Computed metrics for {len(stats)} seed keywords")
 
-    # Step 3: Save YouTube search suggestions for reference (3 modes)
-    print("[pipeline] Fetching YouTube search suggestions (3 modes)...")
-    import json
-
-    _GEO7 = ["US", "IN", "GB", "PH", "NG", "AU", "CA"]
+    # Step 3: Fetch suggestions (7 languages + 7 geos)
+    print("[pipeline] Fetching YouTube search suggestions (7+7)...")
     yt_suggestions = {}
     for seed in keywords:
-        en_kws = KeywordPropagator.fetch_suggestions(seed, languages=["en"])
-        lang_kws = KeywordPropagator.fetch_suggestions(seed, languages=KeywordPropagator._SUGGESTION_LANGS)
-        geo_kws = KeywordPropagator.fetch_suggestions(seed, geos=_GEO7)
+        lang_kws = KeywordPropagator.fetch_suggestions(seed, languages=_ALL_LANGS)
+        geo_kws = KeywordPropagator.fetch_suggestions(seed, geos=_ALL_GEOS)
         yt_suggestions[seed] = {
-            "english": en_kws,
             "7lang": lang_kws,
             "7geo": geo_kws,
         }
-        print(f"  [suggestions] {seed}: {len(en_kws)}en / {len(lang_kws)}lang / {len(geo_kws)}geo")
+        total = len(lang_kws) + len(geo_kws)
+        print(f"  [suggestions] {seed}: {len(lang_kws)}lang + {len(geo_kws)}geo = {total}")
 
     suggestion_path = Path(config.output_dir) / "yt_keywords.json"
     suggestion_path.write_text(
@@ -146,58 +123,96 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
     )
     print(f"  Saved to {suggestion_path}")
 
-    # Step 4: Collaborative filtering (3 modes: en, 7lang, 7geo)
+    # Step 4: 7+7 merged discovery — two passes, merged channel_keywords
     with YouTube() as yt:
+        propagator = KeywordPropagator(config, yt)
         print()
-        print("[pipeline] 1/3 — English-only...")
-        en_results = _run_discovery(keywords, config, yt, "en", languages=["en"])
-
-        print()
-        print("[pipeline] 2/3 — 7-language...")
-        ml_results = _run_discovery(keywords, config, yt, "7lang", languages=KeywordPropagator._SUGGESTION_LANGS)
+        print("[pipeline] 7+7 — Discovering (7 languages × US)...")
+        kw_lang = propagator.discover(keywords, languages=_ALL_LANGS)
+        print(f"  [7+7] Language pass: {len(kw_lang)} channels")
 
         print()
-        print("[pipeline] 3/3 — 7-geography...")
-        geo_results = _run_discovery(keywords, config, yt, "7geo", geos=_GEO7)
+        print("[pipeline] 7+7 — Discovering (en × 7 geos)...")
+        kw_geo = propagator.discover(keywords, geos=_ALL_GEOS)
+        print(f"  [7+7] Geo pass: {len(kw_geo)} channels")
 
-    # Step 4b: Compute niche concepts for each mode
-    from src.analysis.community import CommunityDetector
-    niche_results = {}
-    for name, result in [("en", en_results), ("7lang", ml_results), ("7geo", geo_results)]:
-        if result and result.get("similarities"):
-            detector = CommunityDetector(KeywordPropagator(config))
-            G = detector.build_channel_graph(result["similarities"])
-            if G.number_of_nodes() > 0:
-                niches = detector.detect_niches(G)
-                niche_conc = detector.compute_niche_concepts(niches, result["propagated"])
-                # Channel concepts sorted by score descending
-                ch_conc = {}
-                for ch, concepts in result["propagated"].items():
-                    sorted_concepts = sorted(concepts.items(), key=lambda x: -x[1])
-                    ch_conc[ch] = [{"concept": c, "score": round(s, 4)} for c, s in sorted_concepts[:10]]
-                niche_results[name] = {
-                    "channel_concepts": ch_conc,
-                    "niche_concepts": niche_conc,
-                    "niche_count": len(niches),
-                }
-                paths[f"concepts_{name}"] = formatter.save_concepts(ch_conc, niche_conc, f"concepts_{name}.json")
+        # Merge: union keywords per channel
+        channel_keywords: Dict[str, Dict[str, float]] = dict(kw_lang)
+        for ch, kws in kw_geo.items():
+            existing = channel_keywords.get(ch, {})
+            channel_keywords[ch] = {**existing, **kws}
 
-    # Step 5: Export metrics
+    total_channels = len(channel_keywords)
+    print(f"[pipeline] 7+7 — Total unique channels: {total_channels}")
+
+    if not channel_keywords:
+        print("[pipeline] No channels found, skipping.")
+        return {}
+
+    # Step 5: Similarity + Propagation (keyword induction for niche concept)
+    print("[pipeline] Computing cosine similarity...")
+    similarities = propagator.compute_similarity(channel_keywords, min_similarity=0.5)
+    print(f"[pipeline] Found {len(similarities)} channel similarity pairs")
+
+    propagated = propagator.propagate(channel_keywords, similarities)
+
+    # Step 6: Community detection + cluster keywords
+    detector = CommunityDetector(propagator)
+    G = detector.build_channel_graph(similarities)
+
     formatter = OutputFormatter(config.output_dir)
-    kw_path = formatter.save_keywords(stats, {})
-    edge_path = formatter.save_edges([])
-    video_path = formatter.save_videos(videos)
+    paths: Dict[str, str] = {}
 
-    paths = {
-        "keywords": kw_path,
-        "edges": edge_path,
-        "videos": video_path,
+    # Step 7: Export cluster keyword report + raw videos
+    enriched_clusters = {}
+
+    if G.number_of_nodes() > 0:
+        channel_data = _build_channel_data(videos, channel_keywords, propagator.channel_stats)
+
+        graph_path = detector.export_network(
+            G, channel_keywords,
+            channel_data=channel_data,
+            channel_urls=propagator.channel_urls,
+            seed_keywords=keywords,
+            output_path=str(Path(config.output_dir) / "graph_7plus7.html"),
+        )
+        paths["graph"] = graph_path
+
+        # Cluster keywords (Louvain communities → keyword aggregation)
+        clusters = detector.detect_niches(G)
+        cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+
+        # Word cloud per niche
+        wordcloud_path = detector.export_niche_wordcloud(
+            clusters, cluster_kws,
+            output_path=str(Path(config.output_dir) / "niche_wordcloud.html"),
+        )
+        paths["wordcloud"] = wordcloud_path
+
+        # Populate enriched_clusters
+        for nid, keywords in cluster_kws.items():
+            enriched_clusters[str(nid)] = {
+                "channel_count": len(clusters[nid]),
+                "keywords": keywords,
+            }
+    else:
+        clusters = {}
+        cluster_kws = {}
+    concept_report = {
+        "cluster_keywords": enriched_clusters,
     }
-    for name, result in [("en", en_results), ("7lang", ml_results), ("7geo", geo_results)]:
-        if result:
-            paths[f"graph_{name}"] = result["graph"]
-            paths[f"all_pairs_{name}"] = result["all_pairs"]
-    paths["yt_keywords"] = str(suggestion_path)
+    report_path = Path(config.output_dir) / "cluster_report.json"
+    report_path.write_text(
+        json.dumps(concept_report, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    paths["cluster_report"] = str(report_path)
+
+    video_path = formatter.save_videos(videos)
+    paths.update({
+        "videos": video_path,
+        "yt_keywords": str(suggestion_path),
+    })
 
     print(f"[pipeline] Done! Output:")
     for name, path in paths.items():

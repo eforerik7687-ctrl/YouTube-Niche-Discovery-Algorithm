@@ -8,7 +8,7 @@ from src.config import Config
 
 @pytest.fixture
 def config():
-    return Config(search_modifiers=["tutorial", "review"])
+    return Config()
 
 
 @pytest.fixture

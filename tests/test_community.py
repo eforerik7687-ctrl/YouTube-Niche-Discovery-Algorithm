@@ -101,7 +101,7 @@ class TestDetectNiches:
 
 class TestComputeNicheConcepts:
     def test_compute_niche_concepts_aggregates_correctly(self, detector):
-        """Niche concepts should aggregate channel concepts with coverage and avg_score."""
+        """Niche concepts should aggregate channel concepts with coverage."""
         propagated = {
             "ChannelA": {"python": 1.5, "tutorial": 0.8},
             "ChannelB": {"python": 1.2, "coding": 0.9},
@@ -111,10 +111,9 @@ class TestComputeNicheConcepts:
         result = detector.compute_niche_concepts(niches, propagated)
         assert 0 in result
         concepts = result[0]
-        # python appears in 3/3 channels -> coverage 1.0
         py = [c for c in concepts if c["concept"] == "python"][0]
         assert py["coverage"] == 1.0
-        assert py["avg_score"] == pytest.approx((1.5 + 1.2 + 0.6) / 3)
+        assert "avg_score" not in py
 
     def test_compute_niche_concepts_empty_niche(self, detector):
         """Empty niche should return empty list."""
