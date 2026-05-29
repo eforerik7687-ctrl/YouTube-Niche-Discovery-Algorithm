@@ -171,6 +171,10 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
 
         # Cluster keywords (Louvain communities → keyword aggregation)
         clusters = detector.detect_niches(G)
+        # Renumber niches by size descending (biggest = 0)
+        sorted_nids = sorted(clusters.keys(), key=lambda nid: -len(clusters[nid]))
+        remap = {old: new for new, old in enumerate(sorted_nids)}
+        clusters = {remap[old]: members for old, members in clusters.items()}
         cluster_kws = detector.compute_niche_concepts(clusters, propagated)
 
         # Export graph with niche-based colors
