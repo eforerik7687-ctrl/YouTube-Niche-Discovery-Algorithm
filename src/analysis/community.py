@@ -408,6 +408,7 @@ canvas {{
             kw_lines = "\n".join(f"  • {kw}" for kw, _ in top5) if top5 else "  (none)"
             tooltip_text = (
                 f"{channel}\n{sep}\n"
+                f"Niche {nid}\n{sep}\n"
                 f"Keywords:\n{kw_lines}\n{sep}\n"
                 f"Views: {total_views:,}\n"
                 f"Videos: {video_count}"
@@ -456,52 +457,15 @@ canvas {{
 
         net.save_graph(output_path)
 
-        # Build legend: count channels per niche
-        niche_counts: Dict[int, int] = {}
-        for ch in G.nodes():
-            nid = ch_to_niche.get(ch, 0)
-            niche_counts[nid] = niche_counts.get(nid, 0) + 1
-
-        legend_rows = "".join(
-            f'<div class="legend-row"><span class="legend-dot" style="background:{niche_colors[nid % len(niche_colors)]}"></span>'
-            f'<span class="legend-label">Niche {nid}</span><span class="legend-count">{niche_counts.get(nid, 0)}</span></div>'
-            for nid in sorted(niche_counts.keys())
-        )
-
-        # Post-processing: physics freeze + click-to-channel + legend
+        # Post-processing: physics freeze + click-to-channel
         html = Path(output_path).read_text(encoding="utf-8")
         import json
         url_json = json.dumps(channel_urls or {}, ensure_ascii=False)
 
         inject = f"""
 <style>
-.legend-container {{
-  position: fixed; bottom: 20px; right: 20px; z-index: 999;
-  background: rgba(15, 15, 30, 0.85); backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-  padding: 14px 18px; font-family: 'Segoe UI', sans-serif; font-size: 13px;
-  min-width: 180px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}}
-.legend-title {{
-  color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 8px; font-weight: 600;
-}}
-.legend-row {{
-  display: flex; align-items: center; gap: 8px; padding: 2px 0;
-  transition: opacity 0.15s;
-}}
-.legend-row:hover {{ opacity: 0.7; cursor: pointer; }}
-.legend-dot {{
-  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
-  border: 1px solid rgba(255,255,255,0.15);
-}}
-.legend-label {{ color: #ddd; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
-.legend-count {{ color: #666; font-size: 11px; }}
+/* no legend — niche shown in tooltip */
 </style>
-<div class="legend-container" id="legend">
-  <div class="legend-title" id="legend-handle" style="cursor:grab; user-select:none">↕ Niche Communities</div>
-  {legend_rows}
-</div>
 <script type="text/javascript">
 network.once("stabilized", function() {{
   network.setOptions({{ physics: {{ enabled: false }} }});
@@ -513,33 +477,6 @@ network.on("click", function(params) {{
     if (url) window.open(url, '_blank');
   }}
 }});
-// Draggable legend
-(function() {{
-  var legend = document.getElementById('legend');
-  var handle = document.getElementById('legend-handle');
-  var ox = 0, oy = 0, fx = 0, fy = 0;
-  handle.addEventListener('mousedown', function(e) {{
-    e.preventDefault();
-    ox = e.clientX - fx;
-    oy = e.clientY - fy;
-    handle.style.cursor = 'grabbing';
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
-  }});
-  function onMove(e) {{
-    fx = e.clientX - ox;
-    fy = e.clientY - oy;
-    legend.style.left = fx + 'px';
-    legend.style.right = 'auto';
-    legend.style.bottom = 'auto';
-    legend.style.top = fy + 'px';
-  }}
-  function onUp() {{
-    handle.style.cursor = 'grab';
-    document.removeEventListener('mousemove', onMove);
-    document.removeEventListener('mouseup', onUp);
-  }}
-}})();
 </script></body>"""
         html = html.replace("</body>", inject)
         Path(output_path).write_text(html, encoding="utf-8")
