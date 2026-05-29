@@ -162,7 +162,7 @@ class KeywordPropagator:
                             self.channel_urls[channel] = f"https://www.youtube.com/channel/{cid}"
                     # Accumulate channel stats from discovered videos
                     if channel not in self.channel_stats:
-                        self.channel_stats[channel] = {"total_views": 0, "video_count": 0}
+                        self.channel_stats[channel] = {"total_views": 0, "video_count": 0, "shorts_count": 0}
                     view_count = getattr(video, "view_count", None)
                     if view_count is not None:
                         try:
@@ -170,6 +170,10 @@ class KeywordPropagator:
                         except (ValueError, TypeError):
                             pass
                     self.channel_stats[channel]["video_count"] += 1
+                    # Shorts detection via URL
+                    video_url = getattr(video, "url", "") or ""
+                    if "/shorts/" in video_url:
+                        self.channel_stats[channel]["shorts_count"] += 1
                     # The suggestion itself is the keyword (YouTube's judgment)
                     channel_keywords[channel][suggestion] = 1.0
 
