@@ -35,7 +35,7 @@ body{background:#0b0e1a;color:#e0d8ff;font-family:'Segoe UI',sans-serif;min-heig
 </head>
 <body>
 <div class="header">
-  <h1>Niche Finder</h1>
+  <h1>YouTube Niche Discovery Researcher</h1>
   <p>YouTube Keyword Co-occurrence Niche Discovery</p>
 </div>
 
@@ -63,10 +63,10 @@ body{background:#0b0e1a;color:#e0d8ff;font-family:'Segoe UI',sans-serif;min-heig
     <button class="tab-btn" data-tab="graph">Graph</button>
   </div>
   <div class="tab-content active" id="tab-cloud">
-    <iframe src="output/niche_wordcloud.html" id="cloudFrame"></iframe>
+    <iframe src="niche_wordcloud.html" id="cloudFrame"></iframe>
   </div>
   <div class="tab-content" id="tab-graph">
-    <iframe src="output/graph_7plus7.html" id="graphFrame"></iframe>
+    <iframe src="graph_7plus7.html" id="graphFrame"></iframe>
   </div>
 </div>
 
@@ -89,7 +89,7 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
   });
 });
 
-// Run pipeline
+// Run pipeline — clone repo and run locally
 document.getElementById('btnRun').addEventListener('click', function(){
   var kws = [];
   document.querySelectorAll('.kw-input').forEach(function(inp){
@@ -97,21 +97,7 @@ document.getElementById('btnRun').addEventListener('click', function(){
   });
   if(kws.length === 0){document.getElementById('status').textContent='Please enter at least 1 keyword';return;}
   var mode = document.querySelector('.mode-btn.active').dataset.mode;
-  document.getElementById('status').textContent='Running pipeline for: '+kws.join(', ')+' ('+mode+')...';
-  var btn = this; btn.disabled = true;
-  fetch('/run', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({keywords:kws, mode:mode})
-  }).then(function(r){return r.json()}).then(function(data){
-    document.getElementById('status').textContent=data.status;
-    btn.disabled = false;
-    document.getElementById('cloudFrame').src = 'output/niche_wordcloud.html?t='+Date.now();
-    document.getElementById('graphFrame').src = 'output/graph_7plus7.html?t='+Date.now();
-  }).catch(function(err){
-    document.getElementById('status').textContent='Error: '+err;
-    btn.disabled = false;
-  });
+  document.getElementById('status').innerHTML='To run: <code>git clone https://github.com/eforerik7687-ctrl/YouTube-Niche-Discovery-Algorithm.git</code><br>Then: <code>python src/cli.py ' + kws.join(' ') + ' -o output</code>';
 });
 </script>
 </body>

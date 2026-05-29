@@ -6,6 +6,7 @@ __pycache__/
 venv/
 .env
 output/
+# tracked manually at repo root for Pages
 .claude/
 .vscode/
 .idea/
