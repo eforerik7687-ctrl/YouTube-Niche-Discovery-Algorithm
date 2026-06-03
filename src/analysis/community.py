@@ -473,12 +473,144 @@ canvas {{
         inject = f"""
 <style>
 /* no legend — niche shown in tooltip */
+#channel-search {{
+  position: absolute; top: 12px; left: 12px; z-index: 100;
+  font-family: 'Segoe UI', sans-serif;
+}}
+#channel-search input {{
+  width: 260px; padding: 8px 12px; border: 1px solid #d0d0d0;
+  border-radius: 8px; font-size: 13px; background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12); outline: none;
+}}
+#channel-search input:focus {{
+  border-color: #4a90d9; box-shadow: 0 2px 12px rgba(74,144,217,0.25);
+}}
+#search-dropdown {{
+  position: absolute; top: 100%; left: 0; width: 284px;
+  max-height: 320px; overflow-y: auto; background: #fff;
+  border: 1px solid #e0e0e0; border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15); display: none;
+  margin-top: 4px;
+}}
+.search-item {{
+  padding: 6px 12px; cursor: pointer; font-size: 12px;
+  border-bottom: 1px solid #f0f0f0; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}}
+.search-item:hover {{ background: #f0f6ff; }}
+.search-item .match {{ font-weight: 600; color: #1a73e8; }}
 </style>
+<div id="channel-search">
+  <input id="search-input" type="text" placeholder="Search channel..." autocomplete="off">
+  <div id="search-dropdown"></div>
+</div>
 <script type="text/javascript">
 network.once("stabilized", function() {{
   network.setOptions({{ physics: {{ enabled: false }} }});
 }});
 var channelUrls = {url_json};
+
+// Channel search
+(function() {{
+  var input = document.getElementById('search-input');
+  var dropdown = document.getElementById('search-dropdown');
+  var allNodes = Object.keys(channelUrls);
+  var selectedIndex = -1;
+
+  function filterNodes(query) {{
+    if (!query) {{ dropdown.style.display = 'none'; return []; }}
+    var q = query.toLowerCase();
+    return allNodes.filter(function(n) {{ return n.toLowerCase().indexOf(q) !== -1; }}).slice(0, 30);
+  }}
+
+  function renderDropdown(matches) {{
+    if (matches.length === 0 || !input.value) {{ dropdown.style.display = 'none'; return; }}
+    dropdown.style.display = 'block';
+    dropdown.innerHTML = '';
+    matches.forEach(function(ch, i) {{
+      var div = document.createElement('div');
+      div.className = 'search-item' + (i === selectedIndex ? ' highlight' : '');
+      // Bold the matching part
+      var q = input.value.toLowerCase();
+      var idx = ch.toLowerCase().indexOf(q);
+      if (idx !== -1) {{
+        div.innerHTML = ch.slice(0, idx) + '<span class="match">' + ch.slice(idx, idx + q.length) + '</span>' + ch.slice(idx + q.length);
+      }} else {{
+        div.textContent = ch;
+      }}
+      div.onclick = function() {{ focusChannel(ch); }};
+      div.onmouseenter = function() {{ selectedIndex = i; }};
+      dropdown.appendChild(div);
+    }});
+  }}
+
+  function focusChannel(ch) {{
+    dropdown.style.display = 'none';
+    input.value = ch;
+    input.blur();
+    if (network.body && network.body.nodes && network.body.nodes[ch]) {{
+      network.focus(ch, {{ scale: 1.5, animation: {{ duration: 500, easingFunction: 'easeInOutQuad' }} }});
+      network.selectNodes([ch], false);
+    }} else {{
+      // Fallback: try to find by id
+      var nodeId = null;
+      var body = network.body;
+      if (body && body.nodeIndices) {{
+        for (var i = 0; i < body.nodeIndices.length; i++) {{
+          if (body.nodeIndices[i] === ch || body.nodeIndices[i].toLowerCase() === ch.toLowerCase()) {{
+            nodeId = body.nodeIndices[i];
+            break;
+          }}
+        }}
+      }}
+      if (nodeId) {{
+        network.focus(nodeId, {{ scale: 1.5, animation: {{ duration: 500 }} }});
+        network.selectNodes([nodeId], false);
+      }}
+    }}
+  }}
+
+  input.addEventListener('input', function() {{
+    selectedIndex = -1;
+    var matches = filterNodes(this.value);
+    renderDropdown(matches);
+  }});
+
+  input.addEventListener('keydown', function(e) {{
+    var items = dropdown.querySelectorAll('.search-item');
+    if (e.key === 'ArrowDown') {{
+      e.preventDefault();
+      selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+      renderDropdown(filterNodes(this.value));
+    }} else if (e.key === 'ArrowUp') {{
+      e.preventDefault();
+      selectedIndex = Math.max(selectedIndex - 1, -1);
+      renderDropdown(filterNodes(this.value));
+    }} else if (e.key === 'Enter') {{
+      e.preventDefault();
+      if (selectedIndex >= 0 && items[selectedIndex]) {{
+        items[selectedIndex].click();
+      }} else if (this.value) {{
+        focusChannel(this.value);
+      }}
+    }} else if (e.key === 'Escape') {{
+      dropdown.style.display = 'none';
+      this.blur();
+    }}
+  }});
+
+  input.addEventListener('blur', function() {{
+    setTimeout(function() {{ dropdown.style.display = 'none'; }}, 200);
+  }});
+
+  input.addEventListener('focus', function() {{
+    if (this.value) {{
+      var matches = filterNodes(this.value);
+      renderDropdown(matches);
+    }}
+  }});
+}})();
+
 network.on("click", function(params) {{
   if (params.nodes.length > 0) {{
     var url = channelUrls[params.nodes[0]];
