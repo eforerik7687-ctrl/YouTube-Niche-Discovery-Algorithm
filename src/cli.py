@@ -15,8 +15,6 @@ from src.config import Config
 from src.analysis.propagator import KeywordPropagator
 from src.analysis.community import CommunityDetector
 
-_ALL_LANGS = ["en", "hi", "es", "pt", "ar", "ru", "ko"]
-_ALL_GEOS = ["US", "IN", "GB", "PH", "NG", "AU", "CA"]
 
 
 def _build_channel_data(
@@ -59,7 +57,7 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
          (shorts_mode: append ' short', filter by views>=100k, duration<=60s)
       3. Cosine similarity + keyword propagation
       4. Louvain community detection + niche concept aggregation
-      5. Export: graph, word cloud, cluster report, channel_stats
+      5. Export: graph, word cloud, cluster report
     """
     if config is None:
         config = Config.from_env()
@@ -83,44 +81,14 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
         else:
             print("[pipeline] PO Token not available, continuing without it")
 
-    # Step 1: Fetch suggestions (7 languages + 7 geos)
-    print("[pipeline] Fetching YouTube search suggestions (7+7)...")
-    yt_suggestions = {}
-    for seed in keywords:
-        lang_kws = KeywordPropagator.fetch_suggestions(seed, languages=_ALL_LANGS)
-        geo_kws = KeywordPropagator.fetch_suggestions(seed, geos=_ALL_GEOS)
-        yt_suggestions[seed] = {
-            "7lang": lang_kws,
-            "7geo": geo_kws,
-        }
-        total = len(lang_kws) + len(geo_kws)
-        print(f"  [suggestions] {seed}: {len(lang_kws)}lang + {len(geo_kws)}geo = {total}")
+    _ALL_GEOS = ["US", "IN", "GB", "PH", "NG", "AU", "CA"]
 
-    suggestion_path = Path(config.output_dir) / "yt_keywords.json"
-    suggestion_path.write_text(
-        json.dumps(yt_suggestions, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-    print(f"  Saved to {suggestion_path}")
-
-    # Step 2: 7+7 merged discovery — two async passes, merged channel_keywords
     async with PatchedYouTube(config) as yt:
         propagator = KeywordPropagator(config, yt)
         print()
-        print("[pipeline] 7+7 — Discovering (7 languages × US)...")
-        kw_lang = await propagator.discover_async(keywords, languages=_ALL_LANGS)
-        print(f"  [7+7] Language pass: {len(kw_lang)} channels")
-
-        print()
-        print("[pipeline] 7+7 — Discovering (en × 7 geos)...")
-        kw_geo = await propagator.discover_async(keywords, geos=_ALL_GEOS)
-        print(f"  [7+7] Geo pass: {len(kw_geo)} channels")
-
-        # Merge: union keywords per channel
-        channel_keywords: Dict[str, Dict[str, float]] = dict(kw_lang)
-        for ch, kws in kw_geo.items():
-            existing = channel_keywords.get(ch, {})
-            channel_keywords[ch] = {**existing, **kws}
+        print("[pipeline] Discovering (en × 7 geo)...")
+        channel_keywords = await propagator.discover_async(keywords, geos=_ALL_GEOS)
+        print(f"  [7geo] Found {len(channel_keywords)} channels")
 
     total_channels = len(channel_keywords)
     print(f"[pipeline] 7+7 — Total unique channels: {total_channels}")
@@ -196,15 +164,7 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
         encoding="utf-8",
     )
     paths["cluster_report"] = str(report_path)
-    paths["yt_keywords"] = str(suggestion_path)
-
-    # Save channel_stats.json for external analysis
-    stats_path = Path(config.output_dir) / "channel_stats.json"
-    stats_path.write_text(
-        json.dumps(propagator.channel_stats, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-    paths["channel_stats"] = str(stats_path)
+    paths["yt_keywords"] = "disabled (direct mode)"
 
     print(f"[pipeline] Done! Output:")
     for name, path in paths.items():
