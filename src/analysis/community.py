@@ -103,7 +103,7 @@ class CommunityDetector:
         sorted_nids = sorted(
             niches.keys(),
             key=lambda nid: len(niches[nid]),
-            reverse=True,  # descending by channel count
+            reverse=False,  # ascending by channel count (smallest = 0)
         )
         for nid in sorted_nids:
             concepts = niche_concepts.get(nid, [])[:concepts_per_niche]
@@ -401,16 +401,24 @@ canvas {{
 
             total_views = data.get("total_views", 0)
             video_count = data.get("video_count", 0)
+            views_7d = data.get("views_7d", 0)
+            views_30d = data.get("views_30d", 0)
             # Log10 scale: 0→4, 1K→9, 10K→11, 100K→13, 1M→15, 10M→17, 100M→19
             size = max(4, min(19, 4 + int(math.log10(total_views + 1) * 1.9)))
 
             sep = "─" * 20
             kw_lines = "\n".join(f"  • {kw}" for kw, _ in top5) if top5 else "  (none)"
+            views_extra = ""
+            if views_7d > 0:
+                views_extra += f"Views (7d): {views_7d:,}\n"
+            if views_30d > 0:
+                views_extra += f"Views (30d): {views_30d:,}\n"
             tooltip_text = (
                 f"{channel}\n{sep}\n"
                 f"Niche {nid}\n{sep}\n"
                 f"Keywords:\n{kw_lines}\n{sep}\n"
                 f"Views: {total_views:,}\n"
+                f"{views_extra}"
                 f"Videos: {video_count}"
             )
             net.add_node(

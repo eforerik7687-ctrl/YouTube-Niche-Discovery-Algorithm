@@ -1,6 +1,7 @@
 """CLI entry point for YouTube Niche Finder pipeline."""
 
 import argparse
+import asyncio
 import json
 import sys
 from pathlib import Path
@@ -8,48 +9,30 @@ from typing import Dict, List, Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from tubescrape import YouTube
-
+from src._patched import patch_tubescrape, PatchedYouTube
+from src._token import get_po_token, inject_po_token
 from src.config import Config
-from src.collector.collector import YouTubeCollector
-from src.analysis.metrics import MetricsCalculator
 from src.analysis.propagator import KeywordPropagator
 from src.analysis.community import CommunityDetector
-from src.output.formatter import OutputFormatter
+from src.shorts_verifier import ShortsVerifier, filter_shorts_channels
 
 _ALL_LANGS = ["en", "hi", "es", "pt", "ar", "ru", "ko"]
 _ALL_GEOS = ["US", "IN", "GB", "PH", "NG", "AU", "CA"]
 
 
 def _build_channel_data(
-    videos: List,
     channel_keywords: Dict[str, Dict[str, float]],
     channel_stats: Optional[Dict[str, Dict]] = None,
 ) -> Dict[str, Dict]:
-    """Build channel_data dict for graph export from videos + discovery stats.
-
-    Merges seed (Step 1) and discovery (Step 4) stats, taking the max
-    of each so that seed's 1-2 videos don't override discovery's 20+.
-    """
-    # Seed stats (Step 1)
-    seed_views = {}
-    seed_videos = {}
-    for v in videos:
-        ch = v.channel
-        seed_views[ch] = seed_views.get(ch, 0) + v.view_count
-        seed_videos[ch] = seed_videos.get(ch, 0) + 1
-
+    """Build channel_data dict for graph export from discovery stats."""
     if channel_stats is None:
         channel_stats = {}
 
     channel_data = {}
     for ch, kws in channel_keywords.items():
-        # Merge seed + discovery, take max of each
-        merge_views = seed_views.get(ch, 0)
-        merge_videos = seed_videos.get(ch, 0)
-        if ch in channel_stats:
-            merge_views = max(merge_views, channel_stats[ch].get("total_views", 0))
-            merge_videos = max(merge_videos, channel_stats[ch].get("video_count", 0))
+        stats = channel_stats.get(ch, {})
+        merge_views = stats.get("total_views", 0)
+        merge_videos = stats.get("video_count", 0)
 
         # Last resort if both are 0
         if merge_views == 0 and merge_videos == 0:
@@ -59,6 +42,8 @@ def _build_channel_data(
         channel_data[ch] = {
             "total_views": merge_views,
             "video_count": merge_videos,
+            "views_7d": stats.get("views_7d", 0),
+            "views_30d": stats.get("views_30d", 0),
             "opportunity_score": 0,
             "supply_growth": 0,
             "demand_growth": 0,
@@ -66,17 +51,15 @@ def _build_channel_data(
     return channel_data
 
 
-def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
-    """Run the YouTube Niche Finder pipeline with 7+7 merged discovery.
+async def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
+    """Run the YouTube Niche Finder pipeline.
 
     Pipeline flow:
-      1. Collect videos for seed keywords
-      2. Compute niche metrics (supply/demand/opportunity)
-      3. Fetch YouTube Search Suggestions (7 languages + 7 geos)
-      4. Discover channels via merged 7+7 search suggestions
-      5. Cosine similarity + keyword propagation
-      6. Louvain community detection + niche concept aggregation
-      7. Export single graph, all-pairs matrix, concepts, word cloud
+      1. Expansion: fetch YouTube Search Suggestions (7 languages + 7 geos)
+      2. Discover: find channels via merged 7+7 search suggestions
+      3. Cosine similarity + keyword propagation
+      4. Louvain community detection + niche concept aggregation
+      5. Export: graph, word cloud, cluster report
     """
     if config is None:
         config = Config.from_env()
@@ -84,26 +67,23 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
         keywords = config.seed_keywords
 
     print(f"[pipeline] Keywords: {keywords}")
-    print(f"[pipeline] Config: recent={config.recent_window}d, "
-          f"medium={config.medium_window}d, past={config.past_window}d")
 
-    # Step 1: Collect
-    print("[pipeline] Collecting video data from YouTube...")
-    with YouTubeCollector(config) as collector:
-        videos = collector.collect(keywords)
-        print(f"[pipeline] Collected {len(videos)} videos")
+    # Apply anti-ban patch to tubescrape (UA rotation, browser headers, etc.)
+    patch_tubescrape()
+    print("[pipeline] Anti-ban patch applied (UA rotation, browser headers, proxy rotation)")
 
-    if not videos:
-        print("[pipeline] No videos collected, skipping analysis.")
-        return {}
+    # Extract and inject PO Token via Playwright (legitimate browser fingerprint)
+    if config.po_token_enabled:
+        print("[pipeline] Extracting PO Token via Playwright...")
+        proxy_for_browser = config.proxy_list[0] if config.proxy_list else None
+        token = get_po_token(proxy=proxy_for_browser, timeout=config.po_token_timeout)
+        if token:
+            inject_po_token(token)
+            print(f"[pipeline] PO Token injected ({token[:20]}...)")
+        else:
+            print("[pipeline] PO Token not available, continuing without it")
 
-    # Step 2: Compute metrics per seed keyword
-    print("[pipeline] Computing niche metrics...")
-    calculator = MetricsCalculator(collector)
-    stats = calculator.compute(videos)
-    print(f"[pipeline] Computed metrics for {len(stats)} seed keywords")
-
-    # Step 3: Fetch suggestions (7 languages + 7 geos)
+    # Step 1: Fetch suggestions (7 languages + 7 geos)
     print("[pipeline] Fetching YouTube search suggestions (7+7)...")
     yt_suggestions = {}
     for seed in keywords:
@@ -123,17 +103,17 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
     )
     print(f"  Saved to {suggestion_path}")
 
-    # Step 4: 7+7 merged discovery — two passes, merged channel_keywords
-    with YouTube() as yt:
+    # Step 2: 7+7 merged discovery — two async passes, merged channel_keywords
+    async with PatchedYouTube(config) as yt:
         propagator = KeywordPropagator(config, yt)
         print()
         print("[pipeline] 7+7 — Discovering (7 languages × US)...")
-        kw_lang = propagator.discover(keywords, languages=_ALL_LANGS)
+        kw_lang = await propagator.discover_async(keywords, languages=_ALL_LANGS)
         print(f"  [7+7] Language pass: {len(kw_lang)} channels")
 
         print()
         print("[pipeline] 7+7 — Discovering (en × 7 geos)...")
-        kw_geo = propagator.discover(keywords, geos=_ALL_GEOS)
+        kw_geo = await propagator.discover_async(keywords, geos=_ALL_GEOS)
         print(f"  [7+7] Geo pass: {len(kw_geo)} channels")
 
         # Merge: union keywords per channel
@@ -149,30 +129,67 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
         print("[pipeline] No channels found, skipping.")
         return {}
 
-    # Step 5: Similarity + Propagation (keyword induction for niche concept)
+    # Step 3: Shorts verification via yt-dlp (only if shorts_mode=True)
+    if config.shorts_mode:
+        print()
+        print("[pipeline] Verifying Shorts channels via yt-dlp...")
+        channels_to_check = []
+        for ch in channel_keywords:
+            ch_url = propagator.channel_urls.get(ch, "")
+            if "/channel/" in ch_url:
+                cid = ch_url.split("/channel/")[-1]
+                channels_to_check.append({"name": ch, "id": cid})
+
+        print(f"  Checking {len(channels_to_check)} channels for Shorts...")
+        ytdlp_proxy = config.proxy_list[0] if config.proxy_list else None
+        verifier = ShortsVerifier(
+            max_workers=config.ytdlp_workers,
+            ytdlp_path=config.ytdlp_path,
+            proxy=ytdlp_proxy,
+        )
+        shorts_results = verifier.verify(channels_to_check)
+
+        short_count = sum(1 for r in shorts_results if r.get("is_shorts_creator"))
+        print(f"  Channels with Shorts: {short_count}/{len(shorts_results)}")
+
+        # Update channel_stats with accurate Shorts data
+        for r in shorts_results:
+            ch = r["channel_name"]
+            if ch in propagator.channel_stats:
+                propagator.channel_stats[ch]["shorts_count"] = r.get("shorts_count", 0)
+
+        # Filter to only Shorts-creating channels
+        original_count = len(channel_keywords)
+        channel_keywords = filter_shorts_channels(channel_keywords, shorts_results)
+        print(f"  Filtered: {original_count} → {len(channel_keywords)} Shorts channels")
+
+    if not channel_keywords:
+        print("[pipeline] No Shorts channels found, skipping.")
+        return {}
+
+    # Step 4: Similarity + Propagation (keyword induction for niche concept)
     print("[pipeline] Computing cosine similarity...")
     similarities = propagator.compute_similarity(channel_keywords, min_similarity=0.5)
     print(f"[pipeline] Found {len(similarities)} channel similarity pairs")
 
     propagated = propagator.propagate(channel_keywords, similarities)
 
-    # Step 6: Community detection + cluster keywords
+    # Step 5: Community detection + cluster keywords
     detector = CommunityDetector(propagator)
     G = detector.build_channel_graph(similarities)
 
-    formatter = OutputFormatter(config.output_dir)
     paths: Dict[str, str] = {}
 
-    # Step 7: Export cluster keyword report + raw videos
+    # Step 6: Export
     enriched_clusters = {}
 
     if G.number_of_nodes() > 0:
-        channel_data = _build_channel_data(videos, channel_keywords, propagator.channel_stats)
+        channel_data = _build_channel_data(channel_keywords, propagator.channel_stats)
 
         # Cluster keywords (Louvain communities → keyword aggregation)
         clusters = detector.detect_niches(G)
-        # Renumber niches by size descending (biggest = 0)
-        sorted_nids = sorted(clusters.keys(), key=lambda nid: -len(clusters[nid]))
+        # Renumber niches by size ascending (smallest = 0)
+        sorted_nids = sorted(clusters.keys(), key=lambda nid: len(clusters[nid]))
         remap = {old: new for new, old in enumerate(sorted_nids)}
         clusters = {remap[old]: members for old, members in clusters.items()}
         cluster_kws = detector.compute_niche_concepts(clusters, propagated)
@@ -213,12 +230,15 @@ def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
         encoding="utf-8",
     )
     paths["cluster_report"] = str(report_path)
+    paths["yt_keywords"] = str(suggestion_path)
 
-    video_path = formatter.save_videos(videos)
-    paths.update({
-        "videos": video_path,
-        "yt_keywords": str(suggestion_path),
-    })
+    # Save channel_stats.json for external analysis
+    stats_path = Path(config.output_dir) / "channel_stats.json"
+    stats_path.write_text(
+        json.dumps(propagator.channel_stats, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    paths["channel_stats"] = str(stats_path)
 
     print(f"[pipeline] Done! Output:")
     for name, path in paths.items():
@@ -244,7 +264,7 @@ def main():
     config = Config.from_env()
     config.output_dir = args.output
     config.raw_dir = f"{args.output}/raw"
-    run_pipeline(keywords, config)
+    asyncio.run(run_pipeline(keywords, config))
 
 
 if __name__ == "__main__":

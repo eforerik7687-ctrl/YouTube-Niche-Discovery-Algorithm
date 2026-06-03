@@ -27,17 +27,25 @@ class Config:
     proxy_list: List[str] = field(default_factory=list)
 
     # Anti-ban: random delay range in seconds before each yt.search()
-    delay_min: float = 0.0
-    delay_max: float = 0.0
+    delay_min: float = 1.0
+    delay_max: float = 2.0
     # Anti-ban: jitter for SuggestQueries calls
-    suggest_delay_min: float = 0.1
-    suggest_delay_max: float = 0.5
+    suggest_delay_min: float = 0.3
+    suggest_delay_max: float = 0.8
 
     # Seed keywords
     seed_keywords: List[str] = field(default_factory=list)
 
-    # Shorts mode: only process videos with /shorts/ URL
+    # Shorts mode: verify channels via yt-dlp, keep only Shorts creators
     shorts_mode: bool = True
+
+    # PO Token: extracted via Playwright for legitimate browser fingerprint
+    po_token_enabled: bool = False
+    po_token_timeout: int = 30
+
+    # yt-dlp settings
+    ytdlp_path: str = "yt-dlp"
+    ytdlp_workers: int = 4
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -62,4 +70,8 @@ class Config:
             ],
             output_dir=os.getenv("OUTPUT_DIR", "output"),
             raw_dir=os.getenv("RAW_DIR", "output/raw"),
+            po_token_enabled=os.getenv("PO_TOKEN_ENABLED", "false").lower() == "true",
+            po_token_timeout=int(os.getenv("PO_TOKEN_TIMEOUT", "30")),
+            ytdlp_path=os.getenv("YTDLP_PATH", "yt-dlp"),
+            ytdlp_workers=int(os.getenv("YTDLP_WORKERS", "4")),
         )

@@ -1,3 +1,4 @@
+import asyncio
 import json
 import random
 import re
@@ -38,6 +39,41 @@ class KeywordPropagator:
         suffix = match.group(2)
         multipliers = {"k": 1000, "m": 1000000, "b": 1000000000}
         return int(num * multipliers.get(suffix, 1))
+
+    @staticmethod
+    def _days_from_published(published_text: str | None) -> int | None:
+        """Parse YouTube relative time text into approximate days ago.
+
+        Handles formats: '3 days ago', '2 weeks ago', '1 month ago',
+                        'Streamed 5 days ago', 'Premiered 2 hours ago', etc.
+        Returns None if it cannot be parsed.
+        """
+        if not published_text:
+            return None
+        text = published_text.lower().strip()
+
+        # Remove common prefixes
+        for prefix in ["streamed ", "premiered ", "released ", "updated "]:
+            if text.startswith(prefix):
+                text = text[len(prefix):]
+                break
+
+        multipliers = {
+            "second": 1 / 86400,   # fractional days
+            "minute": 1 / 1440,
+            "hour": 1 / 24,
+            "day": 1,
+            "week": 7,
+            "month": 30,
+            "year": 365,
+        }
+
+        for unit, days_per_unit in multipliers.items():
+            if unit in text:
+                match = re.search(r"(\d+)", text)
+                if match:
+                    return int(float(match.group(1)) * days_per_unit)
+        return None
 
     def __init__(self, config: Config, yt=None):
         self.config = config
@@ -136,6 +172,9 @@ class KeywordPropagator:
 
         for seed in seed_keywords:
             suggestions = KeywordPropagator.fetch_suggestions(seed, languages, geos)
+            # Always include seed keyword itself as a discovery target
+            if seed not in suggestions:
+                suggestions.insert(0, seed)
             print(f"  [{label}] {seed}: {len(suggestions)} related keywords")
 
             for suggestion in suggestions:
@@ -153,10 +192,6 @@ class KeywordPropagator:
                     channel = getattr(video, "channel", "") or ""
                     if not channel:
                         continue
-                    video_url = getattr(video, "url", "") or ""
-                    # Shorts mode: skip non-Shorts videos
-                    if self.config.shorts_mode and "/shorts/" not in video_url:
-                        continue
                     if channel not in channel_keywords:
                         channel_keywords[channel] = {}
                     # Capture channel URL from YouTube API
@@ -166,18 +201,145 @@ class KeywordPropagator:
                             self.channel_urls[channel] = f"https://www.youtube.com/channel/{cid}"
                     # Accumulate channel stats from discovered videos
                     if channel not in self.channel_stats:
-                        self.channel_stats[channel] = {"total_views": 0, "video_count": 0, "shorts_count": 0}
+                        self.channel_stats[channel] = {
+                            "total_views": 0, "video_count": 0, "shorts_count": 0,
+                            "views_7d": 0, "views_30d": 0,
+                        }
                     view_count = getattr(video, "view_count", None)
+                    parsed_views = 0
                     if view_count is not None:
                         try:
-                            self.channel_stats[channel]["total_views"] += KeywordPropagator._parse_view_count(view_count)
+                            parsed_views = KeywordPropagator._parse_view_count(view_count)
+                            self.channel_stats[channel]["total_views"] += parsed_views
                         except (ValueError, TypeError):
                             pass
                     self.channel_stats[channel]["video_count"] += 1
-                    if "/shorts/" in video_url:
+
+                    # Track Shorts by format flag OR URL
+                    if getattr(video, "is_short", False) or "/shorts/" in (getattr(video, "url", "") or ""):
                         self.channel_stats[channel]["shorts_count"] += 1
+
+                    # Time-window views: accumulate into 7d / 30d buckets
+                    days_ago = KeywordPropagator._days_from_published(
+                        getattr(video, "published_text", None)
+                    )
+                    if days_ago is not None:
+                        if days_ago <= 30:
+                            self.channel_stats[channel]["views_30d"] += parsed_views
+                            if days_ago <= 7:
+                                self.channel_stats[channel]["views_7d"] += parsed_views
+
                     # The suggestion itself is the keyword (YouTube's judgment)
                     channel_keywords[channel][suggestion] = 1.0
+
+        return channel_keywords
+
+    async def discover_async(
+        self,
+        seed_keywords: List[str],
+        languages: Optional[List[str]] = None,
+        geos: Optional[List[str]] = None,
+        max_concurrent: int = 8,
+    ) -> Dict[str, Dict[str, float]]:
+        """Async version of discover() with concurrent anti-ban search.
+
+        Uses asyncio.Semaphore to control concurrency.
+        Anti-ban (UA rotation, delay, proxy rotation) are handled by
+        the PatchedYouTube wrapper transparently.
+
+        Args:
+            seed_keywords: List of seed keywords to discover from.
+            languages: Language (hl) codes.
+            geos: Geography (gl) codes.
+            max_concurrent: Max concurrent searches (default 8).
+
+        Returns: {channel_name: {keyword: weight}}
+        """
+        if self.yt is None:
+            raise RuntimeError(
+                "YouTube client is required for discovery. "
+                "Pass a YouTube instance to KeywordPropagator."
+            )
+
+        channel_keywords: Dict[str, Dict[str, float]] = {}
+
+        # Determine mode for display label
+        if geos and not languages:
+            label = f"{len(geos)}geo"
+        elif languages == ["en"] and not geos:
+            label = "en"
+        elif languages:
+            label = f"{len(languages)}lang"
+        else:
+            label = "default"
+
+        sem = asyncio.Semaphore(max_concurrent)
+
+        async def _search_one(suggestion: str, seed: str):
+            """Search one suggestion keyword with concurrency control."""
+            async with sem:
+                try:
+                    results = await self.yt.asearch(
+                        suggestion,
+                        max_results=self.config.max_results_per_keyword,
+                        sort_by=self.config.sort_by,
+                        type="video",
+                    )
+                except Exception as exc:
+                    print(f"    [skip] {suggestion}: {exc}")
+                    return
+
+                for video in results.videos:
+                    channel = getattr(video, "channel", "") or ""
+                    if not channel:
+                        continue
+                    if channel not in channel_keywords:
+                        channel_keywords[channel] = {}
+                    # Capture channel URL
+                    if channel not in self.channel_urls:
+                        cid = getattr(video, "channel_id", "") or ""
+                        if cid:
+                            self.channel_urls[channel] = f"https://www.youtube.com/channel/{cid}"
+                    # Accumulate channel stats
+                    if channel not in self.channel_stats:
+                        self.channel_stats[channel] = {
+                            "total_views": 0, "video_count": 0, "shorts_count": 0,
+                            "views_7d": 0, "views_30d": 0,
+                        }
+                    view_count = getattr(video, "view_count", None)
+                    parsed_views = 0
+                    if view_count is not None:
+                        try:
+                            parsed_views = KeywordPropagator._parse_view_count(view_count)
+                            self.channel_stats[channel]["total_views"] += parsed_views
+                        except (ValueError, TypeError):
+                            pass
+                    self.channel_stats[channel]["video_count"] += 1
+
+                    if getattr(video, "is_short", False) or "/shorts/" in (getattr(video, "url", "") or ""):
+                        self.channel_stats[channel]["shorts_count"] += 1
+
+                    days_ago = KeywordPropagator._days_from_published(
+                        getattr(video, "published_text", None)
+                    )
+                    if days_ago is not None:
+                        if days_ago <= 30:
+                            self.channel_stats[channel]["views_30d"] += parsed_views
+                            if days_ago <= 7:
+                                self.channel_stats[channel]["views_7d"] += parsed_views
+
+                    # The suggestion keyword
+                    channel_keywords[channel][suggestion] = 1.0
+
+        for seed in seed_keywords:
+            suggestions = KeywordPropagator.fetch_suggestions(seed, languages, geos)
+            # Always include seed keyword itself as a discovery target
+            if seed not in suggestions:
+                suggestions.insert(0, seed)
+            print(f"  [{label}] {seed}: {len(suggestions)} related keywords")
+
+            tasks = [_search_one(s, seed) for s in suggestions]
+            await asyncio.gather(*tasks)
 
         return channel_keywords
 
