@@ -14,7 +14,6 @@ from src._token import get_po_token, inject_po_token
 from src.config import Config
 from src.analysis.propagator import KeywordPropagator
 from src.analysis.community import CommunityDetector
-from src.shorts_verifier import ShortsVerifier, filter_shorts_channels
 
 _ALL_LANGS = ["en", "hi", "es", "pt", "ar", "ru", "ko"]
 _ALL_GEOS = ["US", "IN", "GB", "PH", "NG", "AU", "CA"]
@@ -57,9 +56,10 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
     Pipeline flow:
       1. Expansion: fetch YouTube Search Suggestions (7 languages + 7 geos)
       2. Discover: find channels via merged 7+7 search suggestions
+         (shorts_mode: append ' short', filter by views>=100k, duration<=60s)
       3. Cosine similarity + keyword propagation
       4. Louvain community detection + niche concept aggregation
-      5. Export: graph, word cloud, cluster report
+      5. Export: graph, word cloud, cluster report, channel_stats
     """
     if config is None:
         config = Config.from_env()
@@ -129,58 +129,24 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
         print("[pipeline] No channels found, skipping.")
         return {}
 
-    # Step 3: Shorts verification via yt-dlp (only if shorts_mode=True)
-    if config.shorts_mode:
-        print()
-        print("[pipeline] Verifying Shorts channels via yt-dlp...")
-        channels_to_check = []
-        for ch in channel_keywords:
-            ch_url = propagator.channel_urls.get(ch, "")
-            if "/channel/" in ch_url:
-                cid = ch_url.split("/channel/")[-1]
-                channels_to_check.append({"name": ch, "id": cid})
-
-        print(f"  Checking {len(channels_to_check)} channels for Shorts...")
-        ytdlp_proxy = config.proxy_list[0] if config.proxy_list else None
-        verifier = ShortsVerifier(
-            max_workers=config.ytdlp_workers,
-            ytdlp_path=config.ytdlp_path,
-            proxy=ytdlp_proxy,
-        )
-        shorts_results = verifier.verify(channels_to_check)
-
-        short_count = sum(1 for r in shorts_results if r.get("is_shorts_creator"))
-        print(f"  Channels with Shorts: {short_count}/{len(shorts_results)}")
-
-        # Update channel_stats with accurate Shorts data
-        for r in shorts_results:
-            ch = r["channel_name"]
-            if ch in propagator.channel_stats:
-                propagator.channel_stats[ch]["shorts_count"] = r.get("shorts_count", 0)
-
-        # Filter to only Shorts-creating channels
-        original_count = len(channel_keywords)
-        channel_keywords = filter_shorts_channels(channel_keywords, shorts_results)
-        print(f"  Filtered: {original_count} → {len(channel_keywords)} Shorts channels")
-
     if not channel_keywords:
-        print("[pipeline] No Shorts channels found, skipping.")
+        print("[pipeline] No channels found, skipping.")
         return {}
 
-    # Step 4: Similarity + Propagation (keyword induction for niche concept)
+    # Step 3: Similarity + Propagation (keyword induction for niche concept)
     print("[pipeline] Computing cosine similarity...")
     similarities = propagator.compute_similarity(channel_keywords, min_similarity=0.5)
     print(f"[pipeline] Found {len(similarities)} channel similarity pairs")
 
     propagated = propagator.propagate(channel_keywords, similarities)
 
-    # Step 5: Community detection + cluster keywords
+    # Step 4: Community detection + cluster keywords
     detector = CommunityDetector(propagator)
     G = detector.build_channel_graph(similarities)
 
     paths: Dict[str, str] = {}
 
-    # Step 6: Export
+    # Step 5: Export
     enriched_clusters = {}
 
     if G.number_of_nodes() > 0:

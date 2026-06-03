@@ -36,14 +36,15 @@ class Config:
     # Seed keywords
     seed_keywords: List[str] = field(default_factory=list)
 
-    # Shorts mode: verify channels via yt-dlp, keep only Shorts creators
+    # Shorts mode: append 'short' to keywords + filter by min_views
     shorts_mode: bool = True
+    min_views: int = 100000
 
     # PO Token: extracted via Playwright for legitimate browser fingerprint
     po_token_enabled: bool = False
     po_token_timeout: int = 30
 
-    # yt-dlp settings
+    # yt-dlp settings (optional verification step)
     ytdlp_path: str = "yt-dlp"
     ytdlp_workers: int = 4
 

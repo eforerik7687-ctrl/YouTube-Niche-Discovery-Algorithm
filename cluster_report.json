@@ -1,919 +1,55 @@
 {
   "cluster_keywords": {
-    "12": {
-      "channel_count": 7,
-      "keywords": [
-        {
-          "keyword": "minecraft анархия",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "57": {
-      "channel_count": 42,
-      "keywords": [
-        {
-          "keyword": "minecraft backrooms",
-          "coverage": 0.881
-        },
-        {
-          "keyword": "minecraft evil hunter",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "minecraft horror video",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "minecraft horror mod",
-          "coverage": 0.619
-        },
-        {
-          "keyword": "minecraft terror",
-          "coverage": 0.4286
-        },
-        {
-          "keyword": "minecraft horror",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft wonderland.jar",
-          "coverage": 0.3095
-        },
-        {
-          "keyword": "minecraft funny moments",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "minecraft arg",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "minecraft video",
-          "coverage": 0.2619
-        },
-        {
-          "keyword": "minecraft game",
-          "coverage": 0.2619
-        },
-        {
-          "keyword": "minecraft animation pack",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft builds",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft survival",
-          "coverage": 0.119
-        },
-        {
-          "keyword": "minecraft hardcore",
-          "coverage": 0.119
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.0714
-        },
-        {
-          "keyword": "minecraft hide and seek",
-          "coverage": 0.0714
-        },
-        {
-          "keyword": "minecraft troll",
-          "coverage": 0.0476
-        }
-      ]
-    },
-    "64": {
-      "channel_count": 50,
-      "keywords": [
-        {
-          "keyword": "minecraft skyblock",
-          "coverage": 0.76
-        },
-        {
-          "keyword": "minecraft survival",
-          "coverage": 0.64
-        },
-        {
-          "keyword": "minecraft hardcore",
-          "coverage": 0.58
-        },
-        {
-          "keyword": "minecraft totem farm",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "minecraft real life",
-          "coverage": 0.34
-        },
-        {
-          "keyword": "roblox plants vs brainrot",
-          "coverage": 0.34
-        },
-        {
-          "keyword": "minecraft gameplay",
-          "coverage": 0.34
-        },
-        {
-          "keyword": "minecraft 100 days",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft build",
-          "coverage": 0.28
-        },
-        {
-          "keyword": "minecraft backrooms",
-          "coverage": 0.26
-        },
-        {
-          "keyword": "minecraft manhunt",
-          "coverage": 0.18
-        },
-        {
-          "keyword": "minecraft mcdonalds",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "minecraft movie full movie",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "minecraft 100 dias",
-          "coverage": 0.14
-        },
-        {
-          "keyword": "minecraft tips",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "minecraft ominous bottle farm",
-          "coverage": 0.02
-        },
-        {
-          "keyword": "minecraft bone meal farm",
-          "coverage": 0.02
-        }
-      ]
-    },
-    "34": {
-      "channel_count": 18,
-      "keywords": [
-        {
-          "keyword": "minecraft ominous bottle farm",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft bone meal farm",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "minecraft totem farm",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "minecraft survival",
-          "coverage": 0.6111
-        },
-        {
-          "keyword": "minecraft tips",
-          "coverage": 0.4444
-        },
-        {
-          "keyword": "minecraft 🏠🔨",
-          "coverage": 0.4444
-        },
-        {
-          "keyword": "minecraft hardcore",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "minecraft live",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "minecraft dungeons 2",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "minecraft animation resource pack",
-          "coverage": 0.0556
-        }
-      ]
-    },
-    "65": {
-      "channel_count": 51,
-      "keywords": [
-        {
-          "keyword": "roblox plants vs brainrot",
-          "coverage": 0.6078
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.6078
-        },
-        {
-          "keyword": "roblox grow a garden",
-          "coverage": 0.549
-        },
-        {
-          "keyword": "roblox blox fruit",
-          "coverage": 0.451
-        },
-        {
-          "keyword": "roblox keyboard escape",
-          "coverage": 0.4314
-        },
-        {
-          "keyword": "roblox mini war",
-          "coverage": 0.4314
-        },
-        {
-          "keyword": "roblox fisch",
-          "coverage": 0.3725
-        },
-        {
-          "keyword": "roblox animation old",
-          "coverage": 0.1569
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.1569
-        },
-        {
-          "keyword": "roblox animation stories",
-          "coverage": 0.1569
-        },
-        {
-          "keyword": "roblox animation brookhaven",
-          "coverage": 0.1373
-        },
-        {
-          "keyword": "minecraft real life",
-          "coverage": 0.0784
-        },
-        {
-          "keyword": "minecraft skyblock",
-          "coverage": 0.0784
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "roblox cheat",
-          "coverage": 0.0392
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.0392
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.0392
-        },
-        {
-          "keyword": "roblox monkey bomb tag",
-          "coverage": 0.0392
-        },
-        {
-          "keyword": "roblox feet",
-          "coverage": 0.0392
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.0392
-        }
-      ]
-    },
-    "60": {
-      "channel_count": 44,
-      "keywords": [
-        {
-          "keyword": "minecraft song",
-          "coverage": 0.7727
-        },
-        {
-          "keyword": "minecraft aria math",
-          "coverage": 0.6591
-        },
-        {
-          "keyword": "minecraft music",
-          "coverage": 0.5682
-        },
-        {
-          "keyword": "minecraft small piano",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft sleep music",
-          "coverage": 0.3182
-        },
-        {
-          "keyword": "minecraft animation songs",
-          "coverage": 0.3182
-        },
-        {
-          "keyword": "minecraft animation song",
-          "coverage": 0.2273
-        },
-        {
-          "keyword": "minecraft animation herobrine",
-          "coverage": 0.1591
-        },
-        {
-          "keyword": "minecraft animation girl",
-          "coverage": 0.1591
-        },
-        {
-          "keyword": "minecraft animation music",
-          "coverage": 0.1364
-        },
-        {
-          "keyword": "minecraft movie",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "minecraft daquavis shorts",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "minecraft animation",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "minecraft animation fighting",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "minecraft animation fight",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "minecraft animation herobrine vs notch",
-          "coverage": 0.0227
-        }
-      ]
-    },
     "0": {
       "channel_count": 2,
       "keywords": [
         {
-          "keyword": "minecraft 🏠🔨 uzbek tilida",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "17": {
-      "channel_count": 9,
-      "keywords": [
-        {
-          "keyword": "minecraft bedrock pc gratis",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "54": {
-      "channel_count": 36,
-      "keywords": [
-        {
-          "keyword": "minecraft house",
+          "keyword": "villager",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft house tutorial",
-          "coverage": 0.8889
-        },
-        {
-          "keyword": "minecraft mcdonalds",
-          "coverage": 0.6944
-        },
-        {
-          "keyword": "minecraft castle tutorial",
-          "coverage": 0.5833
-        },
-        {
-          "keyword": "minecraft 🏠🔨",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft gameplay",
-          "coverage": 0.2778
-        },
-        {
-          "keyword": "minecraft survival",
-          "coverage": 0.1944
-        },
-        {
-          "keyword": "minecraft animation sus",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "minecraft skyblock",
-          "coverage": 0.1389
-        },
-        {
-          "keyword": "minecraft minecraft",
-          "coverage": 0.1389
-        },
-        {
-          "keyword": "minecraft hide and seek",
-          "coverage": 0.1389
-        },
-        {
-          "keyword": "minecraft videos",
-          "coverage": 0.1389
-        },
-        {
-          "keyword": "minecraft civilization",
-          "coverage": 0.0833
-        },
-        {
-          "keyword": "minecraft mikey and jj",
-          "coverage": 0.0833
-        },
-        {
-          "keyword": "minecraft mikey and jj noob vs pro",
-          "coverage": 0.0833
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.0833
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.0833
-        },
-        {
-          "keyword": "minecraft game",
-          "coverage": 0.0833
-        },
-        {
-          "keyword": "minecraft video",
-          "coverage": 0.0833
-        }
-      ]
-    },
-    "28": {
-      "channel_count": 13,
-      "keywords": [
-        {
-          "keyword": "minecraft music reaction",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "56": {
-      "channel_count": 39,
-      "keywords": [
-        {
-          "keyword": "minecraft tips",
-          "coverage": 0.8718
-        },
-        {
-          "keyword": "minecraft dungeons 2",
-          "coverage": 0.5641
-        },
-        {
-          "keyword": "minecraft build",
-          "coverage": 0.5128
-        },
-        {
-          "keyword": "minecraft builds",
-          "coverage": 0.5128
-        },
-        {
-          "keyword": "minecraft ominous bottle farm",
-          "coverage": 0.4103
-        },
-        {
-          "keyword": "minecraft live",
-          "coverage": 0.359
-        },
-        {
-          "keyword": "roblox animation 2017",
-          "coverage": 0.2821
-        },
-        {
-          "keyword": "minecraft 🏠🔨",
-          "coverage": 0.2564
-        },
-        {
-          "keyword": "minecraft troll",
-          "coverage": 0.2564
-        },
-        {
-          "keyword": "minecraft 100 days",
-          "coverage": 0.2308
-        },
-        {
-          "keyword": "minecraft survival",
-          "coverage": 0.2051
-        },
-        {
-          "keyword": "minecraft house",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "minecraft house tutorial",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "minecraft animations mod",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "minecraft animation pack",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "minecraft animation mod",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "minecraft animation tutorial",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "minecraft",
-          "coverage": 0.0513
-        },
-        {
-          "keyword": "minecraft logos",
-          "coverage": 0.0513
-        },
-        {
-          "keyword": "minecraft animation resource pack",
-          "coverage": 0.0513
-        }
-      ]
-    },
-    "14": {
-      "channel_count": 8,
-      "keywords": [
-        {
-          "keyword": "minecraft procedural spider",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "9": {
-      "channel_count": 5,
-      "keywords": [
-        {
-          "keyword": "minecraft animation",
+          "keyword": "minecraft meme villager",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation songs",
+          "keyword": "minecraft memes villager",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation video",
+          "keyword": "villagers night",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation videos",
+          "keyword": "villager funk",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation edit",
+          "keyword": "villager trading",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation music",
+          "keyword": "minecraft funny villager",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation song",
+          "keyword": "minecraft funny villagers",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation entity 303",
+          "keyword": "villager minecraft",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation edits",
+          "keyword": "villager singing",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animation anime",
+          "keyword": "villager in minecraft",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft animations",
+          "keyword": "villager farm",
           "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation series",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation fight",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animations now vs then",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation now vs then",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animations 3d",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation zombie",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation tutorial",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation girl",
-          "coverage": 0.8
-        },
-        {
-          "keyword": "minecraft animation sus",
-          "coverage": 0.8
-        }
-      ]
-    },
-    "51": {
-      "channel_count": 35,
-      "keywords": [
-        {
-          "keyword": "minecraft animation now vs then",
-          "coverage": 0.6571
-        },
-        {
-          "keyword": "minecraft animations now vs then",
-          "coverage": 0.6286
-        },
-        {
-          "keyword": "minecraft",
-          "coverage": 0.5429
-        },
-        {
-          "keyword": "minecraft animation ai",
-          "coverage": 0.4857
-        },
-        {
-          "keyword": "minecraft animation",
-          "coverage": 0.4857
-        },
-        {
-          "keyword": "minecraft cash and nico",
-          "coverage": 0.4571
-        },
-        {
-          "keyword": "minecraft civilization",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "minecraft movie",
-          "coverage": 0.2571
-        },
-        {
-          "keyword": "minecraft videos",
-          "coverage": 0.2286
-        },
-        {
-          "keyword": "minecraft builds",
-          "coverage": 0.1714
-        },
-        {
-          "keyword": "minecraft animation shorts",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "minecraft animation horror",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "minecraft mcdonalds",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "minecraft hide and seek",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "minecraft jj and mikey",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "minecraft live",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "minecraft logos",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "minecraft movie 2",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "minecraft cartoon",
-          "coverage": 0.0286
-        },
-        {
-          "keyword": "minecraft skyblock",
-          "coverage": 0.0286
-        }
-      ]
-    },
-    "37": {
-      "channel_count": 20,
-      "keywords": [
-        {
-          "keyword": "minecraft game",
-          "coverage": 0.9
-        },
-        {
-          "keyword": "minecraft sonic addon",
-          "coverage": 0.55
-        },
-        {
-          "keyword": "minecraft minecraft",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft video",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft cartoon",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "minecraft animation in hindi",
-          "coverage": 0.3
-        },
-        {
-          "keyword": "minecraft carry",
-          "coverage": 0.3
-        },
-        {
-          "keyword": "minecraft builds",
-          "coverage": 0.15
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.05
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.05
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.05
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.05
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.05
-        },
-        {
-          "keyword": "roblox desert trip",
-          "coverage": 0.05
-        }
-      ]
-    },
-    "50": {
-      "channel_count": 33,
-      "keywords": [
-        {
-          "keyword": "minecraft pocket edition discord server",
-          "coverage": 0.9697
-        },
-        {
-          "keyword": "minecraft mein kisi bhi block ka map kaise banaen",
-          "coverage": 0.7273
-        },
-        {
-          "keyword": "minecraft logos",
-          "coverage": 0.5758
-        },
-        {
-          "keyword": "minecraft live",
-          "coverage": 0.2424
-        },
-        {
-          "keyword": "minecraft",
-          "coverage": 0.2424
-        }
-      ]
-    },
-    "40": {
-      "channel_count": 25,
-      "keywords": [
-        {
-          "keyword": "roblox animation memes",
-          "coverage": 0.96
-        },
-        {
-          "keyword": "roblox animation meme",
-          "coverage": 0.8
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.36
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.24
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.24
-        },
-        {
-          "keyword": "roblox edits",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft animation memes",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox animation 2017",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox animation old",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox animation id",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animations avatar",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animation ideas",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animation food",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animation funny",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "minecraft animation meme",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animation fight",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animations now vs then",
-          "coverage": 0.08
         }
       ]
     },
@@ -921,1852 +57,8 @@
       "channel_count": 3,
       "keywords": [
         {
-          "keyword": "minecraft parodileri",
+          "keyword": "village life status",
           "coverage": 1.0
-        }
-      ]
-    },
-    "58": {
-      "channel_count": 42,
-      "keywords": [
-        {
-          "keyword": "minecraft animation 2d",
-          "coverage": 0.7857
-        },
-        {
-          "keyword": "minecraft animation memes",
-          "coverage": 0.6429
-        },
-        {
-          "keyword": "minecraft animation meme",
-          "coverage": 0.5238
-        },
-        {
-          "keyword": "minecraft animation villager",
-          "coverage": 0.4762
-        },
-        {
-          "keyword": "minecraft animation funny",
-          "coverage": 0.3571
-        },
-        {
-          "keyword": "minecraft animation horror",
-          "coverage": 0.3571
-        },
-        {
-          "keyword": "minecraft funny video",
-          "coverage": 0.2619
-        },
-        {
-          "keyword": "minecraft funny moments",
-          "coverage": 0.1905
-        },
-        {
-          "keyword": "minecraft animation series",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "minecraft animation full movie",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "roblox animation memes",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "roblox animation meme",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft animation edit",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft animation edits",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft animation prisma 3d",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft animation iron golem",
-          "coverage": 0.119
-        },
-        {
-          "keyword": "minecraft animation movie",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft animation anime",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft animation",
-          "coverage": 0.0714
-        },
-        {
-          "keyword": "roblox animation funny",
-          "coverage": 0.0714
-        }
-      ]
-    },
-    "52": {
-      "channel_count": 35,
-      "keywords": [
-        {
-          "keyword": "roblox is down",
-          "coverage": 0.6857
-        },
-        {
-          "keyword": "roblox edits",
-          "coverage": 0.6286
-        },
-        {
-          "keyword": "roblox shorts",
-          "coverage": 0.5429
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.3714
-        },
-        {
-          "keyword": "roblox animation memes",
-          "coverage": 0.3714
-        },
-        {
-          "keyword": "roblox stories",
-          "coverage": 0.3429
-        },
-        {
-          "keyword": "roblox animation sus",
-          "coverage": 0.3429
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.3143
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "minecraft shorts",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "roblox rant",
-          "coverage": 0.2286
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "minecraft troll",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "minecraft animation edits",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "roblox song",
-          "coverage": 0.0286
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.0286
-        },
-        {
-          "keyword": "roblox animation old",
-          "coverage": 0.0286
-        },
-        {
-          "keyword": "roblox animation stories",
-          "coverage": 0.0286
-        },
-        {
-          "keyword": "roblox animation 99 nights",
-          "coverage": 0.0286
-        },
-        {
-          "keyword": "roblox animation 3d",
-          "coverage": 0.0286
-        }
-      ]
-    },
-    "1": {
-      "channel_count": 2,
-      "keywords": [
-        {
-          "keyword": "minecraft animation",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation iron golem",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation shorts",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation video",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation videos",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation movie",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation cubus maximus",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation villager",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animations",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation in hindi",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation war",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation steve and alex",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation fight",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation zombie",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation ai",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animations 3d",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "10": {
-      "channel_count": 5,
-      "keywords": [
-        {
-          "keyword": "minecraft cobblemon",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "45": {
-      "channel_count": 27,
-      "keywords": [
-        {
-          "keyword": "minecraft movie 2",
-          "coverage": 0.8519
-        },
-        {
-          "keyword": "roblox movie trailer",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "minecraft movie full movie",
-          "coverage": 0.6296
-        },
-        {
-          "keyword": "minecraft movie",
-          "coverage": 0.6296
-        },
-        {
-          "keyword": "minecraft",
-          "coverage": 0.4815
-        },
-        {
-          "keyword": "roblox movie",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "roblox rp",
-          "coverage": 0.0741
-        },
-        {
-          "keyword": "roblox animation stories",
-          "coverage": 0.0741
-        },
-        {
-          "keyword": "roblox animation story",
-          "coverage": 0.0741
-        },
-        {
-          "keyword": "minecraft civilization",
-          "coverage": 0.037
-        },
-        {
-          "keyword": "minecraft song",
-          "coverage": 0.037
-        },
-        {
-          "keyword": "minecraft animation iron golem",
-          "coverage": 0.037
-        }
-      ]
-    },
-    "35": {
-      "channel_count": 18,
-      "keywords": [
-        {
-          "keyword": "minecraft animation in hindi",
-          "coverage": 0.9444
-        },
-        {
-          "keyword": "minecraft animation movie hindi",
-          "coverage": 0.7222
-        },
-        {
-          "keyword": "minecraft animation movie in hindi",
-          "coverage": 0.7222
-        },
-        {
-          "keyword": "minecraft animation herobrine",
-          "coverage": 0.4444
-        },
-        {
-          "keyword": "minecraft animation iron golem",
-          "coverage": 0.4444
-        },
-        {
-          "keyword": "minecraft animation sad story",
-          "coverage": 0.3889
-        },
-        {
-          "keyword": "minecraft movie",
-          "coverage": 0.1667
-        }
-      ]
-    },
-    "11": {
-      "channel_count": 5,
-      "keywords": [
-        {
-          "keyword": "roblox horror games",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox keyboard escape",
-          "coverage": 0.8
-        },
-        {
-          "keyword": "roblox scary games",
-          "coverage": 0.8
-        },
-        {
-          "keyword": "roblox simulator games",
-          "coverage": 0.8
-        },
-        {
-          "keyword": "roblox live",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox song",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox monkey bomb tag",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox feet",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox plants vs brainrot",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox cheat",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox hack",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox steal a brainrot",
-          "coverage": 0.6
-        }
-      ]
-    },
-    "29": {
-      "channel_count": 15,
-      "keywords": [
-        {
-          "keyword": "roblox song",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox classic music",
-          "coverage": 0.8667
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox plants vs brainrot",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox animation 99 nights",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox animation fighting",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation 2017",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation old",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation fight",
-          "coverage": 0.0667
-        }
-      ]
-    },
-    "2": {
-      "channel_count": 2,
-      "keywords": [
-        {
-          "keyword": "roblox animation",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation videos",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation edit",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation sad story",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation anime",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation girl",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation series",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation 2d",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation sus",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox animation 99 nights",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation video",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation movie",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation shorts",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animations 3d",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "38": {
-      "channel_count": 21,
-      "keywords": [
-        {
-          "keyword": "roblox rants",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox rant",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox is down",
-          "coverage": 0.2857
-        }
-      ]
-    },
-    "15": {
-      "channel_count": 8,
-      "keywords": [
-        {
-          "keyword": "roblox adopt me",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "36": {
-      "channel_count": 18,
-      "keywords": [
-        {
-          "keyword": "roblox rivals",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox feet",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "roblox steal a brainrot",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.5556
-        },
-        {
-          "keyword": "roblox cheat",
-          "coverage": 0.5556
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.5556
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.5556
-        }
-      ]
-    },
-    "66": {
-      "channel_count": 52,
-      "keywords": [
-        {
-          "keyword": "roblox exploit",
-          "coverage": 0.5577
-        },
-        {
-          "keyword": "roblox hack",
-          "coverage": 0.5192
-        },
-        {
-          "keyword": "roblox cheat",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "roblox driving empire hack",
-          "coverage": 0.4423
-        },
-        {
-          "keyword": "roblox executor no key",
-          "coverage": 0.4038
-        },
-        {
-          "keyword": "roblox best executor",
-          "coverage": 0.3846
-        },
-        {
-          "keyword": "roblox executor",
-          "coverage": 0.3462
-        },
-        {
-          "keyword": "roblox free executor",
-          "coverage": 0.3269
-        },
-        {
-          "keyword": "roblox executor free",
-          "coverage": 0.3077
-        },
-        {
-          "keyword": "roblox mod menu apk",
-          "coverage": 0.3077
-        },
-        {
-          "keyword": "roblox executor 2026",
-          "coverage": 0.2885
-        },
-        {
-          "keyword": "roblox pc executor",
-          "coverage": 0.2692
-        },
-        {
-          "keyword": "roblox midnight chasers",
-          "coverage": 0.2308
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.0769
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.0577
-        },
-        {
-          "keyword": "minecraft music reaction",
-          "coverage": 0.0192
-        },
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.0192
-        },
-        {
-          "keyword": "roblox scary games",
-          "coverage": 0.0192
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.0192
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.0192
-        }
-      ]
-    },
-    "46": {
-      "channel_count": 27,
-      "keywords": [
-        {
-          "keyword": "roblox rp",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox project ventura",
-          "coverage": 0.7037
-        },
-        {
-          "keyword": "roblox brookhaven 🏡rp",
-          "coverage": 0.5926
-        },
-        {
-          "keyword": "roblox movie",
-          "coverage": 0.4815
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.3704
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.3704
-        },
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "roblox scary games",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "roblox animation brookhaven",
-          "coverage": 0.1852
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.1481
-        },
-        {
-          "keyword": "roblox brookhaven 🏡rp historias",
-          "coverage": 0.1481
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.1481
-        },
-        {
-          "keyword": "roblox desert trip",
-          "coverage": 0.1111
-        },
-        {
-          "keyword": "roblox animation funny",
-          "coverage": 0.1111
-        },
-        {
-          "keyword": "roblox animation funny moments",
-          "coverage": 0.1111
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.1111
-        },
-        {
-          "keyword": "roblox funny moments",
-          "coverage": 0.037
-        },
-        {
-          "keyword": "roblox animation memes",
-          "coverage": 0.037
-        }
-      ]
-    },
-    "62": {
-      "channel_count": 48,
-      "keywords": [
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.5208
-        },
-        {
-          "keyword": "roblox games to play when your bored",
-          "coverage": 0.4583
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.4167
-        },
-        {
-          "keyword": "roblox scary games",
-          "coverage": 0.3958
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.3958
-        },
-        {
-          "keyword": "minecraft wonderland.jar",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.2708
-        },
-        {
-          "keyword": "roblox simulator games",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "roblox adopt me",
-          "coverage": 0.2292
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.2292
-        },
-        {
-          "keyword": "roblox de terror",
-          "coverage": 0.2292
-        },
-        {
-          "keyword": "roblox rp",
-          "coverage": 0.2292
-        },
-        {
-          "keyword": "minecraft horror mod",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "minecraft horror",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "minecraft music reaction",
-          "coverage": 0.125
-        },
-        {
-          "keyword": "roblox cheat",
-          "coverage": 0.125
-        },
-        {
-          "keyword": "roblox hack",
-          "coverage": 0.125
-        },
-        {
-          "keyword": "roblox monkey bomb tag",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.0625
-        }
-      ]
-    },
-    "61": {
-      "channel_count": 44,
-      "keywords": [
-        {
-          "keyword": "roblox animation pack",
-          "coverage": 0.6818
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.6591
-        },
-        {
-          "keyword": "roblox age verification",
-          "coverage": 0.5227
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "roblox bedwars",
-          "coverage": 0.4545
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.3636
-        },
-        {
-          "keyword": "roblox animations avatar",
-          "coverage": 0.2727
-        },
-        {
-          "keyword": "minecraft animation sus",
-          "coverage": 0.2273
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.2273
-        },
-        {
-          "keyword": "roblox mini war",
-          "coverage": 0.1818
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.1591
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.1364
-        },
-        {
-          "keyword": "roblox simulator games",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "minecraft cash and nico",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "minecraft backrooms",
-          "coverage": 0.0682
-        },
-        {
-          "keyword": "roblox historias",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "roblox animation memes",
-          "coverage": 0.0455
-        }
-      ]
-    },
-    "13": {
-      "channel_count": 7,
-      "keywords": [
-        {
-          "keyword": "roblox истории",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "47": {
-      "channel_count": 30,
-      "keywords": [
-        {
-          "keyword": "roblox feet",
-          "coverage": 0.9
-        },
-        {
-          "keyword": "roblox monkey bomb tag",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox animation r63",
-          "coverage": 0.5667
-        },
-        {
-          "keyword": "roblox animation sus",
-          "coverage": 0.5333
-        },
-        {
-          "keyword": "roblox scary games",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "roblox animation boy and girl",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "roblox animation brookhaven",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "roblox steal a brainrot",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "roblox animations now vs then",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox animation halloween trick or treat",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox girl",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation simulator",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox animation robux",
-          "coverage": 0.0667
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.0667
-        }
-      ]
-    },
-    "20": {
-      "channel_count": 10,
-      "keywords": [
-        {
-          "keyword": "roblox animations now vs then",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox animation sus",
-          "coverage": 0.9
-        },
-        {
-          "keyword": "roblox animation r63",
-          "coverage": 0.9
-        },
-        {
-          "keyword": "roblox animation halloween trick or treat",
-          "coverage": 0.9
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.9
-        },
-        {
-          "keyword": "roblox girl",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox animation simulator",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox animation boy and girl",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "roblox animation robux",
-          "coverage": 0.1
-        }
-      ]
-    },
-    "21": {
-      "channel_count": 10,
-      "keywords": [
-        {
-          "keyword": "roblox condo",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "22": {
-      "channel_count": 10,
-      "keywords": [
-        {
-          "keyword": "roblox live",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "30": {
-      "channel_count": 15,
-      "keywords": [
-        {
-          "keyword": "roblox desert trip",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox funny moments",
-          "coverage": 0.9333
-        },
-        {
-          "keyword": "roblox animation funny moments",
-          "coverage": 0.9333
-        },
-        {
-          "keyword": "roblox animation funny",
-          "coverage": 0.5333
-        },
-        {
-          "keyword": "roblox animation memes",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "roblox plants vs brainrot",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "roblox rp",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox brookhaven 🏡rp",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox animation brookhaven",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.1333
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.0667
-        }
-      ]
-    },
-    "53": {
-      "channel_count": 35,
-      "keywords": [
-        {
-          "keyword": "roblox animation stories",
-          "coverage": 0.8286
-        },
-        {
-          "keyword": "roblox animation movie",
-          "coverage": 0.6571
-        },
-        {
-          "keyword": "roblox animation halloween trick or treat",
-          "coverage": 0.6571
-        },
-        {
-          "keyword": "roblox animation story",
-          "coverage": 0.4857
-        },
-        {
-          "keyword": "roblox animation 99 nights",
-          "coverage": 0.4286
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "roblox movie",
-          "coverage": 0.3714
-        },
-        {
-          "keyword": "roblox animation fight",
-          "coverage": 0.3714
-        },
-        {
-          "keyword": "roblox stories",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "roblox story",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox queen",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.1143
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.0857
-        },
-        {
-          "keyword": "roblox animation dead rails",
-          "coverage": 0.0571
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.0571
-        }
-      ]
-    },
-    "26": {
-      "channel_count": 12,
-      "keywords": [
-        {
-          "keyword": "roblox fur infection outbreak",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "48": {
-      "channel_count": 32,
-      "keywords": [
-        {
-          "keyword": "roblox color or die",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox girl",
-          "coverage": 0.5625
-        },
-        {
-          "keyword": "roblox animation food",
-          "coverage": 0.4688
-        },
-        {
-          "keyword": "roblox scary games",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox shorts",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox song",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "minecraft backrooms",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "roblox age verification",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "minecraft animation sus",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.0312
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.0312
-        },
-        {
-          "keyword": "roblox desert trip",
-          "coverage": 0.0312
-        }
-      ]
-    },
-    "33": {
-      "channel_count": 17,
-      "keywords": [
-        {
-          "keyword": "roblox forsaken",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox mini war",
-          "coverage": 0.9412
-        },
-        {
-          "keyword": "roblox animation simulator",
-          "coverage": 0.8824
-        },
-        {
-          "keyword": "roblox keyboard escape",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "roblox grow a garden",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.0588
-        }
-      ]
-    },
-    "39": {
-      "channel_count": 23,
-      "keywords": [
-        {
-          "keyword": "roblox studio",
-          "coverage": 0.9565
-        },
-        {
-          "keyword": "roblox animation vfx",
-          "coverage": 0.5652
-        },
-        {
-          "keyword": "roblox studio tips",
-          "coverage": 0.4783
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.4783
-        },
-        {
-          "keyword": "roblox animation simulator",
-          "coverage": 0.3478
-        },
-        {
-          "keyword": "roblox animation ideas",
-          "coverage": 0.3043
-        },
-        {
-          "keyword": "roblox animation studio",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "roblox animation games",
-          "coverage": 0.087
-        },
-        {
-          "keyword": "roblox animation game",
-          "coverage": 0.087
-        },
-        {
-          "keyword": "roblox forsaken",
-          "coverage": 0.087
-        }
-      ]
-    },
-    "3": {
-      "channel_count": 2,
-      "keywords": [
-        {
-          "keyword": "roblox pc executor",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "23": {
-      "channel_count": 10,
-      "keywords": [
-        {
-          "keyword": "roblox разблокируют",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "18": {
-      "channel_count": 9,
-      "keywords": [
-        {
-          "keyword": "roblox aura battle",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "24": {
-      "channel_count": 11,
-      "keywords": [
-        {
-          "keyword": "roblox egor",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "55": {
-      "channel_count": 37,
-      "keywords": [
-        {
-          "keyword": "roblox brookhaven 🏡rp historias",
-          "coverage": 0.8919
-        },
-        {
-          "keyword": "roblox en español",
-          "coverage": 0.4595
-        },
-        {
-          "keyword": "roblox de terror",
-          "coverage": 0.4054
-        },
-        {
-          "keyword": "roblox historias",
-          "coverage": 0.2973
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.1892
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.1622
-        },
-        {
-          "keyword": "roblox animation brookhaven",
-          "coverage": 0.1622
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.1622
-        },
-        {
-          "keyword": "roblox zombie",
-          "coverage": 0.0541
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox games to play when your bored",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox animation r63",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox rp",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox brookhaven 🏡rp",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.027
-        },
-        {
-          "keyword": "roblox movie",
-          "coverage": 0.027
-        }
-      ]
-    },
-    "25": {
-      "channel_count": 11,
-      "keywords": [
-        {
-          "keyword": "roblox zapret",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "8": {
-      "channel_count": 4,
-      "keywords": [
-        {
-          "keyword": "roblox queen",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "41": {
-      "channel_count": 25,
-      "keywords": [
-        {
-          "keyword": "minecraft animation software",
-          "coverage": 0.76
-        },
-        {
-          "keyword": "minecraft animation mod",
-          "coverage": 0.76
-        },
-        {
-          "keyword": "minecraft animation resource pack",
-          "coverage": 0.64
-        },
-        {
-          "keyword": "minecraft animations mod",
-          "coverage": 0.64
-        },
-        {
-          "keyword": "minecraft animation pack",
-          "coverage": 0.64
-        },
-        {
-          "keyword": "minecraft animation mobs",
-          "coverage": 0.44
-        },
-        {
-          "keyword": "minecraft bone meal farm",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "minecraft animation tutorial",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft backrooms",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "minecraft animation video kaise banaye mobile se",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "minecraft animation video kaise banaye",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "minecraft animation ai",
-          "coverage": 0.04
-        }
-      ]
-    },
-    "49": {
-      "channel_count": 32,
-      "keywords": [
-        {
-          "keyword": "minecraft animation herobrine",
-          "coverage": 0.8438
-        },
-        {
-          "keyword": "minecraft animation entity 303",
-          "coverage": 0.625
-        },
-        {
-          "keyword": "minecraft animation herobrine vs notch",
-          "coverage": 0.5938
-        },
-        {
-          "keyword": "minecraft animation mobs",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "minecraft animation song",
-          "coverage": 0.2812
-        },
-        {
-          "keyword": "minecraft animation war",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "minecraft animation fighting",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "minecraft cartoon",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "minecraft animation villager",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "minecraft animation fight",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "minecraft jj and mikey",
-          "coverage": 0.0938
-        },
-        {
-          "keyword": "minecraft animation poop",
-          "coverage": 0.0938
-        },
-        {
-          "keyword": "minecraft song",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "minecraft animation movie hindi",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "minecraft animation movie in hindi",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "minecraft animation full movie",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "minecraft minecraft",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "minecraft video",
-          "coverage": 0.0625
-        }
-      ]
-    },
-    "32": {
-      "channel_count": 16,
-      "keywords": [
-        {
-          "keyword": "minecraft animation zombie girl",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation merryweather",
-          "coverage": 0.75
-        },
-        {
-          "keyword": "minecraft animation zombie",
-          "coverage": 0.6875
-        }
-      ]
-    },
-    "59": {
-      "channel_count": 42,
-      "keywords": [
-        {
-          "keyword": "minecraft manhunt",
-          "coverage": 0.4762
-        },
-        {
-          "keyword": "minecraft daquavis shorts",
-          "coverage": 0.4048
-        },
-        {
-          "keyword": "minecraft troll",
-          "coverage": 0.4048
-        },
-        {
-          "keyword": "minecraft animation edits",
-          "coverage": 0.381
-        },
-        {
-          "keyword": "minecraft shorts",
-          "coverage": 0.2857
-        },
-        {
-          "keyword": "minecraft animation ai",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "minecraft hide and seek",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "minecraft animation edit",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "minecraft horror video",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "minecraft animation dream",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "minecraft",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft animation video kaise banaye",
-          "coverage": 0.119
-        },
-        {
-          "keyword": "minecraft animation tutorial",
-          "coverage": 0.119
-        },
-        {
-          "keyword": "minecraft skyblock",
-          "coverage": 0.119
-        },
-        {
-          "keyword": "minecraft animation now vs then",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft animations now vs then",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft song",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft animation shorts",
-          "coverage": 0.0714
-        },
-        {
-          "keyword": "minecraft animation software",
-          "coverage": 0.0476
-        },
-        {
-          "keyword": "minecraft animation video kaise banaye mobile se",
-          "coverage": 0.0238
-        }
-      ]
-    },
-    "67": {
-      "channel_count": 52,
-      "keywords": [
-        {
-          "keyword": "minecraft animation love",
-          "coverage": 0.6731
-        },
-        {
-          "keyword": "minecraft animation boy love",
-          "coverage": 0.5192
-        },
-        {
-          "keyword": "minecraft animation love story",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft animation girl",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft animation boy love react to",
-          "coverage": 0.3654
-        },
-        {
-          "keyword": "minecraft animation poop",
-          "coverage": 0.3077
-        },
-        {
-          "keyword": "minecraft animation sus",
-          "coverage": 0.3077
-        },
-        {
-          "keyword": "minecraft animation songs",
-          "coverage": 0.1346
-        },
-        {
-          "keyword": "minecraft animation music",
-          "coverage": 0.1346
-        },
-        {
-          "keyword": "minecraft animation song",
-          "coverage": 0.1154
-        },
-        {
-          "keyword": "minecraft animation",
-          "coverage": 0.0962
-        },
-        {
-          "keyword": "minecraft 🏠🔨",
-          "coverage": 0.0577
-        },
-        {
-          "keyword": "minecraft house",
-          "coverage": 0.0577
-        },
-        {
-          "keyword": "roblox age verification",
-          "coverage": 0.0577
-        },
-        {
-          "keyword": "roblox color or die",
-          "coverage": 0.0577
-        },
-        {
-          "keyword": "minecraft animations now vs then",
-          "coverage": 0.0385
-        },
-        {
-          "keyword": "minecraft animation now vs then",
-          "coverage": 0.0385
-        },
-        {
-          "keyword": "minecraft song",
-          "coverage": 0.0385
-        }
-      ]
-    },
-    "42": {
-      "channel_count": 25,
-      "keywords": [
-        {
-          "keyword": "minecraft animation prisma 3d",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation video kaise banaye mobile se",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation video kaise banaye",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft animation tutorial",
-          "coverage": 0.52
-        },
-        {
-          "keyword": "minecraft animation ai",
-          "coverage": 0.08
         }
       ]
     },
@@ -2774,355 +66,258 @@
       "channel_count": 3,
       "keywords": [
         {
-          "keyword": "minecraft animations 3d",
+          "keyword": "villager",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "groxmc villager manhunt",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox vs 10000 villagers em português manhunt",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox manhunt",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "groxmc",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox face reveal",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox block bound",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox en ingles",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox 100 villagers",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox tournament",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox is back",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox майнкрафт",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox ayo chill",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox edit",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox português",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox br",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox 10000 villagers",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox villager prison",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox chase theme",
           "coverage": 1.0
         }
       ]
     },
-    "68": {
-      "channel_count": 64,
+    "11": {
+      "channel_count": 4,
       "keywords": [
         {
-          "keyword": "roblox animation",
-          "coverage": 0.8594
+          "keyword": "villager news song",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation fight",
-          "coverage": 0.6094
+          "keyword": "villager news movie",
+          "coverage": 0.75
         },
         {
-          "keyword": "roblox animation fighting",
-          "coverage": 0.4844
+          "keyword": "villager news",
+          "coverage": 0.75
         },
         {
-          "keyword": "roblox animation games",
-          "coverage": 0.4688
-        },
-        {
-          "keyword": "roblox animations",
-          "coverage": 0.4688
-        },
-        {
-          "keyword": "roblox animation game",
-          "coverage": 0.4531
-        },
-        {
-          "keyword": "roblox animation 3d",
-          "coverage": 0.4531
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.4062
-        },
-        {
-          "keyword": "roblox animation simulator",
-          "coverage": 0.3594
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.3281
-        },
-        {
-          "keyword": "roblox animation id",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation funny",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation movie",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation robux",
-          "coverage": 0.2812
-        },
-        {
-          "keyword": "roblox animation dead rails",
-          "coverage": 0.2656
-        },
-        {
-          "keyword": "roblox animation old",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "roblox animation meme",
-          "coverage": 0.2344
+          "keyword": "villager war",
+          "coverage": 0.5
         }
       ]
     },
-    "43": {
-      "channel_count": 25,
+    "12": {
+      "channel_count": 4,
       "keywords": [
         {
-          "keyword": "roblox animation blender",
-          "coverage": 0.84
+          "keyword": "villager noises",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation tutorial blender",
-          "coverage": 0.84
-        },
-        {
-          "keyword": "roblox animation blender tutorial",
-          "coverage": 0.8
-        },
-        {
-          "keyword": "roblox animation sus",
-          "coverage": 0.56
-        },
-        {
-          "keyword": "roblox animation boy and girl",
-          "coverage": 0.52
-        },
-        {
-          "keyword": "roblox animation games",
-          "coverage": 0.28
-        },
-        {
-          "keyword": "roblox girl fart animation face",
-          "coverage": 0.24
-        },
-        {
-          "keyword": "roblox animation app",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox animation software",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animation moon animator",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "roblox animations now vs then",
-          "coverage": 0.12
-        },
-        {
-          "keyword": "roblox animation r63",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox game copier",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation id",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation tutorial",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation vfx",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation studio",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation on mobile",
-          "coverage": 0.04
+          "keyword": "villager sound",
+          "coverage": 1.0
         }
       ]
     },
-    "44": {
-      "channel_count": 25,
+    "8": {
+      "channel_count": 3,
       "keywords": [
         {
-          "keyword": "roblox animation app",
-          "coverage": 0.92
+          "keyword": "grox chase theme",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation software",
-          "coverage": 0.92
+          "keyword": "grox block bound",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation on mobile",
-          "coverage": 0.64
-        },
-        {
-          "keyword": "roblox game copier",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "roblox animation 3d",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "roblox animation blender",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animation tutorial blender",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animation tutorial",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animation code",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animation studio",
-          "coverage": 0.08
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.04
-        },
-        {
-          "keyword": "roblox animation dead rails",
-          "coverage": 0.04
+          "keyword": "grox killer concept",
+          "coverage": 1.0
         }
       ]
     },
-    "63": {
-      "channel_count": 49,
+    "1": {
+      "channel_count": 2,
       "keywords": [
         {
-          "keyword": "roblox animation code",
-          "coverage": 0.7551
+          "keyword": "grox 100 villagers vs gorilla",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation script",
-          "coverage": 0.6327
+          "keyword": "grox 100 villagers vs 1 gorilla",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "17": {
+      "channel_count": 6,
+      "keywords": [
+        {
+          "keyword": "minecraft memes oh my pc",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation tutorial",
-          "coverage": 0.5714
+          "keyword": "minecraft meme 2017",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation id",
-          "coverage": 0.5102
+          "keyword": "minecraft meme 2021",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "18": {
+      "channel_count": 6,
+      "keywords": [
+        {
+          "keyword": "minecraft meme sound effect",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation moon animator",
-          "coverage": 0.4082
+          "keyword": "minecraft meme sound effects",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox free items",
-          "coverage": 0.3469
+          "keyword": "minecraft meme bgm",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation dead rails",
-          "coverage": 0.2245
+          "keyword": "minecraft meme sounds",
+          "coverage": 0.5
         },
         {
-          "keyword": "roblox animation studio",
-          "coverage": 0.1837
+          "keyword": "minecraft meme sound",
+          "coverage": 0.5
+        }
+      ]
+    },
+    "2": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "minecraft meme sus",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "3": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "minecraft meme slave",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "13": {
+      "channel_count": 4,
+      "keywords": [
+        {
+          "keyword": "minecraft meme bgm",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation fight",
-          "coverage": 0.1633
+          "keyword": "minecraft meme song",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox mini war",
-          "coverage": 0.1633
+          "keyword": "minecraft meme music",
+          "coverage": 1.0
         },
         {
-          "keyword": "roblox animation 99 nights",
-          "coverage": 0.1633
+          "keyword": "minecraft movie edit",
+          "coverage": 0.5
         },
         {
-          "keyword": "roblox rp",
-          "coverage": 0.1429
+          "keyword": "minecraft movie soundtrack",
+          "coverage": 0.5
         },
         {
-          "keyword": "roblox",
-          "coverage": 0.1429
+          "keyword": "minecraft meme steve",
+          "coverage": 0.5
         },
         {
-          "keyword": "roblox animation ideas",
-          "coverage": 0.1429
-        },
+          "keyword": "minecraft meme animation",
+          "coverage": 0.5
+        }
+      ]
+    },
+    "14": {
+      "channel_count": 4,
+      "keywords": [
         {
-          "keyword": "roblox animations",
-          "coverage": 0.0816
-        },
-        {
-          "keyword": "roblox animation boy and girl",
-          "coverage": 0.0816
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.0408
-        },
-        {
-          "keyword": "roblox animation spoofer",
-          "coverage": 0.0408
-        },
-        {
-          "keyword": "roblox animation app",
-          "coverage": 0.0408
-        },
-        {
-          "keyword": "roblox animation software",
-          "coverage": 0.0408
+          "keyword": "minecraft meme jack black",
+          "coverage": 1.0
         }
       ]
     },
     "19": {
-      "channel_count": 9,
+      "channel_count": 6,
       "keywords": [
         {
-          "keyword": "roblox animation spoofer",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "roblox animation id",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "16": {
-      "channel_count": 8,
-      "keywords": [
-        {
-          "keyword": "roblox animation forsaken",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "31": {
-      "channel_count": 15,
-      "keywords": [
-        {
-          "keyword": "kids content",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "27": {
-      "channel_count": 12,
-      "keywords": [
-        {
-          "keyword": "minecraft smp",
+          "keyword": "minecraft meme animation gacha",
           "coverage": 1.0
         }
       ]
@@ -3131,7 +326,7 @@
       "channel_count": 2,
       "keywords": [
         {
-          "keyword": "minecraft techno gamerz",
+          "keyword": "minecraft memes 2018",
           "coverage": 1.0
         }
       ]
@@ -3140,7 +335,118 @@
       "channel_count": 2,
       "keywords": [
         {
-          "keyword": "minecraft animation stickman",
+          "keyword": "minecraft furry resource pack",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "15": {
+      "channel_count": 4,
+      "keywords": [
+        {
+          "keyword": "minecraft funny resource pack",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny pvp",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "20": {
+      "channel_count": 6,
+      "keywords": [
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie technoblade reaction",
+          "coverage": 0.8333
+        },
+        {
+          "keyword": "minecraft movie reaction mashup",
+          "coverage": 0.8333
+        },
+        {
+          "keyword": "minecraft movie react to dream",
+          "coverage": 0.3333
+        },
+        {
+          "keyword": "minecraft movie lava chicken",
+          "coverage": 0.1667
+        }
+      ]
+    },
+    "22": {
+      "channel_count": 12,
+      "keywords": [
+        {
+          "keyword": "minecraft movie lava chicken",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie song",
+          "coverage": 0.8333
+        },
+        {
+          "keyword": "minecraft movie soundtrack",
+          "coverage": 0.75
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 0.4167
+        },
+        {
+          "keyword": "minecraft movie music",
+          "coverage": 0.3333
+        },
+        {
+          "keyword": "minecraft funny song",
+          "coverage": 0.3333
+        }
+      ]
+    },
+    "16": {
+      "channel_count": 4,
+      "keywords": [
+        {
+          "keyword": "minecraft movie toys",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "21": {
+      "channel_count": 6,
+      "keywords": [
+        {
+          "keyword": "minecraft movie trailer",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie enderman scene",
+          "coverage": 0.8333
+        },
+        {
+          "keyword": "minecraft movie teaser",
+          "coverage": 0.6667
+        }
+      ]
+    },
+    "9": {
+      "channel_count": 3,
+      "keywords": [
+        {
+          "keyword": "minecraft movie end credits",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "10": {
+      "channel_count": 3,
+      "keywords": [
+        {
+          "keyword": "minecraft movie chicken jockey",
           "coverage": 1.0
         }
       ]
