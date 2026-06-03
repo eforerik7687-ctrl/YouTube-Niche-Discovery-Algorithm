@@ -182,10 +182,8 @@ class KeywordPropagator:
                 delay = random.uniform(self.config.delay_min, self.config.delay_max)
                 time.sleep(delay)
 
-                # Shorts: append ' short' to bias search toward Shorts
-                search_query = f"{suggestion} short" if self.config.shorts_mode else suggestion
                 results = self.yt.search(
-                    search_query,
+                    suggestion,
                     max_results=self.config.max_results_per_keyword,
                     sort_by=self.config.sort_by,
                     type="video",
@@ -194,17 +192,6 @@ class KeywordPropagator:
                     channel = getattr(video, "channel", "") or ""
                     if not channel:
                         continue
-                    # Shorts view filter: skip low-view videos
-                    if self.config.shorts_mode:
-                        views = KeywordPropagator._parse_view_count(
-                            getattr(video, "view_count", None)
-                        )
-                        if views < self.config.min_views:
-                            continue
-                        # Shorts duration filter: only videos under 60s
-                        dur = getattr(video, "duration_seconds", None)
-                        if dur is not None and dur > 60:
-                            continue
                     if channel not in channel_keywords:
                         channel_keywords[channel] = {}
                     # Capture channel URL from YouTube API
@@ -291,11 +278,9 @@ class KeywordPropagator:
         async def _search_one(suggestion: str, seed: str):
             """Search one suggestion keyword with concurrency control."""
             async with sem:
-                # Shorts: append ' short' to bias search toward Shorts
-                search_query = f"{suggestion} short" if self.config.shorts_mode else suggestion
                 try:
                     results = await self.yt.asearch(
-                        search_query,
+                        suggestion,
                         max_results=self.config.max_results_per_keyword,
                         sort_by=self.config.sort_by,
                         type="video",
@@ -308,17 +293,6 @@ class KeywordPropagator:
                     channel = getattr(video, "channel", "") or ""
                     if not channel:
                         continue
-                    # Shorts view filter: skip low-view videos
-                    if self.config.shorts_mode:
-                        views = KeywordPropagator._parse_view_count(
-                            getattr(video, "view_count", None)
-                        )
-                        if views < self.config.min_views:
-                            continue
-                        # Shorts duration filter: only videos under 60s
-                        dur = getattr(video, "duration_seconds", None)
-                        if dur is not None and dur > 60:
-                            continue
                     if channel not in channel_keywords:
                         channel_keywords[channel] = {}
                     # Capture channel URL

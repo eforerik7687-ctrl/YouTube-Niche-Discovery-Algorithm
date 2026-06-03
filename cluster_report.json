@@ -1,22 +1,223 @@
 {
   "cluster_keywords": {
-    "0": {
-      "channel_count": 2,
+    "71": {
+      "channel_count": 101,
       "keywords": [
         {
+          "keyword": "villager trading hall",
+          "coverage": 0.6733
+        },
+        {
+          "keyword": "villager trading hall design",
+          "coverage": 0.6436
+        },
+        {
+          "keyword": "villager trading hall 1.21 bedrock",
+          "coverage": 0.5743
+        },
+        {
+          "keyword": "villager trading hall tutorial",
+          "coverage": 0.5644
+        },
+        {
+          "keyword": "villager trading hall bedrock",
+          "coverage": 0.5446
+        },
+        {
+          "keyword": "villager zombie converter",
+          "coverage": 0.5446
+        },
+        {
+          "keyword": "villager breeder 1.21",
+          "coverage": 0.5347
+        },
+        {
+          "keyword": "villager trading",
+          "coverage": 0.5248
+        },
+        {
+          "keyword": "villager farm",
+          "coverage": 0.4851
+        },
+        {
+          "keyword": "villager farm minecraft",
+          "coverage": 0.4653
+        },
+        {
+          "keyword": "villager breeder bedrock",
+          "coverage": 0.4158
+        },
+        {
+          "keyword": "villager breeder 26.1.2",
+          "coverage": 0.4059
+        },
+        {
+          "keyword": "villager breeder 1.21 bedrock",
+          "coverage": 0.4059
+        },
+        {
+          "keyword": "villager breeder",
+          "coverage": 0.4059
+        },
+        {
+          "keyword": "villager breeder 1.21 java",
+          "coverage": 0.4059
+        },
+        {
+          "keyword": "villager minecraft",
+          "coverage": 0.3564
+        },
+        {
+          "keyword": "villager in minecraft",
+          "coverage": 0.2871
+        },
+        {
+          "keyword": "villager house minecraft tutorial",
+          "coverage": 0.2871
+        },
+        {
           "keyword": "villager",
+          "coverage": 0.2673
+        },
+        {
+          "keyword": "villager house",
+          "coverage": 0.198
+        }
+      ]
+    },
+    "40": {
+      "channel_count": 20,
+      "keywords": [
+        {
+          "keyword": "villager cantando",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme villager",
+          "keyword": "villager cantando até que durou",
           "coverage": 1.0
+        }
+      ]
+    },
+    "53": {
+      "channel_count": 35,
+      "keywords": [
+        {
+          "keyword": "villager song",
+          "coverage": 0.9714
         },
         {
-          "keyword": "minecraft memes villager",
-          "coverage": 1.0
+          "keyword": "villager ai cover",
+          "coverage": 0.9429
         },
         {
-          "keyword": "villagers night",
+          "keyword": "villager cover",
+          "coverage": 0.9429
+        },
+        {
+          "keyword": "villager singing",
+          "coverage": 0.9429
+        },
+        {
+          "keyword": "villager cantando",
+          "coverage": 0.9429
+        },
+        {
+          "keyword": "villager minecraft sound",
+          "coverage": 0.4857
+        },
+        {
+          "keyword": "villager funk",
+          "coverage": 0.4571
+        },
+        {
+          "keyword": "villager phonk",
+          "coverage": 0.4286
+        },
+        {
+          "keyword": "villager sound",
+          "coverage": 0.2286
+        },
+        {
+          "keyword": "villagers",
+          "coverage": 0.1714
+        },
+        {
+          "keyword": "minecraft funny songs",
+          "coverage": 0.1143
+        },
+        {
+          "keyword": "villagers must obey",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "minecraft meme music",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "villager in minecraft",
+          "coverage": 0.0286
+        }
+      ]
+    },
+    "69": {
+      "channel_count": 79,
+      "keywords": [
+        {
+          "keyword": "विलेज",
+          "coverage": 0.9367
+        },
+        {
+          "keyword": "village life",
+          "coverage": 0.9241
+        },
+        {
+          "keyword": "village life status",
+          "coverage": 0.5696
+        },
+        {
+          "keyword": "village hindi",
+          "coverage": 0.5696
+        },
+        {
+          "keyword": "village vlog",
+          "coverage": 0.519
+        },
+        {
+          "keyword": "village life vlog",
+          "coverage": 0.5063
+        },
+        {
+          "keyword": "village life 4",
+          "coverage": 0.3671
+        },
+        {
+          "keyword": "village cooking channel",
+          "coverage": 0.2532
+        },
+        {
+          "keyword": "village life 3",
+          "coverage": 0.2152
+        },
+        {
+          "keyword": "villager tvs",
+          "coverage": 0.038
+        }
+      ]
+    },
+    "37": {
+      "channel_count": 19,
+      "keywords": [
+        {
+          "keyword": "village song",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "46": {
+      "channel_count": 25,
+      "keywords": [
+        {
+          "keyword": "village funk",
           "coverage": 1.0
         },
         {
@@ -24,159 +225,471 @@
           "coverage": 1.0
         },
         {
-          "keyword": "villager trading",
+          "keyword": "villager phonk",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft funny villager",
-          "coverage": 1.0
+          "keyword": "villager song",
+          "coverage": 0.36
         },
         {
-          "keyword": "minecraft funny villagers",
-          "coverage": 1.0
+          "keyword": "village song",
+          "coverage": 0.28
         },
         {
-          "keyword": "villager minecraft",
-          "coverage": 1.0
+          "keyword": "minecraft funny songs",
+          "coverage": 0.24
         },
         {
-          "keyword": "villager singing",
-          "coverage": 1.0
+          "keyword": "minecraft memes in hindi",
+          "coverage": 0.24
+        },
+        {
+          "keyword": "villager minecraft sound",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "villager sound",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "minecraft meme music",
+          "coverage": 0.2
         },
         {
           "keyword": "villager in minecraft",
-          "coverage": 1.0
+          "coverage": 0.2
         },
         {
-          "keyword": "villager farm",
-          "coverage": 1.0
+          "keyword": "villager cantando",
+          "coverage": 0.12
+        },
+        {
+          "keyword": "villager singing",
+          "coverage": 0.12
+        },
+        {
+          "keyword": "villager ai cover",
+          "coverage": 0.08
+        },
+        {
+          "keyword": "villager cover",
+          "coverage": 0.08
         }
       ]
     },
-    "6": {
-      "channel_count": 3,
+    "44": {
+      "channel_count": 24,
       "keywords": [
+        {
+          "keyword": "villagers must obey",
+          "coverage": 0.9583
+        },
+        {
+          "keyword": "villagers reported the village doctor but he alone could save them when ill",
+          "coverage": 0.9167
+        },
+        {
+          "keyword": "minecraft funny villagers",
+          "coverage": 0.625
+        },
+        {
+          "keyword": "villagers",
+          "coverage": 0.2917
+        },
+        {
+          "keyword": "villager trading",
+          "coverage": 0.2917
+        }
+      ]
+    },
+    "30": {
+      "channel_count": 15,
+      "keywords": [
+        {
+          "keyword": "minecraft memes",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft memes funny",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny memes",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny meme",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme funny",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme video",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft memes compilation",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft meme compilation",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft memes shorts",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft meme videos",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft memes real life",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft meme shorts",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft funny fails",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft memes movie",
+          "coverage": 0.9333
+        },
+        {
+          "keyword": "minecraft movie memes",
+          "coverage": 0.8667
+        },
+        {
+          "keyword": "minecraft memes in real life",
+          "coverage": 0.8667
+        },
+        {
+          "keyword": "minecraft memes that i watch with my teacher",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "minecraft meme top 5",
+          "coverage": 0.7333
+        },
+        {
+          "keyword": "minecraft meme moment",
+          "coverage": 0.7333
+        }
+      ]
+    },
+    "57": {
+      "channel_count": 44,
+      "keywords": [
+        {
+          "keyword": "village life 4",
+          "coverage": 0.9318
+        },
+        {
+          "keyword": "village life 3",
+          "coverage": 0.6591
+        },
+        {
+          "keyword": "village life ep 7",
+          "coverage": 0.6364
+        },
+        {
+          "keyword": "village life",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "village life vlog",
+          "coverage": 0.3182
+        },
+        {
+          "keyword": "village cooking channel",
+          "coverage": 0.3182
+        },
         {
           "keyword": "village life status",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "7": {
-      "channel_count": 3,
-      "keywords": [
-        {
-          "keyword": "villager",
-          "coverage": 1.0
+          "coverage": 0.1818
         },
         {
-          "keyword": "groxmc villager manhunt",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox vs 10000 villagers em português manhunt",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox manhunt",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "groxmc",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox face reveal",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox block bound",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox en ingles",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox 100 villagers",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox tournament",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox is back",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox майнкрафт",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox ayo chill",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox edit",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox português",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox br",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox 10000 villagers",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox villager prison",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox chase theme",
-          "coverage": 1.0
+          "keyword": "village hindi",
+          "coverage": 0.1136
         }
       ]
     },
     "11": {
-      "channel_count": 4,
+      "channel_count": 5,
       "keywords": [
         {
-          "keyword": "villager news song",
+          "keyword": "villager sa",
           "coverage": 1.0
-        },
-        {
-          "keyword": "villager news movie",
-          "coverage": 0.75
-        },
-        {
-          "keyword": "villager news",
-          "coverage": 0.75
-        },
-        {
-          "keyword": "villager war",
-          "coverage": 0.5
         }
       ]
     },
     "12": {
-      "channel_count": 4,
+      "channel_count": 5,
       "keywords": [
         {
-          "keyword": "villager noises",
+          "keyword": "minecraft funny moments",
           "coverage": 1.0
         },
         {
-          "keyword": "villager sound",
+          "keyword": "minecraft funny moments video",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny clips",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny moment",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny moments compilation",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraftfunny",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny moments 2024",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "minecraft meme moment",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी मोमेंट्स",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी मोमेंट",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "minecraft memes compilation",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "minecraft funny videos try not to laugh",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "minecraft funny",
+          "coverage": 0.8
+        },
+        {
+          "keyword": "minecraft funny moments shorts",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft meme 2021",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft meme top 5",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft funny youtubers",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft funny fails",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft funny pvp",
+          "coverage": 0.6
+        }
+      ]
+    },
+    "31": {
+      "channel_count": 15,
+      "keywords": [
+        {
+          "keyword": "villager tvs",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "villager news",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "villager news movie",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "villager tv",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "minecraft funny moments 2024",
+          "coverage": 0.1333
+        },
+        {
+          "keyword": "minecraft movie recap",
+          "coverage": 0.1333
+        },
+        {
+          "keyword": "minecraft memes brasil",
+          "coverage": 0.0667
+        },
+        {
+          "keyword": "minecraft meme br",
+          "coverage": 0.0667
+        }
+      ]
+    },
+    "25": {
+      "channel_count": 13,
+      "keywords": [
+        {
+          "keyword": "village news",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grok english",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "66": {
+      "channel_count": 63,
+      "keywords": [
+        {
+          "keyword": "grox reaction",
+          "coverage": 0.746
+        },
+        {
+          "keyword": "grox реакция",
+          "coverage": 0.6825
+        },
+        {
+          "keyword": "grox 10000 villagers manhunt",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "villagers night",
+          "coverage": 0.5238
+        },
+        {
+          "keyword": "grox vs 1m villager",
+          "coverage": 0.5079
+        },
+        {
+          "keyword": "grox vs 10000 villagers em português manhunt",
+          "coverage": 0.4762
+        },
+        {
+          "keyword": "grox reaction gacha life",
+          "coverage": 0.4603
+        },
+        {
+          "keyword": "groxmc villager manhunt",
+          "coverage": 0.3016
+        },
+        {
+          "keyword": "grox edit",
+          "coverage": 0.3016
+        },
+        {
+          "keyword": "minecraft movie recap",
+          "coverage": 0.3016
+        },
+        {
+          "keyword": "grox mob tournament",
+          "coverage": 0.2857
+        },
+        {
+          "keyword": "grox manhunt",
+          "coverage": 0.254
+        },
+        {
+          "keyword": "grox vs 10000 villagers",
+          "coverage": 0.2381
+        },
+        {
+          "keyword": "grox 10000 villagers",
+          "coverage": 0.2381
+        },
+        {
+          "keyword": "grox villager manhunt",
+          "coverage": 0.2381
+        },
+        {
+          "keyword": "grok vs 1 million villagers",
+          "coverage": 0.2381
+        },
+        {
+          "keyword": "grox ludwig",
+          "coverage": 0.2063
+        },
+        {
+          "keyword": "grox",
+          "coverage": 0.1746
+        },
+        {
+          "keyword": "grox 100 villagers",
+          "coverage": 0.1746
+        },
+        {
+          "keyword": "grox brasileiro",
+          "coverage": 0.1587
+        }
+      ]
+    },
+    "38": {
+      "channel_count": 19,
+      "keywords": [
+        {
+          "keyword": "villagers and heroes gameplay",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "villagers and heroes",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "32": {
+      "channel_count": 15,
+      "keywords": [
+        {
+          "keyword": "villager workers mod",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "0": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "village life with om and family",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "20": {
+      "channel_count": 8,
+      "keywords": [
+        {
+          "keyword": "villager news song",
           "coverage": 1.0
         }
       ]
@@ -185,28 +698,147 @@
       "channel_count": 3,
       "keywords": [
         {
-          "keyword": "grox chase theme",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox block bound",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "grox killer concept",
+          "keyword": "villager werman",
           "coverage": 1.0
         }
       ]
     },
-    "1": {
-      "channel_count": 2,
+    "42": {
+      "channel_count": 22,
       "keywords": [
+        {
+          "keyword": "villager sound",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "villager minecraft sound",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "villager noises",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme sound effect",
+          "coverage": 0.5455
+        },
+        {
+          "keyword": "minecraft meme sound effects",
+          "coverage": 0.5455
+        },
+        {
+          "keyword": "minecraft meme sounds",
+          "coverage": 0.5455
+        },
+        {
+          "keyword": "minecraft meme sound",
+          "coverage": 0.5455
+        },
+        {
+          "keyword": "minecraft movie villager",
+          "coverage": 0.0455
+        },
+        {
+          "keyword": "villager funk",
+          "coverage": 0.0455
+        },
+        {
+          "keyword": "villager phonk",
+          "coverage": 0.0455
+        },
+        {
+          "keyword": "villager song",
+          "coverage": 0.0455
+        },
+        {
+          "keyword": "minecraft meme music",
+          "coverage": 0.0455
+        },
+        {
+          "keyword": "villager in minecraft",
+          "coverage": 0.0455
+        }
+      ]
+    },
+    "45": {
+      "channel_count": 24,
+      "keywords": [
+        {
+          "keyword": "grox 100 villagers vs 1 gorilla",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox gorilla",
+          "coverage": 1.0
+        },
         {
           "keyword": "grox 100 villagers vs gorilla",
           "coverage": 1.0
         },
         {
-          "keyword": "grox 100 villagers vs 1 gorilla",
+          "keyword": "grox reaction gacha life",
+          "coverage": 0.875
+        },
+        {
+          "keyword": "villager war",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "grox 10000 villagers",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "grox villager prison",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "villager squid game",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "minecraft movie reaction",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "grox mob tournament",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "minecraft movie technoblade reaction",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "minecraft memes oh my pc",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "minecraft movie react to dream",
+          "coverage": 0.7917
+        },
+        {
+          "keyword": "grox vs 1m villager",
+          "coverage": 0.7917
+        }
+      ]
+    },
+    "16": {
+      "channel_count": 6,
+      "keywords": [
+        {
+          "keyword": "grox türkçe",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox brasileiro",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "33": {
+      "channel_count": 15,
+      "keywords": [
+        {
+          "keyword": "gross",
           "coverage": 1.0
         }
       ]
@@ -215,16 +847,78 @@
       "channel_count": 6,
       "keywords": [
         {
-          "keyword": "minecraft memes oh my pc",
+          "keyword": "grox ayo chill",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "51": {
+      "channel_count": 31,
+      "keywords": [
+        {
+          "keyword": "grox edit",
+          "coverage": 0.9677
+        },
+        {
+          "keyword": "grok em português",
+          "coverage": 0.6129
+        },
+        {
+          "keyword": "grok edit",
+          "coverage": 0.6129
+        },
+        {
+          "keyword": "grox is back",
+          "coverage": 0.3226
+        },
+        {
+          "keyword": "grox tagalog",
+          "coverage": 0.3226
+        },
+        {
+          "keyword": "minecraft meme steve",
+          "coverage": 0.2581
+        },
+        {
+          "keyword": "minecraft movie full movie 2025 english",
+          "coverage": 0.129
+        },
+        {
+          "keyword": "grox reaction gacha life",
+          "coverage": 0.0968
+        },
+        {
+          "keyword": "groxmc на русском",
+          "coverage": 0.0645
+        },
+        {
+          "keyword": "grox block bound",
+          "coverage": 0.0645
+        },
+        {
+          "keyword": "grox face reveal",
+          "coverage": 0.0645
+        }
+      ]
+    },
+    "48": {
+      "channel_count": 26,
+      "keywords": [
+        {
+          "keyword": "grox block bound",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme 2017",
+          "keyword": "grox chase theme",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme 2021",
+          "keyword": "grox killer concept",
           "coverage": 1.0
+        },
+        {
+          "keyword": "grox edit",
+          "coverage": 0.3077
         }
       ]
     },
@@ -232,24 +926,647 @@
       "channel_count": 6,
       "keywords": [
         {
-          "keyword": "minecraft meme sound effect",
+          "keyword": "grox en español",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme sound effects",
+          "keyword": "grox vs 10000 villagers em português",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "50": {
+      "channel_count": 27,
+      "keywords": [
+        {
+          "keyword": "grox реакция",
+          "coverage": 0.8148
+        },
+        {
+          "keyword": "groxmc на русском",
+          "coverage": 0.7778
+        },
+        {
+          "keyword": "grox пятерка",
+          "coverage": 0.7778
+        },
+        {
+          "keyword": "grox русская озвучка",
+          "coverage": 0.7407
+        },
+        {
+          "keyword": "grox на русском",
+          "coverage": 0.7407
+        },
+        {
+          "keyword": "grox против 1 млн жителей",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "grox майнкрафт",
+          "coverage": 0.5556
+        }
+      ]
+    },
+    "13": {
+      "channel_count": 5,
+      "keywords": [
+        {
+          "keyword": "grox no laws",
           "coverage": 1.0
         },
+        {
+          "keyword": "grox 100 villagers",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "grox face reveal",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "63": {
+      "channel_count": 56,
+      "keywords": [
+        {
+          "keyword": "grok ai",
+          "coverage": 0.9821
+        },
+        {
+          "keyword": "grok edit",
+          "coverage": 0.6964
+        },
+        {
+          "keyword": "grok english",
+          "coverage": 0.6786
+        },
+        {
+          "keyword": "grok hindi",
+          "coverage": 0.625
+        },
+        {
+          "keyword": "grox edit",
+          "coverage": 0.1964
+        },
+        {
+          "keyword": "grok em português",
+          "coverage": 0.1964
+        },
+        {
+          "keyword": "village news",
+          "coverage": 0.1071
+        }
+      ]
+    },
+    "34": {
+      "channel_count": 15,
+      "keywords": [
+        {
+          "keyword": "minecraft funny horror",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme horror",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "minecraft funny mods",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "minecraft funny shorts",
+          "coverage": 0.4667
+        },
+        {
+          "keyword": "minecraft meme mod",
+          "coverage": 0.0667
+        },
+        {
+          "keyword": "minecraft furry resource pack",
+          "coverage": 0.0667
+        },
+        {
+          "keyword": "minecraft furry mod",
+          "coverage": 0.0667
+        },
+        {
+          "keyword": "minecraft funny resource pack",
+          "coverage": 0.0667
+        }
+      ]
+    },
+    "68": {
+      "channel_count": 73,
+      "keywords": [
         {
           "keyword": "minecraft meme bgm",
-          "coverage": 1.0
+          "coverage": 0.5616
         },
         {
-          "keyword": "minecraft meme sounds",
-          "coverage": 0.5
+          "keyword": "minecraft meme song",
+          "coverage": 0.5616
+        },
+        {
+          "keyword": "minecraft movie music",
+          "coverage": 0.5205
+        },
+        {
+          "keyword": "minecraft meme music",
+          "coverage": 0.4932
+        },
+        {
+          "keyword": "minecraft movie lava chicken",
+          "coverage": 0.4795
+        },
+        {
+          "keyword": "minecraft movie soundtrack",
+          "coverage": 0.4247
+        },
+        {
+          "keyword": "minecraft funny song",
+          "coverage": 0.3836
+        },
+        {
+          "keyword": "minecraft movie song",
+          "coverage": 0.3425
+        },
+        {
+          "keyword": "minecraft funny songs",
+          "coverage": 0.3288
+        },
+        {
+          "keyword": "minecraft movie ost",
+          "coverage": 0.3288
+        },
+        {
+          "keyword": "minecraft funny cat",
+          "coverage": 0.3014
         },
         {
           "keyword": "minecraft meme sound",
-          "coverage": 0.5
+          "coverage": 0.2603
+        },
+        {
+          "keyword": "minecraft meme sounds",
+          "coverage": 0.1781
+        },
+        {
+          "keyword": "minecraft meme 2017",
+          "coverage": 0.1644
+        },
+        {
+          "keyword": "villager song",
+          "coverage": 0.1507
+        },
+        {
+          "keyword": "minecraft movie intro",
+          "coverage": 0.137
+        },
+        {
+          "keyword": "minecraft funny axolotl",
+          "coverage": 0.1233
+        },
+        {
+          "keyword": "minecraft meme br",
+          "coverage": 0.1233
+        },
+        {
+          "keyword": "minecraft funny zombie",
+          "coverage": 0.1233
+        },
+        {
+          "keyword": "minecraft movie steve",
+          "coverage": 0.1096
+        }
+      ]
+    },
+    "54": {
+      "channel_count": 35,
+      "keywords": [
+        {
+          "keyword": "minecraft meme compilation",
+          "coverage": 0.7714
+        },
+        {
+          "keyword": "minecraft memes that i watch with my teacher",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft memes compilation",
+          "coverage": 0.5714
+        },
+        {
+          "keyword": "minecraft memes prestonplayz",
+          "coverage": 0.3429
+        },
+        {
+          "keyword": "minecraft funny memes preston",
+          "coverage": 0.3429
+        },
+        {
+          "keyword": "minecraft meme",
+          "coverage": 0.2571
+        },
+        {
+          "keyword": "minecraft meme moment",
+          "coverage": 0.2571
+        },
+        {
+          "keyword": "minecraft meme tiktok",
+          "coverage": 0.2571
+        },
+        {
+          "keyword": "minecraft funny moments villager",
+          "coverage": 0.2571
+        },
+        {
+          "keyword": "minecraft memes 2018",
+          "coverage": 0.2286
+        },
+        {
+          "keyword": "minecraft meme villager",
+          "coverage": 0.2286
+        },
+        {
+          "keyword": "minecraft memes villager",
+          "coverage": 0.2286
+        },
+        {
+          "keyword": "minecraft funny villagers",
+          "coverage": 0.2286
+        },
+        {
+          "keyword": "minecraft funny villager",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "villager football sports",
+          "coverage": 0.1714
+        },
+        {
+          "keyword": "minecraft meme animation",
+          "coverage": 0.1429
+        },
+        {
+          "keyword": "minecraft memes",
+          "coverage": 0.0857
+        },
+        {
+          "keyword": "villagers",
+          "coverage": 0.0571
+        },
+        {
+          "keyword": "villagers night",
+          "coverage": 0.0571
+        },
+        {
+          "keyword": "villagers vs pillagers",
+          "coverage": 0.0571
+        }
+      ]
+    },
+    "65": {
+      "channel_count": 58,
+      "keywords": [
+        {
+          "keyword": "minecraft meme animation",
+          "coverage": 0.4138
+        },
+        {
+          "keyword": "minecraft meme br",
+          "coverage": 0.3793
+        },
+        {
+          "keyword": "minecraft memes brasil",
+          "coverage": 0.3103
+        },
+        {
+          "keyword": "villager tvs",
+          "coverage": 0.3103
+        },
+        {
+          "keyword": "minecraft funny speedrun",
+          "coverage": 0.2414
+        },
+        {
+          "keyword": "minecraft meme animation funny",
+          "coverage": 0.2069
+        },
+        {
+          "keyword": "minecraft funny edit",
+          "coverage": 0.1897
+        },
+        {
+          "keyword": "minecraft meme shorts",
+          "coverage": 0.1724
+        },
+        {
+          "keyword": "minecraft funny animation",
+          "coverage": 0.1724
+        },
+        {
+          "keyword": "minecraft movie cartoon",
+          "coverage": 0.1379
+        },
+        {
+          "keyword": "grox vs dream",
+          "coverage": 0.1379
+        },
+        {
+          "keyword": "minecraft meme",
+          "coverage": 0.1207
+        },
+        {
+          "keyword": "minecraft funny videos animation",
+          "coverage": 0.1207
+        },
+        {
+          "keyword": "minecraft funny cartoon",
+          "coverage": 0.1207
+        },
+        {
+          "keyword": "minecraft funny clips",
+          "coverage": 0.1034
+        },
+        {
+          "keyword": "minecraft funny fails",
+          "coverage": 0.1034
+        },
+        {
+          "keyword": "grox vs herobrine",
+          "coverage": 0.1034
+        },
+        {
+          "keyword": "grox vs reff",
+          "coverage": 0.1034
+        },
+        {
+          "keyword": "minecraft funny steve",
+          "coverage": 0.0862
+        },
+        {
+          "keyword": "minecraft funny movie",
+          "coverage": 0.0862
+        }
+      ]
+    },
+    "1": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "minecraft memes 2018",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme 2017",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraftfunny",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny video",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny videos animation",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny videos",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी वीडियो",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी मोमेंट",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny animation",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft memes in hindi",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny moments monster school",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny movie",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी शॉट",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी शॉर्ट्स",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी शॉर्ट वीडियो",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny cartoon",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny short video",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny minecraft",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "58": {
+      "channel_count": 49,
+      "keywords": [
+        {
+          "keyword": "minecraft memes 2018",
+          "coverage": 0.551
+        },
+        {
+          "keyword": "minecraft meme 2017",
+          "coverage": 0.5306
+        },
+        {
+          "keyword": "minecraft meme animation",
+          "coverage": 0.3878
+        },
+        {
+          "keyword": "minecraft meme animation gacha",
+          "coverage": 0.3469
+        },
+        {
+          "keyword": "minecraft movie herobrine",
+          "coverage": 0.3061
+        },
+        {
+          "keyword": "minecraft meme 2021",
+          "coverage": 0.2449
+        },
+        {
+          "keyword": "minecraft movie part 1",
+          "coverage": 0.2245
+        },
+        {
+          "keyword": "minecraft memes in real life",
+          "coverage": 0.2041
+        },
+        {
+          "keyword": "minecraft meme in real life",
+          "coverage": 0.2041
+        },
+        {
+          "keyword": "minecraft memes real life",
+          "coverage": 0.2041
+        },
+        {
+          "keyword": "minecraft funny moments in real life",
+          "coverage": 0.1633
+        },
+        {
+          "keyword": "minecraft meme compilation",
+          "coverage": 0.1429
+        },
+        {
+          "keyword": "minecraft memes compilation",
+          "coverage": 0.1224
+        },
+        {
+          "keyword": "minecraft meme tiktok",
+          "coverage": 0.102
+        },
+        {
+          "keyword": "minecraft meme music",
+          "coverage": 0.0816
+        },
+        {
+          "keyword": "minecraft memes that i watch with my teacher",
+          "coverage": 0.0612
+        },
+        {
+          "keyword": "minecraft meme do caixão",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft funny cat",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft meme steve",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft funny steve",
+          "coverage": 0.0408
+        }
+      ]
+    },
+    "67": {
+      "channel_count": 67,
+      "keywords": [
+        {
+          "keyword": "minecraft meme sounds",
+          "coverage": 0.6269
+        },
+        {
+          "keyword": "minecraft meme sound effects",
+          "coverage": 0.597
+        },
+        {
+          "keyword": "minecraft meme sound effect",
+          "coverage": 0.5672
+        },
+        {
+          "keyword": "minecraft meme sound",
+          "coverage": 0.5672
+        },
+        {
+          "keyword": "minecraft funny resource pack",
+          "coverage": 0.5522
+        },
+        {
+          "keyword": "minecraft meme mod",
+          "coverage": 0.5075
+        },
+        {
+          "keyword": "minecraft movie enderman scene",
+          "coverage": 0.3582
+        },
+        {
+          "keyword": "minecraft meme bgm",
+          "coverage": 0.2985
+        },
+        {
+          "keyword": "minecraft funny mods",
+          "coverage": 0.2836
+        },
+        {
+          "keyword": "villager minecraft sound",
+          "coverage": 0.2388
+        },
+        {
+          "keyword": "villager sound",
+          "coverage": 0.209
+        },
+        {
+          "keyword": "villager noises",
+          "coverage": 0.209
+        },
+        {
+          "keyword": "minecraft movie steve",
+          "coverage": 0.1791
+        },
+        {
+          "keyword": "minecraft movie villager",
+          "coverage": 0.1791
+        },
+        {
+          "keyword": "minecraft meme music",
+          "coverage": 0.1493
+        },
+        {
+          "keyword": "villager song",
+          "coverage": 0.0896
+        },
+        {
+          "keyword": "villager cover",
+          "coverage": 0.0896
+        },
+        {
+          "keyword": "minecraft meme song",
+          "coverage": 0.0896
+        },
+        {
+          "keyword": "minecraft meme shorts",
+          "coverage": 0.0896
+        },
+        {
+          "keyword": "minecraft funny songs",
+          "coverage": 0.0896
+        }
+      ]
+    },
+    "36": {
+      "channel_count": 16,
+      "keywords": [
+        {
+          "keyword": "minecraft meme olympics",
+          "coverage": 1.0
         }
       ]
     },
@@ -257,8 +1574,221 @@
       "channel_count": 2,
       "keywords": [
         {
-          "keyword": "minecraft meme sus",
+          "keyword": "minecraft memes you can't explain",
           "coverage": 1.0
+        }
+      ]
+    },
+    "14": {
+      "channel_count": 5,
+      "keywords": [
+        {
+          "keyword": "minecraft funny peppa pig",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft memes peppa pig",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme in real life",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft funny cartoon",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft funny edit",
+          "coverage": 0.6
+        }
+      ]
+    },
+    "26": {
+      "channel_count": 13,
+      "keywords": [
+        {
+          "keyword": "minecraft meme español",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "61": {
+      "channel_count": 55,
+      "keywords": [
+        {
+          "keyword": "minecraft meme jack black",
+          "coverage": 0.9273
+        },
+        {
+          "keyword": "minecraft movie chicken jockey",
+          "coverage": 0.8727
+        },
+        {
+          "keyword": "minecraft movie ytp",
+          "coverage": 0.8727
+        },
+        {
+          "keyword": "minecraft movie memes",
+          "coverage": 0.7818
+        },
+        {
+          "keyword": "minecraft memes movie",
+          "coverage": 0.5636
+        },
+        {
+          "keyword": "minecraft movie 2 teaser",
+          "coverage": 0.3273
+        },
+        {
+          "keyword": "minecraft movie 2 announcement",
+          "coverage": 0.3273
+        },
+        {
+          "keyword": "minecraft movie is bad",
+          "coverage": 0.1636
+        },
+        {
+          "keyword": "minecraft movie ost",
+          "coverage": 0.1636
+        },
+        {
+          "keyword": "minecraft funny movie",
+          "coverage": 0.1273
+        },
+        {
+          "keyword": "minecraft movie edit",
+          "coverage": 0.1091
+        },
+        {
+          "keyword": "minecraft movie clips",
+          "coverage": 0.1091
+        },
+        {
+          "keyword": "minecraft movie steve",
+          "coverage": 0.1091
+        },
+        {
+          "keyword": "minecraft movie animation",
+          "coverage": 0.0909
+        },
+        {
+          "keyword": "minecraft movie cartoon",
+          "coverage": 0.0909
+        },
+        {
+          "keyword": "minecraft movie recap",
+          "coverage": 0.0909
+        },
+        {
+          "keyword": "minecraft movie herobrine",
+          "coverage": 0.0727
+        },
+        {
+          "keyword": "minecraft movie sequel",
+          "coverage": 0.0727
+        },
+        {
+          "keyword": "minecraft movie part 1",
+          "coverage": 0.0545
+        },
+        {
+          "keyword": "minecraft movie squared",
+          "coverage": 0.0545
+        }
+      ]
+    },
+    "27": {
+      "channel_count": 13,
+      "keywords": [
+        {
+          "keyword": "minecraft meme do caixão",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "59": {
+      "channel_count": 49,
+      "keywords": [
+        {
+          "keyword": "minecraft funny building",
+          "coverage": 0.5306
+        },
+        {
+          "keyword": "minecraft funny youtubers",
+          "coverage": 0.449
+        },
+        {
+          "keyword": "minecraft funny build battle",
+          "coverage": 0.4082
+        },
+        {
+          "keyword": "minecraft funny builds",
+          "coverage": 0.4082
+        },
+        {
+          "keyword": "minecraft funny things to build",
+          "coverage": 0.3061
+        },
+        {
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.2857
+        },
+        {
+          "keyword": "villager city",
+          "coverage": 0.2653
+        },
+        {
+          "keyword": "minecraft funny pvp",
+          "coverage": 0.2449
+        },
+        {
+          "keyword": "villager king",
+          "coverage": 0.2449
+        },
+        {
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 0.2245
+        },
+        {
+          "keyword": "minecraft memes oh my pc",
+          "coverage": 0.1837
+        },
+        {
+          "keyword": "minecraft movie civilization",
+          "coverage": 0.1837
+        },
+        {
+          "keyword": "minecraft meme mod",
+          "coverage": 0.102
+        },
+        {
+          "keyword": "villager king 54",
+          "coverage": 0.0612
+        },
+        {
+          "keyword": "minecraft funny skin",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft movie full movie",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft funny villagers",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "villager house",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "villager house minecraft tutorial",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft funny speedrun",
+          "coverage": 0.0204
         }
       ]
     },
@@ -266,49 +1796,813 @@
       "channel_count": 2,
       "keywords": [
         {
-          "keyword": "minecraft meme slave",
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny videos try not to laugh",
           "coverage": 1.0
         }
       ]
     },
-    "13": {
-      "channel_count": 4,
+    "55": {
+      "channel_count": 38,
       "keywords": [
         {
-          "keyword": "minecraft meme bgm",
+          "keyword": "minecraft furry resource pack",
+          "coverage": 0.9737
+        },
+        {
+          "keyword": "minecraft furry mod",
+          "coverage": 0.7105
+        },
+        {
+          "keyword": "minecraft meme mod",
+          "coverage": 0.7105
+        },
+        {
+          "keyword": "minecraft funny mods",
+          "coverage": 0.7105
+        },
+        {
+          "keyword": "minecraft funny skin",
+          "coverage": 0.6053
+        },
+        {
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.2632
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 0.2368
+        },
+        {
+          "keyword": "minecraft movie technoblade reaction",
+          "coverage": 0.2368
+        }
+      ]
+    },
+    "56": {
+      "channel_count": 38,
+      "keywords": [
+        {
+          "keyword": "माइनक्राफ्ट फनी शॉर्ट वीडियो",
+          "coverage": 0.6316
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी वीडियो",
+          "coverage": 0.5789
+        },
+        {
+          "keyword": "minecraft memes in hindi",
+          "coverage": 0.5263
+        },
+        {
+          "keyword": "minecraft funny video in hindi",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी शॉर्ट्स",
+          "coverage": 0.4211
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी शॉट",
+          "coverage": 0.3421
+        },
+        {
+          "keyword": "minecraft funny moments monster school",
+          "coverage": 0.3158
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी मोमेंट्स",
+          "coverage": 0.2895
+        },
+        {
+          "keyword": "माइनक्राफ्ट फनी मोमेंट",
+          "coverage": 0.2632
+        },
+        {
+          "keyword": "minecraft movie hindi mein",
+          "coverage": 0.2368
+        },
+        {
+          "keyword": "minecraft funny villager",
+          "coverage": 0.2105
+        },
+        {
+          "keyword": "minecraft funny cat",
+          "coverage": 0.1579
+        },
+        {
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 0.1579
+        },
+        {
+          "keyword": "minecraft funny moment",
+          "coverage": 0.1053
+        }
+      ]
+    },
+    "4": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "minecraft funny memes preston",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme song",
+          "keyword": "minecraft memes shorts",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "47": {
+      "channel_count": 25,
+      "keywords": [
+        {
+          "keyword": "minecraft funny commands java",
           "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme music",
+          "keyword": "minecraft funny commands",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "52": {
+      "channel_count": 33,
+      "keywords": [
+        {
+          "keyword": "minecraft funny videos horror",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft meme slave",
+          "coverage": 0.697
+        },
+        {
+          "keyword": "minecraft funny zombie",
+          "coverage": 0.3333
+        },
+        {
+          "keyword": "minecraft funny moments 2024",
+          "coverage": 0.2121
+        },
+        {
+          "keyword": "minecraft meme 2017",
+          "coverage": 0.0606
+        },
+        {
+          "keyword": "minecraft funny videos animation",
+          "coverage": 0.0606
+        },
+        {
+          "keyword": "minecraft funny horror",
+          "coverage": 0.0606
+        },
+        {
+          "keyword": "minecraft funny moments monster school",
+          "coverage": 0.0606
+        },
+        {
+          "keyword": "villager news movie",
+          "coverage": 0.0606
+        },
+        {
+          "keyword": "minecraft movie recap",
+          "coverage": 0.0606
+        }
+      ]
+    },
+    "15": {
+      "channel_count": 5,
+      "keywords": [
+        {
+          "keyword": "minecraft funny animation steve and alex",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft funny videos animation",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "23": {
+      "channel_count": 12,
+      "keywords": [
+        {
+          "keyword": "minecraft funny moments we'll be right back",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "62": {
+      "channel_count": 55,
+      "keywords": [
+        {
+          "keyword": "minecraft movie review",
+          "coverage": 0.9636
+        },
+        {
+          "keyword": "minecraft movie is bad",
+          "coverage": 0.9091
+        },
+        {
+          "keyword": "minecraft movie without cgi",
+          "coverage": 0.7636
+        },
+        {
+          "keyword": "minecraft movie recap",
+          "coverage": 0.6909
+        },
+        {
+          "keyword": "minecraft movie 2 announcement",
+          "coverage": 0.5091
+        },
+        {
+          "keyword": "minecraft movie end credits",
+          "coverage": 0.3455
+        },
+        {
+          "keyword": "minecraft movie full movie 2025",
+          "coverage": 0.2545
+        },
+        {
+          "keyword": "minecraft movie trailer in hindi",
+          "coverage": 0.2545
+        },
+        {
+          "keyword": "minecraft movie react to dream",
+          "coverage": 0.2545
+        },
+        {
+          "keyword": "minecraft movie reaction",
+          "coverage": 0.2545
+        },
+        {
+          "keyword": "minecraft movie sequel",
+          "coverage": 0.2545
+        },
+        {
+          "keyword": "villager news movie",
+          "coverage": 0.1455
+        },
+        {
+          "keyword": "minecraft funny moments 2024",
+          "coverage": 0.1455
+        },
+        {
+          "keyword": "minecraft movie ytp",
+          "coverage": 0.1455
+        },
+        {
+          "keyword": "minecraft movie ost",
+          "coverage": 0.1455
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 0.1273
+        },
+        {
+          "keyword": "minecraft movie technoblade reaction",
+          "coverage": 0.1273
+        },
+        {
+          "keyword": "grox reaction",
+          "coverage": 0.1273
+        },
+        {
+          "keyword": "grox vs 1m villager",
+          "coverage": 0.1273
+        },
+        {
+          "keyword": "minecraft funny skin",
+          "coverage": 0.0182
+        }
+      ]
+    },
+    "49": {
+      "channel_count": 26,
+      "keywords": [
+        {
+          "keyword": "minecraft movie in hindi dubbed",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie in hindi",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie hindi mein",
+          "coverage": 0.9615
+        },
+        {
+          "keyword": "minecraft movie trailer in hindi",
+          "coverage": 0.9231
+        },
+        {
+          "keyword": "minecraft movie full movie 2025",
+          "coverage": 0.6154
+        },
+        {
+          "keyword": "minecraft movie in tamil",
+          "coverage": 0.5769
+        },
+        {
+          "keyword": "minecraft movie trailer",
+          "coverage": 0.5769
+        },
+        {
+          "keyword": "minecraft movie one",
+          "coverage": 0.5769
+        },
+        {
+          "keyword": "minecraft movie full movie 2025 english",
+          "coverage": 0.5769
+        },
+        {
+          "keyword": "minecraft meme br",
+          "coverage": 0.4231
+        },
+        {
+          "keyword": "minecraft movie review",
+          "coverage": 0.0385
+        },
+        {
+          "keyword": "minecraft movie 2 teaser",
+          "coverage": 0.0385
+        }
+      ]
+    },
+    "5": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "minecraft movie herobrine",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie react to herobrine",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie enderman scene",
           "coverage": 1.0
         },
         {
           "keyword": "minecraft movie edit",
-          "coverage": 0.5
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft movie soundtrack",
-          "coverage": 0.5
+          "keyword": "minecraft movie without cgi",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft meme steve",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "minecraft meme animation",
-          "coverage": 0.5
+          "keyword": "minecraft movie animation",
+          "coverage": 1.0
         }
       ]
     },
-    "14": {
-      "channel_count": 4,
+    "41": {
+      "channel_count": 20,
       "keywords": [
         {
-          "keyword": "minecraft meme jack black",
+          "keyword": "minecraft movie ending credits",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie end credits",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie villager",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie is bad",
+          "coverage": 0.1
+        },
+        {
+          "keyword": "minecraft movie recap",
+          "coverage": 0.1
+        }
+      ]
+    },
+    "43": {
+      "channel_count": 22,
+      "keywords": [
+        {
+          "keyword": "minecraft movie build challenge",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie 2 build challenge",
+          "coverage": 0.7727
+        },
+        {
+          "keyword": "minecraft movie one",
+          "coverage": 0.5909
+        },
+        {
+          "keyword": "villager",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft funny zombie",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft movie toys",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "grox vs dream",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "villager squid game",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft funny cat",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft funny building",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft movie 1000",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "minecraft movies",
+          "coverage": 0.1818
+        }
+      ]
+    },
+    "60": {
+      "channel_count": 49,
+      "keywords": [
+        {
+          "keyword": "minecraft movie 2 trailer",
+          "coverage": 0.7551
+        },
+        {
+          "keyword": "minecraft movie 2 teaser",
+          "coverage": 0.7143
+        },
+        {
+          "keyword": "minecraft movie squared trailer",
+          "coverage": 0.6735
+        },
+        {
+          "keyword": "minecraft movie 2",
+          "coverage": 0.6531
+        },
+        {
+          "keyword": "minecraft movie sequel",
+          "coverage": 0.6327
+        },
+        {
+          "keyword": "minecraft movie squared",
+          "coverage": 0.6122
+        },
+        {
+          "keyword": "minecraft movie teaser",
+          "coverage": 0.5714
+        },
+        {
+          "keyword": "minecraft movie 2 announcement",
+          "coverage": 0.551
+        },
+        {
+          "keyword": "minecraft movie 2 trailer official",
+          "coverage": 0.551
+        },
+        {
+          "keyword": "minecraft movie trailer",
+          "coverage": 0.4898
+        },
+        {
+          "keyword": "minecraft movie",
+          "coverage": 0.2857
+        },
+        {
+          "keyword": "minecraft movie full movie 2025",
+          "coverage": 0.2857
+        },
+        {
+          "keyword": "minecraft movie trailer in hindi",
+          "coverage": 0.2449
+        },
+        {
+          "keyword": "minecraft movie without cgi",
+          "coverage": 0.2041
+        },
+        {
+          "keyword": "minecraft movie is bad",
+          "coverage": 0.1837
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 0.1837
+        },
+        {
+          "keyword": "minecraft movie intro",
+          "coverage": 0.1633
+        },
+        {
+          "keyword": "minecraft movie en español",
+          "coverage": 0.1633
+        },
+        {
+          "keyword": "minecraft movie in english",
+          "coverage": 0.1633
+        },
+        {
+          "keyword": "minecraft movie part 1",
+          "coverage": 0.1633
+        }
+      ]
+    },
+    "21": {
+      "channel_count": 11,
+      "keywords": [
+        {
+          "keyword": "minecraft movie intro",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "70": {
+      "channel_count": 79,
+      "keywords": [
+        {
+          "keyword": "minecraft movie react to",
+          "coverage": 0.7342
+        },
+        {
+          "keyword": "minecraft movie technoblade reaction",
+          "coverage": 0.6582
+        },
+        {
+          "keyword": "minecraft movie reaction",
+          "coverage": 0.5949
+        },
+        {
+          "keyword": "minecraft movie react to dream",
+          "coverage": 0.5823
+        },
+        {
+          "keyword": "minecraft movie reaction mashup",
+          "coverage": 0.481
+        },
+        {
+          "keyword": "minecraft movie technoblade",
+          "coverage": 0.3671
+        },
+        {
+          "keyword": "minecraft movie react to herobrine",
+          "coverage": 0.3544
+        },
+        {
+          "keyword": "grox ludwig",
+          "coverage": 0.2532
+        },
+        {
+          "keyword": "minecraft movie review",
+          "coverage": 0.2278
+        },
+        {
+          "keyword": "grox reaction gacha life",
+          "coverage": 0.2025
+        },
+        {
+          "keyword": "minecraft funny skin",
+          "coverage": 0.1899
+        },
+        {
+          "keyword": "minecraft meme sus",
+          "coverage": 0.1646
+        },
+        {
+          "keyword": "minecraft movie sequel",
+          "coverage": 0.1139
+        },
+        {
+          "keyword": "minecraft movie is bad",
+          "coverage": 0.0633
+        },
+        {
+          "keyword": "minecraft movie trailer in hindi",
+          "coverage": 0.0506
+        },
+        {
+          "keyword": "minecraft movie in english",
+          "coverage": 0.0506
+        },
+        {
+          "keyword": "minecraft movie edit",
+          "coverage": 0.0506
+        },
+        {
+          "keyword": "minecraft movie clips",
+          "coverage": 0.0506
+        },
+        {
+          "keyword": "grox vs dream",
+          "coverage": 0.0506
+        },
+        {
+          "keyword": "minecraft memes wait what",
+          "coverage": 0.038
+        }
+      ]
+    },
+    "64": {
+      "channel_count": 57,
+      "keywords": [
+        {
+          "keyword": "minecraft movies",
+          "coverage": 0.6842
+        },
+        {
+          "keyword": "minecraft movie full movie",
+          "coverage": 0.6491
+        },
+        {
+          "keyword": "minecraft movies civilization",
+          "coverage": 0.5965
+        },
+        {
+          "keyword": "minecraft movie",
+          "coverage": 0.5614
+        },
+        {
+          "keyword": "minecraft movie civilization",
+          "coverage": 0.5263
+        },
+        {
+          "keyword": "minecraft movie 1000",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "minecraft movie edit",
+          "coverage": 0.386
+        },
+        {
+          "keyword": "minecraft movie one",
+          "coverage": 0.3684
+        },
+        {
+          "keyword": "minecraft movie in english",
+          "coverage": 0.3333
+        },
+        {
+          "keyword": "minecraft movie part 1",
+          "coverage": 0.2456
+        },
+        {
+          "keyword": "minecraft movie full movie 2025 english",
+          "coverage": 0.2456
+        },
+        {
+          "keyword": "villager house",
+          "coverage": 0.2105
+        },
+        {
+          "keyword": "minecraft movie full movie 2025",
+          "coverage": 0.1579
+        },
+        {
+          "keyword": "minecraft movie build challenge",
+          "coverage": 0.1579
+        },
+        {
+          "keyword": "minecraft movie hindi mein",
+          "coverage": 0.1228
+        },
+        {
+          "keyword": "minecraft movie steve",
+          "coverage": 0.0877
+        },
+        {
+          "keyword": "grox civilization",
+          "coverage": 0.0877
+        },
+        {
+          "keyword": "minecraft movie intro",
+          "coverage": 0.0702
+        },
+        {
+          "keyword": "minecraft movie enderman scene",
+          "coverage": 0.0702
+        },
+        {
+          "keyword": "minecraft movie lava chicken",
+          "coverage": 0.0702
+        }
+      ]
+    },
+    "28": {
+      "channel_count": 13,
+      "keywords": [
+        {
+          "keyword": "minecraft movie en español",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "35": {
+      "channel_count": 15,
+      "keywords": [
+        {
+          "keyword": "minecraft movie toys",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "39": {
+      "channel_count": 19,
+      "keywords": [
+        {
+          "keyword": "villagers vs pillagers",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "villager vs pillager",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "villager vs pillager war",
+          "coverage": 1.0
+        },
+        {
+          "keyword": "minecraft movie villager",
+          "coverage": 0.5263
+        },
+        {
+          "keyword": "villager war",
+          "coverage": 0.5263
+        },
+        {
+          "keyword": "minecraft funny zombie",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "villager city",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "minecraft movie animation",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "minecraft movie cartoon",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "villager",
+          "coverage": 0.4737
+        }
+      ]
+    },
+    "29": {
+      "channel_count": 14,
+      "keywords": [
+        {
+          "keyword": "minecraft movie на русском",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "6": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "minecraft movie animation",
+          "coverage": 1.0
+        }
+      ]
+    },
+    "7": {
+      "channel_count": 2,
+      "keywords": [
+        {
+          "keyword": "villager bishal",
           "coverage": 1.0
         }
       ]
@@ -317,119 +2611,26 @@
       "channel_count": 6,
       "keywords": [
         {
-          "keyword": "minecraft meme animation gacha",
+          "keyword": "villager football sports",
           "coverage": 1.0
         }
       ]
     },
-    "4": {
-      "channel_count": 2,
-      "keywords": [
-        {
-          "keyword": "minecraft memes 2018",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "5": {
-      "channel_count": 2,
-      "keywords": [
-        {
-          "keyword": "minecraft furry resource pack",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "15": {
+    "10": {
       "channel_count": 4,
       "keywords": [
         {
-          "keyword": "minecraft funny resource pack",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft funny pvp",
+          "keyword": "villager squid game",
           "coverage": 1.0
         }
       ]
     },
-    "20": {
-      "channel_count": 6,
-      "keywords": [
-        {
-          "keyword": "minecraft movie technoblade",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft movie technoblade reaction",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "minecraft movie reaction mashup",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "minecraft movie react to dream",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft movie lava chicken",
-          "coverage": 0.1667
-        }
-      ]
-    },
-    "22": {
+    "24": {
       "channel_count": 12,
       "keywords": [
         {
-          "keyword": "minecraft movie lava chicken",
+          "keyword": "groww",
           "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft movie song",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "minecraft movie soundtrack",
-          "coverage": 0.75
-        },
-        {
-          "keyword": "minecraft movie technoblade",
-          "coverage": 0.4167
-        },
-        {
-          "keyword": "minecraft movie music",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft funny song",
-          "coverage": 0.3333
-        }
-      ]
-    },
-    "16": {
-      "channel_count": 4,
-      "keywords": [
-        {
-          "keyword": "minecraft movie toys",
-          "coverage": 1.0
-        }
-      ]
-    },
-    "21": {
-      "channel_count": 6,
-      "keywords": [
-        {
-          "keyword": "minecraft movie trailer",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft movie enderman scene",
-          "coverage": 0.8333
-        },
-        {
-          "keyword": "minecraft movie teaser",
-          "coverage": 0.6667
         }
       ]
     },
@@ -437,16 +2638,16 @@
       "channel_count": 3,
       "keywords": [
         {
-          "keyword": "minecraft movie end credits",
+          "keyword": "grox funny moments",
           "coverage": 1.0
         }
       ]
     },
-    "10": {
-      "channel_count": 3,
+    "22": {
+      "channel_count": 11,
       "keywords": [
         {
-          "keyword": "minecraft movie chicken jockey",
+          "keyword": "minecraft movie in tamil",
           "coverage": 1.0
         }
       ]
