@@ -68,7 +68,10 @@ class InnerTubeClient:
         proxy_list: Optional[List[str]] = None,
         po_token: Optional[str] = None,
     ):
-        self._client = httpx.AsyncClient(timeout=30, follow_redirects=True)
+        self._client = httpx.AsyncClient(
+            timeout=httpx.Timeout(15.0, connect=8.0),
+            follow_redirects=True,
+        )
         self._ua_index = random.randint(0, len(_USER_AGENTS) - 1)
         self.request_count = 0
         self.delay_min = delay_min
@@ -89,6 +92,68 @@ class InnerTubeClient:
         """
         data = await self._browse_channel(channel_id, max_retries)
         return self._extract_related_channels(data)
+
+    async def resolve_handle(self, handle: str) -> Optional[str]:
+        """Resolve a YouTube handle (@handle or handle) to a channel ID.
+
+        Uses InnerTube search to find the channel.
+        """
+        query = handle.lstrip("@")
+        payload = {
+            "context": {
+                "client": {
+                    "clientName": CLIENT_NAME,
+                    "clientVersion": CLIENT_VERSION,
+                    "hl": "en", "gl": "US",
+                },
+            },
+            "query": query,
+        }
+        headers = dict(_BASE_HEADERS)
+        headers["User-Agent"] = _USER_AGENTS[self._ua_index]
+
+        try:
+            resp = await self._client.post(
+                "https://www.youtube.com/youtubei/v1/search",
+                params={"key": INNERTUBE_API_KEY},
+                json=payload, headers=headers,
+            )
+            data = resp.json()
+            # Navigate to find channelId
+            try:
+                contents = data["contents"]["twoColumnSearchResultsRenderer"] \
+                    ["primaryContents"]["sectionListRenderer"]["contents"]
+                for section in contents:
+                    items = section.get("itemSectionRenderer", {}).get("contents", [])
+                    for item in items:
+                        cr = item.get("channelRenderer", {})
+                        if cr:
+                            title = (cr.get("title", {}).get("simpleText", "") or "").lower()
+                            if query.lower() in title:
+                                return cr["channelId"]
+                        # Also check for the exact handle match in navigationEndpoint
+                        be = item.get("channelRenderer", {}).get("navigationEndpoint", {}).get("browseEndpoint", {})
+                        if be.get("canonicalBaseUrl", "").lower().endswith(query.lower()):
+                            return be["browseId"]
+            except (KeyError, TypeError):
+                pass
+        except Exception:
+            pass
+        return None
+
+    async def get_channel_metadata(self, channel_id: str) -> Dict[str, Any]:
+        """Get channel metadata keywords/topics from InnerTube browse."""
+        data = await self._browse_channel(channel_id)
+        if "error" in data or "contents" not in data:
+            return {"keywords": "", "topics": [], "title": ""}
+
+        meta = data.get("metadata", {}).get("channelMetadataRenderer", {})
+        topics = [t.rstrip("/").split("/")[-1] for t in meta.get("topicCategories", [])]
+        return {
+            "keywords": meta.get("keywords", ""),
+            "topics": topics,
+            "title": meta.get("title", ""),
+        }
 
     async def close(self):
         await self._client.aclose()

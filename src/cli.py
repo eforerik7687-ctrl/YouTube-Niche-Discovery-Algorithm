@@ -247,14 +247,17 @@ async def _expand_step(
 
     from collections import defaultdict
 
-    # Sort surviving channels by viewCount desc
+    # Sort surviving channels by viewCount desc, optionally limit
     view_counts_local = {}
     for ch_name in channel_keywords:
         cid = ch_to_cid.get(ch_name, "")
         view_counts_local[ch_name] = int(real_stats.get(cid, {}).get("viewCount", 0))
-    sorted_chs = sorted(view_counts_local.keys(), key=lambda ch: view_counts_local[ch], reverse=True)[:max_expand]
+    sorted_chs = sorted(view_counts_local.keys(), key=lambda ch: view_counts_local[ch], reverse=True)
+    if max_expand is not None:
+        sorted_chs = sorted_chs[:max_expand]
 
-    print(f"  [expand] Expanding from top {len(sorted_chs)} channels by viewCount")
+    print(f"  [expand] Expanding {len(sorted_chs)} channels by viewCount" +
+          (f" (top {max_expand})" if max_expand else ""))
     print(f"  [expand] Source: {'InnerTube' if itube else 'YouTube API (legacy)'}")
 
     # Channel → niche mapping
@@ -347,7 +350,65 @@ async def _expand_step(
     return clusters, channel_data, channel_keywords, channel_urls, G, cluster_kws
 
 
-async def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
+async def _discover_from_seeds(seeds: List[str], config) -> tuple:
+    """Resolve seed channel handles → InnerTube browse → keyword vectors."""
+    from src.innertube import InnerTubeClient
+    from collections import defaultdict
+
+    itube = InnerTubeClient(
+        delay_min=config.delay_min, delay_max=config.delay_max,
+        proxy_list=getattr(config, "proxy_list", None) or [],
+    )
+
+    channel_keywords: Dict[str, Dict[str, float]] = {}
+    channel_urls: Dict[str, str] = {}
+    seen = set()
+
+    for handle in seeds:
+        # Resolve handle → channel ID
+        cid = await itube.resolve_handle(handle)
+        if not cid:
+            print(f"  [seed] Could not resolve: {handle}")
+            continue
+
+        # Browse channel for metadata + related
+        meta = await itube.get_channel_metadata(cid)
+        title = meta.get("title", "") or handle
+        if not title or cid in seen:
+            continue
+        seen.add(cid)
+
+        # Build keyword vector from metadata
+        kw_dict: Dict[str, float] = defaultdict(float)
+        if meta.get("keywords"):
+            for kw in meta["keywords"].split(","):
+                kw = kw.strip().lower()
+                if kw and len(kw) > 2:
+                    kw_dict[kw] += 1.0
+        for topic in meta.get("topics", []):
+            kw_dict[topic.lower().replace("_", " ")] = 0.8
+
+        channel_keywords[title] = dict(kw_dict)
+        channel_urls[title] = f"https://www.youtube.com/channel/{cid}"
+
+        # Also add related channels' handles (without weights, for reference)
+        related = await itube.get_related_channels(cid)
+        for ch in related:
+            r_title = ch["title"]
+            r_id = ch["channelId"]
+            if r_title and r_id not in seen:
+                seen.add(r_id)
+                channel_keywords[r_title] = {}
+                channel_urls[r_title] = f"https://www.youtube.com/channel/{r_id}"
+
+        print(f"  [seed] {title}: {len(kw_dict)} keywords, {len(related)} related")
+
+    await itube.close()
+    return channel_keywords, channel_urls
+
+
+async def run_pipeline(keywords: List[str], config: Config | None = None,
+                       seed_channels: List[str] = None) -> dict:
     """Run the YouTube Niche Finder pipeline.
 
     Pipeline flow:
@@ -392,29 +453,41 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
     total_channels = len(channel_keywords)
     print(f"[pipeline] Total unique channels: {total_channels}")
 
+    # ── Seed Channel Discovery (InnerTube browse) ──
+    if seed_channels:
+        print()
+        print("[pipeline] Discovering from seed channels via InnerTube...")
+        seed_kw, seed_urls = await _discover_from_seeds(seed_channels, config)
+        channel_keywords.update(seed_kw)
+        propagator.channel_urls.update(seed_urls)
+        total_channels = len(channel_keywords)
+        print(f"  [seed] Found {len(seed_kw)} channels from {len(seed_channels)} seeds")
+        print(f"[pipeline] Total channels after merge: {total_channels}")
+
     if not channel_keywords:
         print("[pipeline] No channels found, skipping.")
         return {}
 
-    # ── Shorts filter: verify each channel produces Shorts via /shorts URL check ──
-    print()
-    print("[pipeline] Verifying Shorts channels via /shorts URL check...")
-    shorts_channels = await filter_shorts_channels(
-        propagator.channel_urls, config,
-        threshold=3, max_concurrent=20,
-    )
-    print(f"  [shorts] {len(shorts_channels)} / {len(propagator.channel_urls)} channels produce Shorts")
-
-    # Only keep channels that have Shorts
-    channel_keywords = {
-        ch: kw for ch, kw in channel_keywords.items()
-        if ch in shorts_channels
-    }
-    print(f"  [shorts] Remaining channels after filter: {len(channel_keywords)}")
-
-    if len(channel_keywords) < 10:
-        print("[pipeline] Too few Shorts channels (<10), skipping.")
-        return {}
+    # ── Shorts filter: skip if only seed channels (no keywords) ──
+    only_seeds = seed_channels and not keywords
+    if not only_seeds and channel_keywords:
+        print()
+        print("[pipeline] Verifying Shorts channels via /shorts URL check...")
+        shorts_channels = await filter_shorts_channels(
+            propagator.channel_urls, config,
+            threshold=3, max_concurrent=20,
+        )
+        print(f"  [shorts] {len(shorts_channels)} / {len(propagator.channel_urls)} channels produce Shorts")
+        channel_keywords = {
+            ch: kw for ch, kw in channel_keywords.items()
+            if ch in shorts_channels
+        }
+        print(f"  [shorts] Remaining channels after filter: {len(channel_keywords)}")
+        if len(channel_keywords) < 10:
+            print("[pipeline] Too few Shorts channels (<10), skipping.")
+            return {}
+    else:
+        print("[pipeline] Seed channel mode: skipping Shorts filter")
 
     # ── Step A: YouTube API — channels.list (real stats) ──
     real_stats: Dict[str, Dict] = {}
@@ -498,6 +571,7 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
                 channel_keywords, channel_data, clusters, G,
                 ch_to_cid, real_stats, propagator.channel_urls,
                 propagated, detector,
+                max_expand=None,
                 config=config,
             )
             await itube.close()
@@ -525,10 +599,19 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
                 kept = {ch for members in new_clusters.values() for ch in members}
                 orphans = [n for n in G.nodes() if n not in kept]
                 G.remove_nodes_from(orphans)
-                sorted_nids = sorted(new_clusters.keys(), key=lambda nid: len(new_clusters[nid]))
-                remap = {old: new for new, old in enumerate(sorted_nids)}
-                clusters = {remap[old]: members for old, members in new_clusters.items()}
-                cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+
+            # Sort by total views descending, number from 1
+            sorted_nids = sorted(
+                new_clusters.keys(),
+                key=lambda nid: sum(
+                    int(real_stats.get(ch_to_cid.get(ch, ""), {}).get("viewCount", 0))
+                    for ch in new_clusters[nid] if ch_to_cid.get(ch, "") in real_stats
+                ),
+                reverse=True,
+            )
+            remap = {old: idx + 1 for idx, old in enumerate(sorted_nids)}
+            clusters = {remap[old]: members for old, members in new_clusters.items()}
+            cluster_kws = detector.compute_niche_concepts(clusters, propagated)
             print(f"  [cleanup] {len(clusters)} niches remain "
                   f"(min {min_channels} ch, min {min_niche_views:,} total views)")
 
@@ -603,6 +686,8 @@ def main():
         description="YouTube Niche Finder - discover blue ocean niches"
     )
     parser.add_argument("keywords", nargs="*", help="Seed keywords to analyze")
+    parser.add_argument("--seed-channels", "-sc", nargs="*", default=[],
+                        help="Seed channel handles (e.g. @MrBeast @Tiaocraft)")
     parser.add_argument("--env", "-e", default=".env", help="Path to .env file")
     parser.add_argument("--output", "-o", default="output", help="Output directory")
 
@@ -611,10 +696,19 @@ def main():
     for kw in args.keywords:
         keywords.extend(k.strip() for k in kw.split(",") if k.strip())
 
+    seed_channels = []
+    for sc in args.seed_channels:
+        seed_channels.extend(s.strip() for s in sc.split(",") if s.strip())
+
     config = Config.from_env()
     config.output_dir = args.output
     config.raw_dir = f"{args.output}/raw"
-    asyncio.run(run_pipeline(keywords, config))
+    if keywords:
+        asyncio.run(run_pipeline(keywords, config, seed_channels=seed_channels))
+    elif seed_channels:
+        asyncio.run(run_pipeline([], config, seed_channels=seed_channels))
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":

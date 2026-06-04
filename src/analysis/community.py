@@ -138,11 +138,23 @@ class CommunityDetector:
     ) -> str:
         """Generate interactive HTML with canvas-based word cloud per niche sorted descending by channel count."""
         # Prepare JSON data for client-side rendering
+        # Compute total views per niche, then sort by total views descending
         data = []
+        niche_view_totals = {}
+        for nid, members in niches.items():
+            total = 0
+            for ch in members:
+                cid = ch_to_cid.get(ch, "") if ch_to_cid else ""
+                if cid and real_stats and cid in real_stats:
+                    total += int(real_stats[cid].get("viewCount", 0))
+                elif channel_data:
+                    total += int(channel_data.get(ch, {}).get("total_views", 0))
+            niche_view_totals[nid] = total
+
         sorted_nids = sorted(
             niches.keys(),
-            key=lambda nid: len(niches[nid]),
-            reverse=False,  # ascending by channel count (smallest = 0)
+            key=lambda nid: niche_view_totals.get(nid, 0),
+            reverse=True,  # descending by total views (biggest first)
         )
 
         # HSL color palette (same spread as export_network)
@@ -161,9 +173,11 @@ class CommunityDetector:
             # Single biggest concept keyword (highest coverage)
             top_concept = concepts[0]["keyword"] if concepts else ""
             h, s, l = niche_colors[idx]
+            total_views = niche_view_totals.get(nid, 0)
             entry = {
-                "id": nid,
+                "id": nid,  # use pipeline's numbering (1-based, sorted by views)
                 "channel_count": len(niches[nid]),
+                "total_views": total_views,
                 "color": f"hsl({h},{s}%,{l}%)",
                 "keyword": top_concept,
                 "top_channels": [],
@@ -307,9 +321,16 @@ h1 {{
 
         var header = document.createElement('div');
         header.className = 'niche-header';
-        header.innerHTML = '<span class="niche-title" style="color:' + niche.color + '">Niche ' + niche.id + '</span>' +
-            '<span class="niche-count">' + niche.channel_count + ' channels</span>' +
-            (niche.keyword ? '<span class="niche-tag">' + niche.keyword + '</span>' : '');
+        function fmtViews(v) {{
+                if (v >= 1000000000) return (v / 1000000000).toFixed(1) + 'B';
+                if (v >= 1000000) return (v / 1000000).toFixed(1) + 'M';
+                if (v >= 1000) return (v / 1000).toFixed(1) + 'K';
+                return v.toString();
+            }}
+            header.innerHTML = '<span class="niche-title" style="color:' + niche.color + '">Niche ' + niche.id + '</span>' +
+                '<span class="niche-count">' + niche.channel_count + ' ch</span>' +
+                '<span class="niche-count">' + fmtViews(niche.total_views) + ' views</span>' +
+                (niche.keyword ? '<span class="niche-tag">' + niche.keyword + '</span>' : '');
         card.appendChild(header);
 
         if (niche.description) {{
@@ -350,6 +371,24 @@ h1 {{
 </body>
 </html>"""
         Path(output_path).write_text(html, encoding="utf-8")
+
+        # Export niche_data_for_llm.json（for Claude to generate descriptions）
+        llm_path = Path(output_path).parent / "niche_data_for_llm.json"
+        llm_data = []
+        for n in data:
+            llm_data.append({
+                "id": n["id"],
+                "channel_count": n["channel_count"],
+                "total_views": n["total_views"],
+                "keyword": n.get("keyword", ""),
+                "top_channels": [
+                    {"name": ch["name"], "subs": ch["subs_display"]}
+                    for ch in n.get("top_channels", [])
+                ],
+            })
+        llm_path.write_text(json_mod.dumps(llm_data, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"  [export] LLM data saved: {llm_path}")
+
         return output_path
 
     def export_network(

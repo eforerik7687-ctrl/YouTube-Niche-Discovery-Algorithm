@@ -1,1000 +1,1058 @@
 {
   "cluster_keywords": {
-    "7": {
-      "channel_count": 19,
-      "keywords": [
-        {
-          "keyword": "minecraft villager breeder bedrock",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft villager farm",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft villager breeder",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft villager trading hall design",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft villager guide",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft villager trading",
-          "coverage": 1.0
-        },
-        {
-          "keyword": "minecraft villager trading hall tutorial",
-          "coverage": 0.8421
-        },
-        {
-          "keyword": "minecraft villager trading hall",
-          "coverage": 0.7895
-        },
-        {
-          "keyword": "minecraft villager",
-          "coverage": 0.7368
-        },
-        {
-          "keyword": "minecraft villager trading hall build",
-          "coverage": 0.6316
-        },
-        {
-          "keyword": "minecraft villager animation",
-          "coverage": 0.0526
-        },
-        {
-          "keyword": "lookout3d face reveal",
-          "coverage": 0.0526
-        }
-      ]
-    },
-    "9": {
-      "channel_count": 21,
-      "keywords": [
-        {
-          "keyword": "minecraft villager trading hall design",
-          "coverage": 0.8571
-        },
-        {
-          "keyword": "minecraft villager trading hall",
-          "coverage": 0.8571
-        },
-        {
-          "keyword": "minecraft villager trading hall tutorial",
-          "coverage": 0.8571
-        },
-        {
-          "keyword": "minecraft villager trading hall build",
-          "coverage": 0.8571
-        },
-        {
-          "keyword": "minecraft villager house",
-          "coverage": 0.8571
-        },
-        {
-          "keyword": "minecraft villager house tutorial",
-          "coverage": 0.8571
-        },
-        {
-          "keyword": "minecraft villager guide",
-          "coverage": 0.7143
-        },
-        {
-          "keyword": "minecraft villager breeder bedrock",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "minecraft villager farm",
-          "coverage": 0.619
-        },
-        {
-          "keyword": "minecraft villager",
-          "coverage": 0.619
-        },
-        {
-          "keyword": "minecraft villager trading",
-          "coverage": 0.619
-        },
-        {
-          "keyword": "minecraft villager breeder",
-          "coverage": 0.4286
-        },
-        {
-          "keyword": "minecraft villager mod",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft funny tricks",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft funny builds",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft funny mods",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "minecraft villagers split the village in half",
-          "coverage": 0.0476
-        }
-      ]
-    },
-    "1": {
-      "channel_count": 12,
-      "keywords": [
-        {
-          "keyword": "minecraft villager drawing",
-          "coverage": 0.6667
-        }
-      ]
-    },
     "2": {
-      "channel_count": 13,
+      "channel_count": 96,
       "keywords": [
         {
-          "keyword": "minecraft grox gorilla",
-          "coverage": 0.8462
+          "keyword": "minecraft animation",
+          "coverage": 0.3854
         },
         {
-          "keyword": "lookout3d reaction",
-          "coverage": 0.7692
+          "keyword": "minecraft animation sus",
+          "coverage": 0.3438
         },
         {
-          "keyword": "minecraft villager civilization",
-          "coverage": 0.6923
+          "keyword": "minecraft animation songs",
+          "coverage": 0.3438
         },
         {
-          "keyword": "minecraft grox villager prison",
-          "coverage": 0.6923
+          "keyword": "minecraft animation girl",
+          "coverage": 0.2917
         },
         {
-          "keyword": "minecraft grox prison",
-          "coverage": 0.6923
+          "keyword": "minecraft animation fight",
+          "coverage": 0.2708
         },
         {
-          "keyword": "minecraft grox edit",
-          "coverage": 0.6923
+          "keyword": "minecraft animation music",
+          "coverage": 0.2604
         },
         {
-          "keyword": "minecraft grox reaction gacha life",
-          "coverage": 0.6923
+          "keyword": "minecraft animation zombie",
+          "coverage": 0.25
         },
         {
-          "keyword": "lookout3d vs hamoodeg",
-          "coverage": 0.6923
+          "keyword": "minecraft animation song",
+          "coverage": 0.2396
         },
         {
-          "keyword": "minecraft grox manhunt reaction",
-          "coverage": 0.6923
+          "keyword": "minecraft animation video",
+          "coverage": 0.2396
         },
         {
-          "keyword": "lookout3d fiberglass",
-          "coverage": 0.6923
+          "keyword": "minecraft animation music video",
+          "coverage": 0.2292
         },
         {
-          "keyword": "minecraft grox song",
-          "coverage": 0.0769
+          "keyword": "minecraft animation full movie",
+          "coverage": 0.2083
         },
         {
-          "keyword": "minecraft grox sus",
-          "coverage": 0.0769
+          "keyword": "minecraft animation software",
+          "coverage": 0.1667
         },
         {
-          "keyword": "lookout3d face reveal",
-          "coverage": 0.0769
+          "keyword": "minecraft animation movie",
+          "coverage": 0.1458
         },
         {
-          "keyword": "lookout3d flint and steel",
-          "coverage": 0.0769
+          "keyword": "minecraft animation steve and alex",
+          "coverage": 0.1458
         },
         {
-          "keyword": "minecraft grok god mode",
-          "coverage": 0.0769
+          "keyword": "minecraft animation tutorial",
+          "coverage": 0.1354
         },
         {
-          "keyword": "lookout3d reaction gacha life",
-          "coverage": 0.0769
+          "keyword": "minecraft animation meme",
+          "coverage": 0.1354
         },
         {
-          "keyword": "lookout3d smug bro",
-          "coverage": 0.0769
+          "keyword": "minecraft animations now vs then",
+          "coverage": 0.1354
         },
         {
-          "keyword": "lookout3d oh my pc",
-          "coverage": 0.0769
+          "keyword": "minecraft animation boy love",
+          "coverage": 0.1146
         },
         {
-          "keyword": "lookout3d edit",
-          "coverage": 0.0769
+          "keyword": "minecraft animation herobrine",
+          "coverage": 0.1042
         },
         {
-          "keyword": "lookout3d oh warden",
-          "coverage": 0.0769
-        }
-      ]
-    },
-    "12": {
-      "channel_count": 49,
-      "keywords": [
-        {
-          "keyword": "minecraft funny tricks",
-          "coverage": 0.5714
-        },
-        {
-          "keyword": "minecraft funny build battle",
-          "coverage": 0.551
-        },
-        {
-          "keyword": "minecraft villagers split the village in half",
-          "coverage": 0.4082
-        },
-        {
-          "keyword": "minecraft villager",
-          "coverage": 0.3469
-        },
-        {
-          "keyword": "minecraft funny builds",
-          "coverage": 0.3469
-        },
-        {
-          "keyword": "minecraft funny mods",
-          "coverage": 0.3265
-        },
-        {
-          "keyword": "minecraft villager city",
-          "coverage": 0.2449
-        },
-        {
-          "keyword": "minecraft funny gameplay video",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft memes shorts",
-          "coverage": 0.1429
-        },
-        {
-          "keyword": "minecraft meme mod",
-          "coverage": 0.102
-        },
-        {
-          "keyword": "minecraft grox 100 days",
-          "coverage": 0.102
-        },
-        {
-          "keyword": "minecraft funny songs",
-          "coverage": 0.102
-        },
-        {
-          "keyword": "minecraft funny movie",
-          "coverage": 0.102
-        },
-        {
-          "keyword": "minecraft villager guide",
-          "coverage": 0.0816
-        },
-        {
-          "keyword": "minecraft villager house",
-          "coverage": 0.0612
-        },
-        {
-          "keyword": "minecraft villager mod",
-          "coverage": 0.0612
-        },
-        {
-          "keyword": "minecraft villager house tutorial",
-          "coverage": 0.0612
-        },
-        {
-          "keyword": "minecraft funny videos",
-          "coverage": 0.0408
-        },
-        {
-          "keyword": "minecraft villager vs pillager",
-          "coverage": 0.0408
-        },
-        {
-          "keyword": "minecraft villager animation",
-          "coverage": 0.0408
-        }
-      ]
-    },
-    "13": {
-      "channel_count": 61,
-      "keywords": [
-        {
-          "keyword": "minecraft funny animation",
-          "coverage": 0.4918
-        },
-        {
-          "keyword": "minecraft funny cartoon",
-          "coverage": 0.4262
-        },
-        {
-          "keyword": "minecraft funny movie",
-          "coverage": 0.4098
-        },
-        {
-          "keyword": "minecraft funny videos animation",
-          "coverage": 0.3934
-        },
-        {
-          "keyword": "minecraft meme animation",
-          "coverage": 0.377
-        },
-        {
-          "keyword": "minecraft memes movie",
-          "coverage": 0.3443
-        },
-        {
-          "keyword": "minecraft funny animation steve and alex",
-          "coverage": 0.2951
-        },
-        {
-          "keyword": "minecraft funny shorts",
-          "coverage": 0.2951
-        },
-        {
-          "keyword": "minecraft funny edit",
-          "coverage": 0.2623
-        },
-        {
-          "keyword": "minecraft funny short video",
-          "coverage": 0.2459
-        },
-        {
-          "keyword": "minecraft memes in real life",
-          "coverage": 0.2295
-        },
-        {
-          "keyword": "minecraft funny moments monster school",
-          "coverage": 0.2131
-        },
-        {
-          "keyword": "minecraft funny peppa pig",
-          "coverage": 0.2131
-        },
-        {
-          "keyword": "minecraft funny video",
-          "coverage": 0.1967
-        },
-        {
-          "keyword": "minecraft funny videos horror",
-          "coverage": 0.1639
-        },
-        {
-          "keyword": "minecraft funny song",
-          "coverage": 0.1475
-        },
-        {
-          "keyword": "minecraft funny horror",
-          "coverage": 0.1475
-        },
-        {
-          "keyword": "minecraft memes shorts",
-          "coverage": 0.1475
-        },
-        {
-          "keyword": "minecraft meme sound effects",
-          "coverage": 0.1311
-        },
-        {
-          "keyword": "minecraft funny",
-          "coverage": 0.1148
-        }
-      ]
-    },
-    "5": {
-      "channel_count": 17,
-      "keywords": [
-        {
-          "keyword": "lookout3d face reveal",
-          "coverage": 0.6471
-        },
-        {
-          "keyword": "minecraft grox song",
-          "coverage": 0.4118
-        },
-        {
-          "keyword": "minecraft grox edit",
-          "coverage": 0.3529
-        },
-        {
-          "keyword": "minecraft grox vs dream",
-          "coverage": 0.3529
-        },
-        {
-          "keyword": "minecraft grox face reveal",
-          "coverage": 0.2941
-        },
-        {
-          "keyword": "minecraft grox sus",
-          "coverage": 0.2353
-        },
-        {
-          "keyword": "minecraft grox villager prison",
-          "coverage": 0.1765
-        },
-        {
-          "keyword": "minecraft grox prison",
-          "coverage": 0.1765
-        },
-        {
-          "keyword": "minecraft funny songs",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox and villager",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox funny moments",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox moments",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft villager",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft villager animation",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft villager trading",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "lookout3d fiberglass",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "lookout3d reaction",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "lookout3d flint and steel",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox gorilla",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft villager farm",
-          "coverage": 0.0588
-        }
-      ]
-    },
-    "6": {
-      "channel_count": 17,
-      "keywords": [
-        {
-          "keyword": "minecraft grox manhunt reaction",
-          "coverage": 0.8235
-        },
-        {
-          "keyword": "minecraft grox reaction",
-          "coverage": 0.5882
-        },
-        {
-          "keyword": "minecraft memes that i watch with my teacher",
-          "coverage": 0.4706
-        },
-        {
-          "keyword": "minecraft memes vaazkl",
-          "coverage": 0.4118
-        },
-        {
-          "keyword": "lookout3d reaction gacha life",
-          "coverage": 0.4118
-        },
-        {
-          "keyword": "lookout3d the floor is lava",
-          "coverage": 0.3529
-        },
-        {
-          "keyword": "lookout3d floor is lava",
-          "coverage": 0.3529
-        },
-        {
-          "keyword": "minecraft memes prestonplayz",
-          "coverage": 0.2941
-        },
-        {
-          "keyword": "lookout3d reaction",
-          "coverage": 0.1765
-        },
-        {
-          "keyword": "minecraft grox mod",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox edit",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox mods",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox funny moments",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox moments",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft memes movie",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft meme funny",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft funny videos try not to laugh",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "minecraft grox gorilla",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "lookout3d fiberglass",
-          "coverage": 0.1176
-        },
-        {
-          "keyword": "lookout3d chicken jockey",
-          "coverage": 0.0588
-        }
-      ]
-    },
-    "4": {
-      "channel_count": 15,
-      "keywords": [
-        {
-          "keyword": "minecraft memes compilation",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft meme compilation",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft memes",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft meme funny",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft meme",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft memes funny",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft memes shorts",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft meme video",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft meme videos",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft funny memes",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "minecraft memes movie",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "minecraft funny",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "minecraft funny shorts",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "minecraft meme sound",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft memes real life",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft meme sounds",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft meme sound effects",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft memes in real life",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft funny videos try not to laugh",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "minecraft funny tricks",
-          "coverage": 0.3333
-        }
-      ]
-    },
-    "10": {
-      "channel_count": 23,
-      "keywords": [
-        {
-          "keyword": "minecraft meme song",
-          "coverage": 0.6957
-        },
-        {
-          "keyword": "minecraft funny song",
-          "coverage": 0.6957
-        },
-        {
-          "keyword": "minecraft funny songs",
-          "coverage": 0.6957
-        },
-        {
-          "keyword": "minecraft meme music",
-          "coverage": 0.6522
-        },
-        {
-          "keyword": "minecraft villager song",
-          "coverage": 0.4348
-        },
-        {
-          "keyword": "minecraft grox song",
-          "coverage": 0.3913
-        },
-        {
-          "keyword": "minecraft memes movie",
-          "coverage": 0.3478
-        },
-        {
-          "keyword": "minecraft villager singing",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft villager drawing",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft meme sound",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft meme sounds",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft meme sound effects",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft funny edit",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "lookout3d chicken jockey",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft funny animation",
-          "coverage": 0.2609
-        },
-        {
-          "keyword": "minecraft funny movie",
-          "coverage": 0.087
-        },
-        {
-          "keyword": "minecraft grox 100 days",
-          "coverage": 0.0435
-        },
-        {
-          "keyword": "minecraft funny build battle",
-          "coverage": 0.0435
-        },
-        {
-          "keyword": "minecraft funny tricks",
-          "coverage": 0.0435
-        },
-        {
-          "keyword": "minecraft funny animation steve and alex",
-          "coverage": 0.0435
-        }
-      ]
-    },
-    "8": {
-      "channel_count": 20,
-      "keywords": [
-        {
-          "keyword": "minecraft funny gameplay video",
-          "coverage": 0.75
-        },
-        {
-          "keyword": "minecraft memes in hindi",
-          "coverage": 0.7
-        },
-        {
-          "keyword": "minecraft funny video in hindi",
-          "coverage": 0.7
-        },
-        {
-          "keyword": "minecraft funny videos horror",
-          "coverage": 0.7
-        },
-        {
-          "keyword": "minecraft villager civilization",
-          "coverage": 0.45
-        },
-        {
-          "keyword": "minecraft funny videos",
-          "coverage": 0.35
-        },
-        {
-          "keyword": "minecraft grox hindi",
-          "coverage": 0.3
-        },
-        {
-          "keyword": "minecraft funny edit",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny video",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft meme animation",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny cartoon",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny horror",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny moments monster school",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny videos try not to laugh",
-          "coverage": 0.15
-        },
-        {
-          "keyword": "minecraft funny tricks",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "minecraft funny peppa pig",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "minecraft funny clips",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "minecraft funny",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "minecraft funny mods",
-          "coverage": 0.1
-        },
-        {
-          "keyword": "minecraft funny moments compilation",
-          "coverage": 0.1
-        }
-      ]
-    },
-    "11": {
-      "channel_count": 25,
-      "keywords": [
-        {
-          "keyword": "minecraft funny horror",
-          "coverage": 0.64
-        },
-        {
-          "keyword": "minecraft funny mods",
-          "coverage": 0.6
-        },
-        {
-          "keyword": "minecraft funny speedrun",
-          "coverage": 0.56
-        },
-        {
-          "keyword": "minecraft meme mod",
-          "coverage": 0.52
-        },
-        {
-          "keyword": "minecraft funny videos horror",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft funny moments",
-          "coverage": 0.28
-        },
-        {
-          "keyword": "minecraft funny clips",
-          "coverage": 0.28
-        },
-        {
-          "keyword": "minecraft funny moments compilation",
-          "coverage": 0.28
-        },
-        {
-          "keyword": "minecraft funny moments video",
-          "coverage": 0.24
-        },
-        {
-          "keyword": "minecraft memes compilation",
-          "coverage": 0.24
-        },
-        {
-          "keyword": "minecraft funny build battle",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft meme animation",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny cartoon",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny moments monster school",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft funny videos try not to laugh",
-          "coverage": 0.2
-        },
-        {
-          "keyword": "minecraft villagers split the village in half",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "minecraft funny fails",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "minecraft funny gameplay video",
-          "coverage": 0.16
-        },
-        {
-          "keyword": "minecraft villager singing",
-          "coverage": 0.12
-        },
-        {
-          "keyword": "minecraft villager sound",
-          "coverage": 0.12
+          "keyword": "minecraft animation funny",
+          "coverage": 0.0938
         }
       ]
     },
     "3": {
+      "channel_count": 62,
+      "keywords": [
+        {
+          "keyword": "minecraft animation memes",
+          "coverage": 0.5323
+        },
+        {
+          "keyword": "minecraft animation meme",
+          "coverage": 0.5161
+        },
+        {
+          "keyword": "minecraft animation",
+          "coverage": 0.4194
+        },
+        {
+          "keyword": "minecraft animation funny",
+          "coverage": 0.4032
+        },
+        {
+          "keyword": "roblox animation meme",
+          "coverage": 0.3871
+        },
+        {
+          "keyword": "roblox animation memes",
+          "coverage": 0.3871
+        },
+        {
+          "keyword": "minecraft animation shorts",
+          "coverage": 0.3871
+        },
+        {
+          "keyword": "roblox animation",
+          "coverage": 0.3548
+        },
+        {
+          "keyword": "minecraft animation video",
+          "coverage": 0.2903
+        },
+        {
+          "keyword": "minecraft animation sus",
+          "coverage": 0.2097
+        },
+        {
+          "keyword": "minecraft animation girl",
+          "coverage": 0.2097
+        },
+        {
+          "keyword": "minecraft animation steve and alex",
+          "coverage": 0.1935
+        },
+        {
+          "keyword": "minecraft animations now vs then",
+          "coverage": 0.1935
+        },
+        {
+          "keyword": "minecraft animation movie",
+          "coverage": 0.1774
+        },
+        {
+          "keyword": "minecraft animation stickman",
+          "coverage": 0.1774
+        },
+        {
+          "keyword": "minecraft animation full movie",
+          "coverage": 0.1613
+        },
+        {
+          "keyword": "minecraft animation software",
+          "coverage": 0.1452
+        },
+        {
+          "keyword": "minecraft animation tutorial",
+          "coverage": 0.1452
+        },
+        {
+          "keyword": "roblox animation games",
+          "coverage": 0.129
+        },
+        {
+          "keyword": "roblox animation sus",
+          "coverage": 0.129
+        }
+      ]
+    },
+    "1": {
+      "channel_count": 142,
+      "keywords": [
+        {
+          "keyword": "roblox roblox",
+          "coverage": 0.4225
+        },
+        {
+          "keyword": "roblox grow a garden",
+          "coverage": 0.4085
+        },
+        {
+          "keyword": "roblox",
+          "coverage": 0.3803
+        },
+        {
+          "keyword": "roblox games",
+          "coverage": 0.3239
+        },
+        {
+          "keyword": "roblox gameplay",
+          "coverage": 0.3239
+        },
+        {
+          "keyword": "roblox game",
+          "coverage": 0.3028
+        },
+        {
+          "keyword": "roblox horror",
+          "coverage": 0.2958
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.2746
+        },
+        {
+          "keyword": "roblox best games",
+          "coverage": 0.2183
+        },
+        {
+          "keyword": "roblox 99 nights in the forest",
+          "coverage": 0.2042
+        },
+        {
+          "keyword": "roblox horror games",
+          "coverage": 0.169
+        },
+        {
+          "keyword": "roblox sell lemons",
+          "coverage": 0.169
+        },
+        {
+          "keyword": "roblox steal a brainrot",
+          "coverage": 0.1408
+        },
+        {
+          "keyword": "roblox live",
+          "coverage": 0.1338
+        },
+        {
+          "keyword": "roblox animation pack",
+          "coverage": 0.1338
+        },
+        {
+          "keyword": "roblox games to play when your bored",
+          "coverage": 0.0986
+        },
+        {
+          "keyword": "roblox animation now vs then",
+          "coverage": 0.0986
+        },
+        {
+          "keyword": "roblox animation channels",
+          "coverage": 0.0986
+        },
+        {
+          "keyword": "roblox animation video",
+          "coverage": 0.0986
+        },
+        {
+          "keyword": "minecraft animation shorts",
+          "coverage": 0.0563
+        }
+      ]
+    },
+    "13": {
       "channel_count": 13,
       "keywords": [
         {
-          "keyword": "minecraft meme olympics",
-          "coverage": 0.3077
+          "keyword": "minecraft animation love story",
+          "coverage": 0.4615
         },
         {
-          "keyword": "minecraft funny",
+          "keyword": "minecraft animation girl",
+          "coverage": 0.4615
+        },
+        {
+          "keyword": "minecraft animation video",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "minecraft animation fight",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "minecraft animation meme",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "minecraft animation songs",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "minecraft animation",
           "coverage": 0.0769
         }
       ]
     },
-    "0": {
-      "channel_count": 10,
+    "7": {
+      "channel_count": 29,
       "keywords": [
         {
-          "keyword": "lookout3d the floor is lava",
-          "coverage": 1.0
+          "keyword": "minecraft animation tutorial",
+          "coverage": 0.4483
         },
         {
-          "keyword": "lookout3d floor is lava",
-          "coverage": 1.0
+          "keyword": "minecraft animation software",
+          "coverage": 0.4138
         },
         {
-          "keyword": "lookout3d reaction",
-          "coverage": 0.8
+          "keyword": "minecraft animation mod",
+          "coverage": 0.3793
         },
         {
-          "keyword": "lookout3d chicken jockey",
-          "coverage": 0.8
+          "keyword": "minecraft animation video kaise banaye",
+          "coverage": 0.1034
         },
         {
-          "keyword": "minecraft grox reaction",
-          "coverage": 0.6
+          "keyword": "minecraft animation video",
+          "coverage": 0.069
         },
         {
-          "keyword": "minecraft grox manhunt reaction",
-          "coverage": 0.6
+          "keyword": "minecraft animation boy love",
+          "coverage": 0.069
         },
         {
-          "keyword": "lookout3d smug bro",
-          "coverage": 0.6
+          "keyword": "minecraft animation fight",
+          "coverage": 0.069
         },
         {
-          "keyword": "lookout3d chill guy",
-          "coverage": 0.6
+          "keyword": "minecraft animation stickman",
+          "coverage": 0.069
         },
         {
-          "keyword": "lookout3d oh warden",
-          "coverage": 0.6
+          "keyword": "minecraft animation",
+          "coverage": 0.069
         },
         {
-          "keyword": "lookout3d villager",
-          "coverage": 0.6
+          "keyword": "minecraft animation shorts",
+          "coverage": 0.069
         },
         {
-          "keyword": "lookout3d oh warden reaction",
-          "coverage": 0.6
+          "keyword": "minecraft animation song",
+          "coverage": 0.0345
         },
         {
-          "keyword": "lookout3d fiberglass",
-          "coverage": 0.6
+          "keyword": "minecraft animation songs",
+          "coverage": 0.0345
         },
         {
-          "keyword": "lookout3d reaction gacha life",
+          "keyword": "minecraft animation girl",
+          "coverage": 0.0345
+        },
+        {
+          "keyword": "minecraft animation sus",
+          "coverage": 0.0345
+        },
+        {
+          "keyword": "minecraft animation music video",
+          "coverage": 0.0345
+        },
+        {
+          "keyword": "minecraft animation zombie",
+          "coverage": 0.0345
+        }
+      ]
+    },
+    "4": {
+      "channel_count": 54,
+      "keywords": [
+        {
+          "keyword": "roblox animation video",
+          "coverage": 0.5926
+        },
+        {
+          "keyword": "roblox animation songs",
+          "coverage": 0.5741
+        },
+        {
+          "keyword": "roblox animation videos",
+          "coverage": 0.5556
+        },
+        {
+          "keyword": "roblox animation fight",
           "coverage": 0.5
         },
         {
-          "keyword": "minecraft grox edit",
-          "coverage": 0.4
+          "keyword": "roblox animation",
+          "coverage": 0.463
         },
         {
-          "keyword": "minecraft grox sus",
-          "coverage": 0.4
+          "keyword": "roblox animation funny",
+          "coverage": 0.4444
         },
         {
-          "keyword": "minecraft grox",
-          "coverage": 0.4
+          "keyword": "roblox animation shorts",
+          "coverage": 0.3704
         },
         {
-          "keyword": "lookout3d vs grox",
-          "coverage": 0.4
+          "keyword": "roblox animation memes",
+          "coverage": 0.3704
         },
         {
-          "keyword": "lookout3d grox",
-          "coverage": 0.4
+          "keyword": "roblox song",
+          "coverage": 0.3519
         },
         {
-          "keyword": "lookout3d and grox",
-          "coverage": 0.4
+          "keyword": "roblox animation games",
+          "coverage": 0.3519
         },
         {
-          "keyword": "lookout3d warden",
-          "coverage": 0.4
+          "keyword": "roblox animation ideas",
+          "coverage": 0.3519
+        },
+        {
+          "keyword": "roblox animation stories",
+          "coverage": 0.2963
+        },
+        {
+          "keyword": "roblox animation channels",
+          "coverage": 0.2778
+        },
+        {
+          "keyword": "roblox animation movie",
+          "coverage": 0.2593
+        },
+        {
+          "keyword": "roblox animation now vs then",
+          "coverage": 0.2222
+        },
+        {
+          "keyword": "roblox animation code",
+          "coverage": 0.2222
+        },
+        {
+          "keyword": "roblox animation sus",
+          "coverage": 0.2037
+        },
+        {
+          "keyword": "roblox animation meme",
+          "coverage": 0.1852
+        },
+        {
+          "keyword": "roblox animation story",
+          "coverage": 0.1667
+        },
+        {
+          "keyword": "roblox rivals",
+          "coverage": 0.1296
+        }
+      ]
+    },
+    "10": {
+      "channel_count": 35,
+      "keywords": [
+        {
+          "keyword": "roblox age verification",
+          "coverage": 0.5429
+        },
+        {
+          "keyword": "roblox animation pack",
+          "coverage": 0.5429
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.2571
+        },
+        {
+          "keyword": "roblox game",
+          "coverage": 0.2571
+        },
+        {
+          "keyword": "roblox live",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "roblox steal a brainrot",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "roblox roblox",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "roblox games",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "roblox grow a garden",
+          "coverage": 0.0286
+        },
+        {
+          "keyword": "roblox gameplay",
+          "coverage": 0.0286
+        }
+      ]
+    },
+    "15": {
+      "channel_count": 14,
+      "keywords": [
+        {
+          "keyword": "roblox live",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "roblox steal a brainrot",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "roblox animation pack",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox game",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox horror games",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox games",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox horror",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox roblox",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox rivals",
+          "coverage": 0.0714
+        },
+        {
+          "keyword": "roblox grow a garden",
+          "coverage": 0.0714
+        }
+      ]
+    },
+    "12": {
+      "channel_count": 36,
+      "keywords": [
+        {
+          "keyword": "roblox animation now vs then",
+          "coverage": 0.5556
+        },
+        {
+          "keyword": "roblox animation channels",
+          "coverage": 0.4444
+        },
+        {
+          "keyword": "roblox animation sus",
+          "coverage": 0.3889
+        },
+        {
+          "keyword": "roblox animation blender",
+          "coverage": 0.3889
+        },
+        {
+          "keyword": "roblox animation games",
+          "coverage": 0.3889
+        },
+        {
+          "keyword": "roblox animation",
+          "coverage": 0.3889
+        },
+        {
+          "keyword": "roblox animation r63",
+          "coverage": 0.3611
+        },
+        {
+          "keyword": "roblox animation video",
+          "coverage": 0.3333
+        },
+        {
+          "keyword": "roblox animation software",
+          "coverage": 0.2778
+        },
+        {
+          "keyword": "roblox animation movie",
+          "coverage": 0.2778
+        },
+        {
+          "keyword": "roblox animation videos",
+          "coverage": 0.25
+        },
+        {
+          "keyword": "roblox animation tutorial",
+          "coverage": 0.25
+        },
+        {
+          "keyword": "roblox animation ideas",
+          "coverage": 0.1944
+        },
+        {
+          "keyword": "roblox",
+          "coverage": 0.1944
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.1944
+        },
+        {
+          "keyword": "roblox animation songs",
+          "coverage": 0.1667
+        },
+        {
+          "keyword": "roblox animation fight",
+          "coverage": 0.1667
+        },
+        {
+          "keyword": "roblox edits",
+          "coverage": 0.1111
+        },
+        {
+          "keyword": "roblox animation story",
+          "coverage": 0.1111
+        },
+        {
+          "keyword": "roblox animation on mobile",
+          "coverage": 0.1111
+        }
+      ]
+    },
+    "8": {
+      "channel_count": 48,
+      "keywords": [
+        {
+          "keyword": "roblox movie",
+          "coverage": 0.3542
+        },
+        {
+          "keyword": "roblox story",
+          "coverage": 0.3542
+        },
+        {
+          "keyword": "roblox rp",
+          "coverage": 0.2708
+        },
+        {
+          "keyword": "roblox brookhaven 🏡rp",
+          "coverage": 0.25
+        },
+        {
+          "keyword": "roblox animation code",
+          "coverage": 0.2292
+        },
+        {
+          "keyword": "roblox",
+          "coverage": 0.2083
+        },
+        {
+          "keyword": "roblox animation story",
+          "coverage": 0.1667
+        },
+        {
+          "keyword": "roblox animation stories",
+          "coverage": 0.1667
+        },
+        {
+          "keyword": "roblox animation",
+          "coverage": 0.1042
+        },
+        {
+          "keyword": "roblox animation movie",
+          "coverage": 0.0833
+        },
+        {
+          "keyword": "roblox animation brookhaven",
+          "coverage": 0.0833
+        },
+        {
+          "keyword": "roblox roblox",
+          "coverage": 0.0833
+        },
+        {
+          "keyword": "roblox animation videos",
+          "coverage": 0.0625
+        },
+        {
+          "keyword": "roblox animation funny",
+          "coverage": 0.0417
+        },
+        {
+          "keyword": "roblox animation tutorial",
+          "coverage": 0.0208
+        },
+        {
+          "keyword": "roblox free items",
+          "coverage": 0.0208
+        },
+        {
+          "keyword": "roblox grow a garden",
+          "coverage": 0.0208
+        },
+        {
+          "keyword": "roblox animation games",
+          "coverage": 0.0208
+        },
+        {
+          "keyword": "minecraft animation boy love",
+          "coverage": 0.0208
+        },
+        {
+          "keyword": "minecraft animation sus",
+          "coverage": 0.0208
+        }
+      ]
+    },
+    "11": {
+      "channel_count": 44,
+      "keywords": [
+        {
+          "keyword": "roblox animation code",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "roblox animation tutorial",
+          "coverage": 0.3182
+        },
+        {
+          "keyword": "roblox animation software",
+          "coverage": 0.2955
+        },
+        {
+          "keyword": "roblox animation ideas",
+          "coverage": 0.2955
+        },
+        {
+          "keyword": "roblox animation movie",
+          "coverage": 0.2955
+        },
+        {
+          "keyword": "roblox animation brookhaven",
+          "coverage": 0.2727
+        },
+        {
+          "keyword": "roblox free items",
+          "coverage": 0.2727
+        },
+        {
+          "keyword": "roblox animation funny",
+          "coverage": 0.2045
+        },
+        {
+          "keyword": "roblox animation shorts",
+          "coverage": 0.2045
+        },
+        {
+          "keyword": "roblox",
+          "coverage": 0.2045
+        },
+        {
+          "keyword": "roblox rp",
+          "coverage": 0.2045
+        },
+        {
+          "keyword": "roblox animation",
+          "coverage": 0.2045
+        },
+        {
+          "keyword": "roblox animation videos",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "roblox animation now vs then",
+          "coverage": 0.1818
+        },
+        {
+          "keyword": "roblox animation video",
+          "coverage": 0.1591
+        },
+        {
+          "keyword": "roblox animation blender",
+          "coverage": 0.1591
+        },
+        {
+          "keyword": "roblox animation on mobile",
+          "coverage": 0.1591
+        },
+        {
+          "keyword": "roblox animation stories",
+          "coverage": 0.1364
+        },
+        {
+          "keyword": "roblox animation songs",
+          "coverage": 0.1364
+        },
+        {
+          "keyword": "roblox brookhaven 🏡rp",
+          "coverage": 0.1364
+        }
+      ]
+    },
+    "6": {
+      "channel_count": 19,
+      "keywords": [
+        {
+          "keyword": "minecraft animation music",
+          "coverage": 0.4737
+        },
+        {
+          "keyword": "minecraft animation herobrine",
+          "coverage": 0.4211
+        },
+        {
+          "keyword": "minecraft animation music video",
+          "coverage": 0.4211
+        },
+        {
+          "keyword": "minecraft animation songs",
+          "coverage": 0.1053
+        },
+        {
+          "keyword": "minecraft animation song",
+          "coverage": 0.0526
+        },
+        {
+          "keyword": "minecraft animation",
+          "coverage": 0.0526
+        },
+        {
+          "keyword": "minecraft animation fight",
+          "coverage": 0.0526
+        },
+        {
+          "keyword": "minecraft animation zombie",
+          "coverage": 0.0526
+        },
+        {
+          "keyword": "minecraft animation full movie",
+          "coverage": 0.0526
+        }
+      ]
+    },
+    "5": {
+      "channel_count": 55,
+      "keywords": [
+        {
+          "keyword": "roblox best games",
+          "coverage": 0.3091
+        },
+        {
+          "keyword": "roblox games",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "roblox game",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "roblox games to play when your bored",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "roblox blox fruit",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "roblox gameplay",
+          "coverage": 0.1455
+        },
+        {
+          "keyword": "roblox horror",
+          "coverage": 0.1455
+        },
+        {
+          "keyword": "roblox horror games",
+          "coverage": 0.1273
+        },
+        {
+          "keyword": "roblox 99 nights in the forest",
+          "coverage": 0.1091
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.1091
+        },
+        {
+          "keyword": "minecraft animation movie in hindi",
+          "coverage": 0.1091
+        },
+        {
+          "keyword": "roblox rant",
+          "coverage": 0.0909
+        },
+        {
+          "keyword": "roblox roblox",
+          "coverage": 0.0727
+        },
+        {
+          "keyword": "roblox",
+          "coverage": 0.0727
+        },
+        {
+          "keyword": "roblox animation funny",
+          "coverage": 0.0545
+        },
+        {
+          "keyword": "roblox shorts",
+          "coverage": 0.0545
+        },
+        {
+          "keyword": "roblox steal a brainrot",
+          "coverage": 0.0545
+        },
+        {
+          "keyword": "roblox sonic",
+          "coverage": 0.0545
+        },
+        {
+          "keyword": "roblox live",
+          "coverage": 0.0364
+        },
+        {
+          "keyword": "roblox sell lemons",
+          "coverage": 0.0364
+        }
+      ]
+    },
+    "16": {
+      "channel_count": 12,
+      "keywords": [
+        {
+          "keyword": "roblox rants",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "roblox rant",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "roblox games",
+          "coverage": 0.4167
+        },
+        {
+          "keyword": "roblox games to play when your bored",
+          "coverage": 0.0833
+        },
+        {
+          "keyword": "roblox best games",
+          "coverage": 0.0833
+        },
+        {
+          "keyword": "roblox 99 nights in the forest",
+          "coverage": 0.0833
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.0833
+        }
+      ]
+    },
+    "14": {
+      "channel_count": 20,
+      "keywords": [
+        {
+          "keyword": "roblox rivals",
+          "coverage": 0.65
+        },
+        {
+          "keyword": "roblox steal a brainrot",
+          "coverage": 0.55
+        },
+        {
+          "keyword": "roblox executor",
+          "coverage": 0.55
+        },
+        {
+          "keyword": "roblox song",
+          "coverage": 0.45
+        },
+        {
+          "keyword": "roblox live",
+          "coverage": 0.15
+        },
+        {
+          "keyword": "roblox creator showdown",
+          "coverage": 0.15
+        },
+        {
+          "keyword": "roblox animation fight",
+          "coverage": 0.1
+        },
+        {
+          "keyword": "roblox animation songs",
+          "coverage": 0.1
+        }
+      ]
+    },
+    "9": {
+      "channel_count": 53,
+      "keywords": [
+        {
+          "keyword": "roblox is down",
+          "coverage": 0.2642
+        },
+        {
+          "keyword": "roblox edits",
+          "coverage": 0.2453
+        },
+        {
+          "keyword": "roblox shorts",
+          "coverage": 0.1698
+        },
+        {
+          "keyword": "roblox animation memes",
+          "coverage": 0.1321
+        },
+        {
+          "keyword": "roblox animation sus",
+          "coverage": 0.1321
+        },
+        {
+          "keyword": "roblox animation songs",
+          "coverage": 0.1132
+        },
+        {
+          "keyword": "roblox animation meme",
+          "coverage": 0.1132
+        },
+        {
+          "keyword": "roblox animation",
+          "coverage": 0.1132
+        },
+        {
+          "keyword": "roblox animation shorts",
+          "coverage": 0.0943
+        },
+        {
+          "keyword": "roblox animation games",
+          "coverage": 0.0566
+        },
+        {
+          "keyword": "roblox animation ideas",
+          "coverage": 0.0377
+        },
+        {
+          "keyword": "roblox animation videos",
+          "coverage": 0.0377
+        },
+        {
+          "keyword": "roblox animation video",
+          "coverage": 0.0377
+        },
+        {
+          "keyword": "minecraft animation memes",
+          "coverage": 0.0189
+        },
+        {
+          "keyword": "minecraft animation meme",
+          "coverage": 0.0189
         }
       ]
     }
