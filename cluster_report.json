@@ -1,172 +1,477 @@
 {
   "cluster_keywords": {
-    "4": {
-      "channel_count": 25,
+    "7": {
+      "channel_count": 19,
       "keywords": [
         {
-          "keyword": "minecraft skins bedrock",
-          "coverage": 0.56
+          "keyword": "minecraft villager breeder bedrock",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft skins for free",
-          "coverage": 0.52
+          "keyword": "minecraft villager farm",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft skins xbox",
-          "coverage": 0.52
+          "keyword": "minecraft villager breeder",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft skins app",
-          "coverage": 0.48
+          "keyword": "minecraft villager trading hall design",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft skins free",
-          "coverage": 0.48
+          "keyword": "minecraft villager guide",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft skins java",
-          "coverage": 0.48
+          "keyword": "minecraft villager trading",
+          "coverage": 1.0
         },
         {
-          "keyword": "minecraft skins website",
-          "coverage": 0.48
+          "keyword": "minecraft villager trading hall tutorial",
+          "coverage": 0.8421
         },
         {
-          "keyword": "minecraft skins editor",
-          "coverage": 0.4
+          "keyword": "minecraft villager trading hall",
+          "coverage": 0.7895
         },
         {
-          "keyword": "minecraft skins download",
-          "coverage": 0.4
+          "keyword": "minecraft villager",
+          "coverage": 0.7368
         },
         {
-          "keyword": "minecraft skins for boys download",
-          "coverage": 0.4
+          "keyword": "minecraft villager trading hall build",
+          "coverage": 0.6316
         },
         {
-          "keyword": "minecraft skins videos",
-          "coverage": 0.4
+          "keyword": "minecraft villager animation",
+          "coverage": 0.0526
         },
         {
-          "keyword": "minecraft skins tutorial",
-          "coverage": 0.36
-        },
-        {
-          "keyword": "minecraft skins ios",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins drawing",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins ideas",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins name",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins idea",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins best",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins for boys",
-          "coverage": 0.32
-        },
-        {
-          "keyword": "minecraft skins shorts",
-          "coverage": 0.32
+          "keyword": "lookout3d face reveal",
+          "coverage": 0.0526
         }
       ]
     },
-    "10": {
-      "channel_count": 51,
+    "9": {
+      "channel_count": 21,
       "keywords": [
         {
-          "keyword": "minecraft skins now vs then",
+          "keyword": "minecraft villager trading hall design",
+          "coverage": 0.8571
+        },
+        {
+          "keyword": "minecraft villager trading hall",
+          "coverage": 0.8571
+        },
+        {
+          "keyword": "minecraft villager trading hall tutorial",
+          "coverage": 0.8571
+        },
+        {
+          "keyword": "minecraft villager trading hall build",
+          "coverage": 0.8571
+        },
+        {
+          "keyword": "minecraft villager house",
+          "coverage": 0.8571
+        },
+        {
+          "keyword": "minecraft villager house tutorial",
+          "coverage": 0.8571
+        },
+        {
+          "keyword": "minecraft villager guide",
+          "coverage": 0.7143
+        },
+        {
+          "keyword": "minecraft villager breeder bedrock",
+          "coverage": 0.6667
+        },
+        {
+          "keyword": "minecraft villager farm",
+          "coverage": 0.619
+        },
+        {
+          "keyword": "minecraft villager",
+          "coverage": 0.619
+        },
+        {
+          "keyword": "minecraft villager trading",
+          "coverage": 0.619
+        },
+        {
+          "keyword": "minecraft villager breeder",
+          "coverage": 0.4286
+        },
+        {
+          "keyword": "minecraft villager mod",
+          "coverage": 0.0952
+        },
+        {
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.0952
+        },
+        {
+          "keyword": "minecraft funny builds",
+          "coverage": 0.0952
+        },
+        {
+          "keyword": "minecraft funny mods",
+          "coverage": 0.0952
+        },
+        {
+          "keyword": "minecraft villagers split the village in half",
+          "coverage": 0.0476
+        }
+      ]
+    },
+    "1": {
+      "channel_count": 12,
+      "keywords": [
+        {
+          "keyword": "minecraft villager drawing",
+          "coverage": 0.6667
+        }
+      ]
+    },
+    "2": {
+      "channel_count": 13,
+      "keywords": [
+        {
+          "keyword": "minecraft grox gorilla",
+          "coverage": 0.8462
+        },
+        {
+          "keyword": "lookout3d reaction",
+          "coverage": 0.7692
+        },
+        {
+          "keyword": "minecraft villager civilization",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "minecraft grox villager prison",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "minecraft grox prison",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "minecraft grox edit",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "minecraft grox reaction gacha life",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "lookout3d vs hamoodeg",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "minecraft grox manhunt reaction",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "lookout3d fiberglass",
+          "coverage": 0.6923
+        },
+        {
+          "keyword": "minecraft grox song",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "minecraft grox sus",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d face reveal",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d flint and steel",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "minecraft grok god mode",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d reaction gacha life",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d smug bro",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d oh my pc",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d edit",
+          "coverage": 0.0769
+        },
+        {
+          "keyword": "lookout3d oh warden",
+          "coverage": 0.0769
+        }
+      ]
+    },
+    "12": {
+      "channel_count": 49,
+      "keywords": [
+        {
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.5714
+        },
+        {
+          "keyword": "minecraft funny build battle",
+          "coverage": 0.551
+        },
+        {
+          "keyword": "minecraft villagers split the village in half",
+          "coverage": 0.4082
+        },
+        {
+          "keyword": "minecraft villager",
+          "coverage": 0.3469
+        },
+        {
+          "keyword": "minecraft funny builds",
+          "coverage": 0.3469
+        },
+        {
+          "keyword": "minecraft funny mods",
+          "coverage": 0.3265
+        },
+        {
+          "keyword": "minecraft villager city",
+          "coverage": 0.2449
+        },
+        {
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 0.1429
+        },
+        {
+          "keyword": "minecraft memes shorts",
+          "coverage": 0.1429
+        },
+        {
+          "keyword": "minecraft meme mod",
+          "coverage": 0.102
+        },
+        {
+          "keyword": "minecraft grox 100 days",
+          "coverage": 0.102
+        },
+        {
+          "keyword": "minecraft funny songs",
+          "coverage": 0.102
+        },
+        {
+          "keyword": "minecraft funny movie",
+          "coverage": 0.102
+        },
+        {
+          "keyword": "minecraft villager guide",
+          "coverage": 0.0816
+        },
+        {
+          "keyword": "minecraft villager house",
+          "coverage": 0.0612
+        },
+        {
+          "keyword": "minecraft villager mod",
+          "coverage": 0.0612
+        },
+        {
+          "keyword": "minecraft villager house tutorial",
+          "coverage": 0.0612
+        },
+        {
+          "keyword": "minecraft funny videos",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft villager vs pillager",
+          "coverage": 0.0408
+        },
+        {
+          "keyword": "minecraft villager animation",
+          "coverage": 0.0408
+        }
+      ]
+    },
+    "13": {
+      "channel_count": 61,
+      "keywords": [
+        {
+          "keyword": "minecraft funny animation",
+          "coverage": 0.4918
+        },
+        {
+          "keyword": "minecraft funny cartoon",
+          "coverage": 0.4262
+        },
+        {
+          "keyword": "minecraft funny movie",
+          "coverage": 0.4098
+        },
+        {
+          "keyword": "minecraft funny videos animation",
+          "coverage": 0.3934
+        },
+        {
+          "keyword": "minecraft meme animation",
+          "coverage": 0.377
+        },
+        {
+          "keyword": "minecraft memes movie",
+          "coverage": 0.3443
+        },
+        {
+          "keyword": "minecraft funny animation steve and alex",
+          "coverage": 0.2951
+        },
+        {
+          "keyword": "minecraft funny shorts",
+          "coverage": 0.2951
+        },
+        {
+          "keyword": "minecraft funny edit",
+          "coverage": 0.2623
+        },
+        {
+          "keyword": "minecraft funny short video",
+          "coverage": 0.2459
+        },
+        {
+          "keyword": "minecraft memes in real life",
+          "coverage": 0.2295
+        },
+        {
+          "keyword": "minecraft funny moments monster school",
+          "coverage": 0.2131
+        },
+        {
+          "keyword": "minecraft funny peppa pig",
+          "coverage": 0.2131
+        },
+        {
+          "keyword": "minecraft funny video",
+          "coverage": 0.1967
+        },
+        {
+          "keyword": "minecraft funny videos horror",
+          "coverage": 0.1639
+        },
+        {
+          "keyword": "minecraft funny song",
+          "coverage": 0.1475
+        },
+        {
+          "keyword": "minecraft funny horror",
+          "coverage": 0.1475
+        },
+        {
+          "keyword": "minecraft memes shorts",
+          "coverage": 0.1475
+        },
+        {
+          "keyword": "minecraft meme sound effects",
+          "coverage": 0.1311
+        },
+        {
+          "keyword": "minecraft funny",
+          "coverage": 0.1148
+        }
+      ]
+    },
+    "5": {
+      "channel_count": 17,
+      "keywords": [
+        {
+          "keyword": "lookout3d face reveal",
+          "coverage": 0.6471
+        },
+        {
+          "keyword": "minecraft grox song",
+          "coverage": 0.4118
+        },
+        {
+          "keyword": "minecraft grox edit",
           "coverage": 0.3529
         },
         {
-          "keyword": "minecraft skins sus",
+          "keyword": "minecraft grox vs dream",
+          "coverage": 0.3529
+        },
+        {
+          "keyword": "minecraft grox face reveal",
           "coverage": 0.2941
         },
         {
-          "keyword": "minecraft skins videos",
-          "coverage": 0.2745
-        },
-        {
-          "keyword": "minecraft skins",
-          "coverage": 0.2549
-        },
-        {
-          "keyword": "minecraft skins not showing in multiplayer",
+          "keyword": "minecraft grox sus",
           "coverage": 0.2353
         },
         {
-          "keyword": "minecraft skins shorts",
-          "coverage": 0.2157
+          "keyword": "minecraft grox villager prison",
+          "coverage": 0.1765
         },
         {
-          "keyword": "minecraft skins then vs now",
-          "coverage": 0.1961
+          "keyword": "minecraft grox prison",
+          "coverage": 0.1765
         },
         {
-          "keyword": "minecraft skins name",
-          "coverage": 0.1373
+          "keyword": "minecraft funny songs",
+          "coverage": 0.1176
         },
         {
-          "keyword": "roblox rants",
+          "keyword": "minecraft grox and villager",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft grox funny moments",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft grox moments",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft villager",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft villager animation",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft villager trading",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "lookout3d fiberglass",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "lookout3d reaction",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "lookout3d flint and steel",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft grox gorilla",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "minecraft villager farm",
           "coverage": 0.0588
-        },
-        {
-          "keyword": "99 nights in the forest irl",
-          "coverage": 0.0588
-        },
-        {
-          "keyword": "minecraft skins for boys download",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "minecraft skins best",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "minecraft skins editor",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "minecraft skins app",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "roblox grow a garden",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "99 nights addict fr",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "roblox shorts",
-          "coverage": 0.0196
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.0196
         }
       ]
     },
@@ -174,1344 +479,522 @@
       "channel_count": 17,
       "keywords": [
         {
-          "keyword": "roblox animation code",
-          "coverage": 1.0
+          "keyword": "minecraft grox manhunt reaction",
+          "coverage": 0.8235
         },
         {
-          "keyword": "roblox free items",
-          "coverage": 0.8824
+          "keyword": "minecraft grox reaction",
+          "coverage": 0.5882
         },
         {
-          "keyword": "roblox animation tutorial",
+          "keyword": "minecraft memes that i watch with my teacher",
           "coverage": 0.4706
         },
         {
-          "keyword": "roblox rp",
-          "coverage": 0.4706
-        },
-        {
-          "keyword": "roblox animation script",
-          "coverage": 0.4706
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.4706
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.4706
-        },
-        {
-          "keyword": "escape tsunami for brainrots secrets",
+          "keyword": "minecraft memes vaazkl",
           "coverage": 0.4118
         },
         {
-          "keyword": "escape tsunami for brainrots secret room",
+          "keyword": "lookout3d reaction gacha life",
           "coverage": 0.4118
         },
         {
-          "keyword": "roblox animation software",
+          "keyword": "lookout3d the floor is lava",
+          "coverage": 0.3529
+        },
+        {
+          "keyword": "lookout3d floor is lava",
+          "coverage": 0.3529
+        },
+        {
+          "keyword": "minecraft memes prestonplayz",
           "coverage": 0.2941
         },
         {
-          "keyword": "roblox animation movie",
+          "keyword": "lookout3d reaction",
           "coverage": 0.1765
         },
         {
-          "keyword": "roblox animation channels",
+          "keyword": "minecraft grox mod",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox song",
+          "keyword": "minecraft grox edit",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox animation songs",
+          "keyword": "minecraft grox mods",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox animation story",
+          "keyword": "minecraft grox funny moments",
           "coverage": 0.1176
         },
         {
-          "keyword": "99 nights cultist",
+          "keyword": "minecraft grox moments",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox animation",
+          "keyword": "minecraft memes movie",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox animation sus",
+          "keyword": "minecraft meme funny",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox animation fight",
+          "keyword": "minecraft funny videos try not to laugh",
           "coverage": 0.1176
         },
         {
-          "keyword": "roblox animation funny",
+          "keyword": "minecraft grox gorilla",
           "coverage": 0.1176
+        },
+        {
+          "keyword": "lookout3d fiberglass",
+          "coverage": 0.1176
+        },
+        {
+          "keyword": "lookout3d chicken jockey",
+          "coverage": 0.0588
         }
       ]
     },
-    "9": {
-      "channel_count": 18,
+    "4": {
+      "channel_count": 15,
       "keywords": [
         {
-          "keyword": "roblox brookhaven 🏡rp",
-          "coverage": 1.0
+          "keyword": "minecraft memes compilation",
+          "coverage": 0.4667
         },
         {
-          "keyword": "roblox movie",
-          "coverage": 1.0
+          "keyword": "minecraft meme compilation",
+          "coverage": 0.4667
         },
         {
-          "keyword": "roblox rp",
-          "coverage": 1.0
+          "keyword": "minecraft memes",
+          "coverage": 0.4667
         },
         {
-          "keyword": "roblox animation brookhaven",
-          "coverage": 0.9444
+          "keyword": "minecraft meme funny",
+          "coverage": 0.4667
         },
         {
-          "keyword": "roblox roblox",
-          "coverage": 0.9444
+          "keyword": "minecraft meme",
+          "coverage": 0.4667
         },
         {
-          "keyword": "roblox animation code",
-          "coverage": 0.5
+          "keyword": "minecraft memes funny",
+          "coverage": 0.4667
         },
         {
-          "keyword": "roblox animation funny",
+          "keyword": "minecraft memes shorts",
+          "coverage": 0.4667
+        },
+        {
+          "keyword": "minecraft meme video",
+          "coverage": 0.4667
+        },
+        {
+          "keyword": "minecraft meme videos",
+          "coverage": 0.4667
+        },
+        {
+          "keyword": "minecraft funny memes",
+          "coverage": 0.4667
+        },
+        {
+          "keyword": "minecraft memes movie",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "minecraft funny",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "minecraft funny shorts",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "minecraft meme sound",
           "coverage": 0.3333
         },
         {
-          "keyword": "roblox animation stories",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "roblox animation movie",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "roblox animation story",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "roblox story",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "roblox animation tutorial",
-          "coverage": 0.0556
-        },
-        {
-          "keyword": "escape tsunami for brainrots secrets",
-          "coverage": 0.0556
-        },
-        {
-          "keyword": "escape tsunami for brainrots secret room",
-          "coverage": 0.0556
-        },
-        {
-          "keyword": "roblox free items",
-          "coverage": 0.0556
-        },
-        {
-          "keyword": "roblox animation script",
-          "coverage": 0.0556
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.0556
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.0556
-        }
-      ]
-    },
-    "18": {
-      "channel_count": 41,
-      "keywords": [
-        {
-          "keyword": "escape tsunami for brainrots noob to pro",
-          "coverage": 0.4878
-        },
-        {
-          "keyword": "escape tsunami for brainrots secrets",
-          "coverage": 0.4878
-        },
-        {
-          "keyword": "escape tsunami for brainrots leaderboard",
-          "coverage": 0.3902
-        },
-        {
-          "keyword": "escape tsunami for brainrots best base",
-          "coverage": 0.3659
-        },
-        {
-          "keyword": "steal a brainrot roblox noob to pro",
-          "coverage": 0.3415
-        },
-        {
-          "keyword": "escape tsunami for brainrots divine",
-          "coverage": 0.3171
-        },
-        {
-          "keyword": "99 nights admin abuse",
-          "coverage": 0.2927
-        },
-        {
-          "keyword": "escape tsunami for brainrots secret room",
-          "coverage": 0.2927
-        },
-        {
-          "keyword": "escape tsunami for brainrots modded",
-          "coverage": 0.2683
-        },
-        {
-          "keyword": "escape tsunami for brainrots admin abuse live",
-          "coverage": 0.2683
-        },
-        {
-          "keyword": "escape tsunami for brainrots admin abuse",
-          "coverage": 0.2439
-        },
-        {
-          "keyword": "99 nights forest",
-          "coverage": 0.2195
-        },
-        {
-          "keyword": "99 nights in the forest",
-          "coverage": 0.2195
-        },
-        {
-          "keyword": "99 nights in the forest hacks",
-          "coverage": 0.2195
-        },
-        {
-          "keyword": "steal a brainrot new update",
-          "coverage": 0.1951
-        },
-        {
-          "keyword": "escape tsunami for brainrots live admin abuse",
-          "coverage": 0.1951
-        },
-        {
-          "keyword": "escape tsunami for brainrots spawn machine",
-          "coverage": 0.1951
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.1707
-        },
-        {
-          "keyword": "99 nights pro123",
-          "coverage": 0.1707
-        },
-        {
-          "keyword": "99 nights",
-          "coverage": 0.1707
-        }
-      ]
-    },
-    "16": {
-      "channel_count": 32,
-      "keywords": [
-        {
-          "keyword": "roblox song",
-          "coverage": 0.8125
-        },
-        {
-          "keyword": "steal a brainrot funk",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "steal a brainrot song",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "roblox rivals",
-          "coverage": 0.375
-        },
-        {
-          "keyword": "roblox animation fight",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "roblox animation story",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "99 nights thanksgiving",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "escape tsunami for brainrots modded",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "99 nights cultist",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.0938
-        },
-        {
-          "keyword": "99 nights song",
-          "coverage": 0.0938
-        },
-        {
-          "keyword": "99 nights in the forest song",
-          "coverage": 0.0938
-        },
-        {
-          "keyword": "roblox animation stories",
-          "coverage": 0.0938
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "roblox age verification",
-          "coverage": 0.0625
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.0625
-        }
-      ]
-    },
-    "17": {
-      "channel_count": 31,
-      "keywords": [
-        {
-          "keyword": "99 nights cultist",
-          "coverage": 0.6129
-        },
-        {
-          "keyword": "99 nights thanksgiving",
-          "coverage": 0.5484
-        },
-        {
-          "keyword": "99 nights in the forest update",
-          "coverage": 0.5161
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.4194
-        },
-        {
-          "keyword": "roblox roblox",
-          "coverage": 0.3871
-        },
-        {
-          "keyword": "99 nights pro123",
-          "coverage": 0.3871
-        },
-        {
-          "keyword": "99 nights in the forest",
-          "coverage": 0.3548
-        },
-        {
-          "keyword": "99nights",
-          "coverage": 0.2903
-        },
-        {
-          "keyword": "99 nights live",
-          "coverage": 0.2903
-        },
-        {
-          "keyword": "roblox blox fruit",
-          "coverage": 0.2581
-        },
-        {
-          "keyword": "roblox shorts",
-          "coverage": 0.2258
-        },
-        {
-          "keyword": "escape tsunami for brainrots fortnite",
-          "coverage": 0.2258
-        },
-        {
-          "keyword": "escape tsunami for brainrots secrets",
-          "coverage": 0.2258
-        },
-        {
-          "keyword": "99 nights in the forest in real life",
-          "coverage": 0.2258
-        },
-        {
-          "keyword": "steal a brainrot shorts",
-          "coverage": 0.2258
-        },
-        {
-          "keyword": "99 nights new update",
-          "coverage": 0.1935
-        },
-        {
-          "keyword": "99 nights update",
-          "coverage": 0.1935
-        },
-        {
-          "keyword": "roblox grow a garden",
-          "coverage": 0.1935
-        },
-        {
-          "keyword": "99 nights addict fr",
-          "coverage": 0.1935
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.1935
-        }
-      ]
-    },
-    "7": {
-      "channel_count": 24,
-      "keywords": [
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "roblox animation sus",
-          "coverage": 0.5417
-        },
-        {
-          "keyword": "roblox animation r63",
-          "coverage": 0.5417
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.5
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.4583
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.4167
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.4167
-        },
-        {
-          "keyword": "roblox animation memes",
+          "keyword": "minecraft memes real life",
           "coverage": 0.3333
         },
         {
-          "keyword": "roblox animation blender",
+          "keyword": "minecraft meme sounds",
           "coverage": 0.3333
         },
         {
-          "keyword": "roblox animation games",
+          "keyword": "minecraft meme sound effects",
           "coverage": 0.3333
         },
         {
-          "keyword": "roblox age verification",
-          "coverage": 0.2917
+          "keyword": "minecraft memes in real life",
+          "coverage": 0.3333
         },
         {
-          "keyword": "roblox song",
-          "coverage": 0.2917
+          "keyword": "minecraft funny videos try not to laugh",
+          "coverage": 0.3333
         },
         {
-          "keyword": "roblox edits",
-          "coverage": 0.2917
-        },
-        {
-          "keyword": "roblox animation on mobile",
-          "coverage": 0.2917
-        },
-        {
-          "keyword": "roblox animation ideas",
-          "coverage": 0.2083
-        },
-        {
-          "keyword": "roblox animation software",
-          "coverage": 0.2083
-        },
-        {
-          "keyword": "roblox animation movie",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "roblox animation tutorial",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "99 nights forest",
-          "coverage": 0.1667
-        },
-        {
-          "keyword": "99 nights addict fr",
-          "coverage": 0.1667
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.3333
         }
       ]
     },
-    "11": {
+    "10": {
       "channel_count": 23,
       "keywords": [
         {
-          "keyword": "roblox animation memes",
-          "coverage": 0.9565
+          "keyword": "minecraft meme song",
+          "coverage": 0.6957
         },
         {
-          "keyword": "roblox animation meme",
-          "coverage": 0.9565
+          "keyword": "minecraft funny song",
+          "coverage": 0.6957
         },
         {
-          "keyword": "roblox animation funny",
-          "coverage": 0.8696
+          "keyword": "minecraft funny songs",
+          "coverage": 0.6957
         },
         {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.8696
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.8261
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.8261
-        },
-        {
-          "keyword": "roblox animation games",
-          "coverage": 0.7391
-        },
-        {
-          "keyword": "roblox animation video",
+          "keyword": "minecraft meme music",
           "coverage": 0.6522
         },
         {
-          "keyword": "roblox animation videos",
-          "coverage": 0.6522
-        },
-        {
-          "keyword": "roblox edits",
-          "coverage": 0.5652
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.5217
-        },
-        {
-          "keyword": "roblox animation story",
-          "coverage": 0.5217
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.5217
-        },
-        {
-          "keyword": "roblox animation sus",
-          "coverage": 0.4783
-        },
-        {
-          "keyword": "roblox animation ideas",
+          "keyword": "minecraft villager song",
           "coverage": 0.4348
         },
         {
-          "keyword": "99 nights animation",
-          "coverage": 0.3043
+          "keyword": "minecraft grox song",
+          "coverage": 0.3913
         },
         {
-          "keyword": "roblox animation fight",
-          "coverage": 0.3043
+          "keyword": "minecraft memes movie",
+          "coverage": 0.3478
         },
         {
-          "keyword": "roblox animation stories",
+          "keyword": "minecraft villager singing",
           "coverage": 0.2609
         },
         {
-          "keyword": "roblox animation movie",
+          "keyword": "minecraft villager drawing",
           "coverage": 0.2609
         },
         {
-          "keyword": "roblox animation on mobile",
+          "keyword": "minecraft meme sound",
           "coverage": 0.2609
+        },
+        {
+          "keyword": "minecraft meme sounds",
+          "coverage": 0.2609
+        },
+        {
+          "keyword": "minecraft meme sound effects",
+          "coverage": 0.2609
+        },
+        {
+          "keyword": "minecraft funny edit",
+          "coverage": 0.2609
+        },
+        {
+          "keyword": "lookout3d chicken jockey",
+          "coverage": 0.2609
+        },
+        {
+          "keyword": "minecraft funny animation",
+          "coverage": 0.2609
+        },
+        {
+          "keyword": "minecraft funny movie",
+          "coverage": 0.087
+        },
+        {
+          "keyword": "minecraft grox 100 days",
+          "coverage": 0.0435
+        },
+        {
+          "keyword": "minecraft funny build battle",
+          "coverage": 0.0435
+        },
+        {
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.0435
+        },
+        {
+          "keyword": "minecraft funny animation steve and alex",
+          "coverage": 0.0435
         }
       ]
     },
     "8": {
-      "channel_count": 21,
+      "channel_count": 20,
       "keywords": [
         {
-          "keyword": "roblox animation pack",
-          "coverage": 0.7619
-        },
-        {
-          "keyword": "roblox age verification",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "roblox bedwars",
-          "coverage": 0.5714
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.4762
-        },
-        {
-          "keyword": "99 nights hacks",
-          "coverage": 0.4286
-        },
-        {
-          "keyword": "roblox animation video",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "roblox animation now vs then",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "roblox song",
-          "coverage": 0.2381
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.0952
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.0476
-        },
-        {
-          "keyword": "99 nights cultist",
-          "coverage": 0.0476
-        },
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.0476
-        }
-      ]
-    },
-    "14": {
-      "channel_count": 32,
-      "keywords": [
-        {
-          "keyword": "roblox animation story",
-          "coverage": 0.4375
-        },
-        {
-          "keyword": "99 nights animation",
-          "coverage": 0.375
-        },
-        {
-          "keyword": "roblox animation stories",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "99 nights in the forest song",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "roblox animation games",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation movie",
-          "coverage": 0.3125
-        },
-        {
-          "keyword": "roblox animation",
-          "coverage": 0.2812
-        },
-        {
-          "keyword": "roblox movie",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "roblox story",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "99 nights edits",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "99nights",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "99 nights song",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "99 nights",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "minecraft skins drawing",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox animation videos",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "99 nights shorts",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox animation tutorial",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "roblox animation songs",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "roblox animation shorts",
-          "coverage": 0.1562
-        },
-        {
-          "keyword": "99 nights pro123",
-          "coverage": 0.1562
-        }
-      ]
-    },
-    "2": {
-      "channel_count": 32,
-      "keywords": [
-        {
-          "keyword": "steal a brainrot secret admin",
-          "coverage": 0.4062
-        },
-        {
-          "keyword": "steal a brainrot roblox admin abuse today",
-          "coverage": 0.375
-        },
-        {
-          "keyword": "steal a brainrot admin abuse time live",
-          "coverage": 0.375
-        },
-        {
-          "keyword": "steal a brainrot roblox live admin abuse today",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "steal a brainrot roblox live admin abuse",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "steal a brainrot admin abuse",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "steal a brainrot update",
-          "coverage": 0.3438
-        },
-        {
-          "keyword": "roblox steal a brainrot",
-          "coverage": 0.2812
-        },
-        {
-          "keyword": "steal a brainrot new update",
-          "coverage": 0.2812
-        },
-        {
-          "keyword": "steal a brainrot roblox live",
-          "coverage": 0.2812
-        },
-        {
-          "keyword": "escape tsunami for brainrots live stream",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "steal a brainrot live",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "steal a brainrot live trading",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "steal a brainrot live stream",
-          "coverage": 0.25
-        },
-        {
-          "keyword": "steal a brainrot roblox caylus",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "steal a brainrot modded",
-          "coverage": 0.2188
-        },
-        {
-          "keyword": "steal a brainrot",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "steal a brainrot live giveaway",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox live",
-          "coverage": 0.1875
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.1562
-        }
-      ]
-    },
-    "13": {
-      "channel_count": 63,
-      "keywords": [
-        {
-          "keyword": "99 nights irl",
-          "coverage": 0.381
-        },
-        {
-          "keyword": "99 nights in the forest in real life",
-          "coverage": 0.381
-        },
-        {
-          "keyword": "99 nights in the forest irl",
-          "coverage": 0.381
-        },
-        {
-          "keyword": "steal a brainrot in real life",
-          "coverage": 0.381
-        },
-        {
-          "keyword": "99 nights",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "steal a brainrot shorts",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "steal a brainrot admin abuse time live",
-          "coverage": 0.1111
-        },
-        {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "99nights",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "99 nights forest",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "99 nights tips",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "99 nights thanksgiving",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "99 nights in the forest update",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "99 nights in the forest",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.0794
-        },
-        {
-          "keyword": "minecraft skins sus",
-          "coverage": 0.0635
-        },
-        {
-          "keyword": "roblox rants",
-          "coverage": 0.0635
-        }
-      ]
-    },
-    "15": {
-      "channel_count": 38,
-      "keywords": [
-        {
-          "keyword": "99 nights addict fr",
-          "coverage": 0.6579
-        },
-        {
-          "keyword": "roblox grow a garden",
-          "coverage": 0.6316
-        },
-        {
-          "keyword": "roblox gameplay",
-          "coverage": 0.6316
-        },
-        {
-          "keyword": "roblox",
-          "coverage": 0.4474
-        },
-        {
-          "keyword": "roblox animation channels",
-          "coverage": 0.3158
-        },
-        {
-          "keyword": "99 nights forest",
-          "coverage": 0.3158
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.3158
-        },
-        {
-          "keyword": "roblox animation r63",
-          "coverage": 0.0263
-        },
-        {
-          "keyword": "99 nights in the forest",
-          "coverage": 0.0263
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.0263
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.0263
-        },
-        {
-          "keyword": "99 nights irl",
-          "coverage": 0.0263
-        },
-        {
-          "keyword": "99 nights in the forest irl",
-          "coverage": 0.0263
-        },
-        {
-          "keyword": "roblox games to play when your bored",
-          "coverage": 0.0263
-        }
-      ]
-    },
-    "12": {
-      "channel_count": 22,
-      "keywords": [
-        {
-          "keyword": "roblox horror games",
-          "coverage": 0.7727
-        },
-        {
-          "keyword": "roblox games",
-          "coverage": 0.6818
-        },
-        {
-          "keyword": "roblox horror",
-          "coverage": 0.6364
-        },
-        {
-          "keyword": "roblox game",
-          "coverage": 0.5909
-        },
-        {
-          "keyword": "roblox best games",
-          "coverage": 0.4545
-        },
-        {
-          "keyword": "escape tsunami for brainrots caylus",
-          "coverage": 0.4545
-        },
-        {
-          "keyword": "99 nights thanksgiving",
-          "coverage": 0.4091
-        },
-        {
-          "keyword": "99 nights in the forest live",
-          "coverage": 0.4091
-        },
-        {
-          "keyword": "roblox games to play when your bored",
-          "coverage": 0.3182
-        },
-        {
-          "keyword": "99 nights hack",
-          "coverage": 0.1818
-        },
-        {
-          "keyword": "99 nights in the forest hacks",
-          "coverage": 0.1818
-        },
-        {
-          "keyword": "99nights",
-          "coverage": 0.1364
-        },
-        {
-          "keyword": "99 nights hacks",
-          "coverage": 0.1364
-        },
-        {
-          "keyword": "99 nights pro",
-          "coverage": 0.1364
-        },
-        {
-          "keyword": "99 nights live",
-          "coverage": 0.0909
-        },
-        {
-          "keyword": "99 nights tips",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "roblox song",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "roblox blox fruit",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "99 nights forest script",
-          "coverage": 0.0455
-        },
-        {
-          "keyword": "roblox is down",
-          "coverage": 0.0455
-        }
-      ]
-    },
-    "0": {
-      "channel_count": 27,
-      "keywords": [
-        {
-          "keyword": "steal a brainrot roblox live",
-          "coverage": 0.4074
-        },
-        {
-          "keyword": "steal a brainrot trading live",
-          "coverage": 0.4074
-        },
-        {
-          "keyword": "steal a brainrot live stream",
-          "coverage": 0.4074
-        },
-        {
-          "keyword": "steal a brainrot roblox live trading",
-          "coverage": 0.3704
-        },
-        {
-          "keyword": "steal a brainrot live trading",
-          "coverage": 0.3704
-        },
-        {
-          "keyword": "steal a brainrot live",
-          "coverage": 0.3704
-        },
-        {
-          "keyword": "roblox live",
-          "coverage": 0.2963
-        },
-        {
-          "keyword": "steal a brainrot roblox live admin abuse today",
-          "coverage": 0.2963
-        },
-        {
-          "keyword": "escape tsunami for brainrots live admin abuse",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "escape tsunami for brainrots live",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "steal a brainrot roblox live admin abuse",
-          "coverage": 0.2222
-        },
-        {
-          "keyword": "steal a brainrot live giveaway",
-          "coverage": 0.1852
-        },
-        {
-          "keyword": "steal a brainrot fortnite",
-          "coverage": 0.1852
-        },
-        {
-          "keyword": "steal a brainrot roblox admin abuse today",
-          "coverage": 0.1852
-        },
-        {
-          "keyword": "escape tsunami for brainrots live stream",
-          "coverage": 0.1481
-        },
-        {
-          "keyword": "steal a brainrot admin abuse time live",
-          "coverage": 0.1481
-        },
-        {
-          "keyword": "escape tsunami for brainrots admin abuse live",
-          "coverage": 0.1111
-        },
-        {
-          "keyword": "roblox is down",
-          "coverage": 0.0741
-        },
-        {
-          "keyword": "roblox shorts",
-          "coverage": 0.0741
-        },
-        {
-          "keyword": "escape tsunami for brainrots admin abuse",
-          "coverage": 0.0741
-        }
-      ]
-    },
-    "5": {
-      "channel_count": 16,
-      "keywords": [
-        {
-          "keyword": "99 nights forest script",
-          "coverage": 0.875
-        },
-        {
-          "keyword": "roblox executor",
+          "keyword": "minecraft funny gameplay video",
           "coverage": 0.75
         },
         {
-          "keyword": "99 nights script",
-          "coverage": 0.5
+          "keyword": "minecraft memes in hindi",
+          "coverage": 0.7
         },
         {
-          "keyword": "99 nights hack",
-          "coverage": 0.4375
+          "keyword": "minecraft funny video in hindi",
+          "coverage": 0.7
         },
         {
-          "keyword": "99 nights hacks",
-          "coverage": 0.4375
+          "keyword": "minecraft funny videos horror",
+          "coverage": 0.7
         },
         {
-          "keyword": "99 nights in the forest hacks",
-          "coverage": 0.4375
+          "keyword": "minecraft villager civilization",
+          "coverage": 0.45
         },
         {
-          "keyword": "escape tsunami for brainrots hack",
-          "coverage": 0.375
+          "keyword": "minecraft funny videos",
+          "coverage": 0.35
         },
         {
-          "keyword": "99 nights tips",
-          "coverage": 0.375
+          "keyword": "minecraft grox hindi",
+          "coverage": 0.3
         },
         {
-          "keyword": "99 nights in a forest codes",
-          "coverage": 0.1875
+          "keyword": "minecraft funny edit",
+          "coverage": 0.2
         },
         {
-          "keyword": "99 nights codes",
-          "coverage": 0.1875
+          "keyword": "minecraft funny video",
+          "coverage": 0.2
         },
         {
-          "keyword": "99 nights thanksgiving",
-          "coverage": 0.125
+          "keyword": "minecraft meme animation",
+          "coverage": 0.2
         },
         {
-          "keyword": "99 nights live",
-          "coverage": 0.125
+          "keyword": "minecraft funny cartoon",
+          "coverage": 0.2
         },
         {
-          "keyword": "99 nights in the forest live",
-          "coverage": 0.125
+          "keyword": "minecraft funny horror",
+          "coverage": 0.2
         },
         {
-          "keyword": "99 nights pro",
-          "coverage": 0.125
+          "keyword": "minecraft funny moments monster school",
+          "coverage": 0.2
         },
         {
-          "keyword": "roblox horror games",
-          "coverage": 0.125
+          "keyword": "minecraft funny videos try not to laugh",
+          "coverage": 0.15
         },
         {
-          "keyword": "roblox 99 nights in the forest",
-          "coverage": 0.0625
+          "keyword": "minecraft funny tricks",
+          "coverage": 0.1
         },
         {
-          "keyword": "99 nights cultist",
-          "coverage": 0.0625
+          "keyword": "minecraft funny peppa pig",
+          "coverage": 0.1
         },
         {
-          "keyword": "99 nights admin abuse",
-          "coverage": 0.0625
+          "keyword": "minecraft funny clips",
+          "coverage": 0.1
         },
         {
-          "keyword": "99 nights in the forest update",
-          "coverage": 0.0625
+          "keyword": "minecraft funny",
+          "coverage": 0.1
         },
         {
-          "keyword": "99 nights in the forest",
-          "coverage": 0.0625
+          "keyword": "minecraft funny mods",
+          "coverage": 0.1
+        },
+        {
+          "keyword": "minecraft funny moments compilation",
+          "coverage": 0.1
+        }
+      ]
+    },
+    "11": {
+      "channel_count": 25,
+      "keywords": [
+        {
+          "keyword": "minecraft funny horror",
+          "coverage": 0.64
+        },
+        {
+          "keyword": "minecraft funny mods",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "minecraft funny speedrun",
+          "coverage": 0.56
+        },
+        {
+          "keyword": "minecraft meme mod",
+          "coverage": 0.52
+        },
+        {
+          "keyword": "minecraft funny videos horror",
+          "coverage": 0.32
+        },
+        {
+          "keyword": "minecraft funny moments",
+          "coverage": 0.28
+        },
+        {
+          "keyword": "minecraft funny clips",
+          "coverage": 0.28
+        },
+        {
+          "keyword": "minecraft funny moments compilation",
+          "coverage": 0.28
+        },
+        {
+          "keyword": "minecraft funny moments video",
+          "coverage": 0.24
+        },
+        {
+          "keyword": "minecraft memes compilation",
+          "coverage": 0.24
+        },
+        {
+          "keyword": "minecraft funny build battle",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "minecraft meme animation",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "minecraft funny cartoon",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "minecraft funny moments monster school",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "minecraft funny videos try not to laugh",
+          "coverage": 0.2
+        },
+        {
+          "keyword": "minecraft villagers split the village in half",
+          "coverage": 0.16
+        },
+        {
+          "keyword": "minecraft funny fails",
+          "coverage": 0.16
+        },
+        {
+          "keyword": "minecraft funny gameplay video",
+          "coverage": 0.16
+        },
+        {
+          "keyword": "minecraft villager singing",
+          "coverage": 0.12
+        },
+        {
+          "keyword": "minecraft villager sound",
+          "coverage": 0.12
         }
       ]
     },
     "3": {
-      "channel_count": 15,
+      "channel_count": 13,
       "keywords": [
         {
-          "keyword": "steal a brainrot roblox admin abuse today",
-          "coverage": 0.7333
+          "keyword": "minecraft meme olympics",
+          "coverage": 0.3077
         },
         {
-          "keyword": "escape tsunami for brainrots discord server",
-          "coverage": 0.7333
-        },
-        {
-          "keyword": "steal a brainrot discord server link",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "escape tsunami for brainrots discord",
-          "coverage": 0.6667
-        },
-        {
-          "keyword": "roblox steal a brainrot",
-          "coverage": 0.5333
-        },
-        {
-          "keyword": "steal a brainrot roblox",
-          "coverage": 0.5333
-        },
-        {
-          "keyword": "escape tsunami for brainrots noob to pro",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "steal a brainrot update",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "steal a brainrot admin abuse",
-          "coverage": 0.4667
-        },
-        {
-          "keyword": "escape tsunami for brainrots best base",
-          "coverage": 0.4
-        },
-        {
-          "keyword": "ESCAPE TSUNAMI FOR BRAINROTS",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots leaderboard",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots live stream",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots update",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots wave wednesday",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots roblox",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots glitch",
-          "coverage": 0.3333
-        },
-        {
-          "keyword": "escape tsunami for brainrots divine",
-          "coverage": 0.2667
-        },
-        {
-          "keyword": "steal a brainrot",
-          "coverage": 0.2667
+          "keyword": "minecraft funny",
+          "coverage": 0.0769
         }
       ]
     },
-    "1": {
-      "channel_count": 11,
+    "0": {
+      "channel_count": 10,
       "keywords": [
         {
-          "keyword": "steal a brainrot fortnite",
+          "keyword": "lookout3d the floor is lava",
           "coverage": 1.0
         },
         {
-          "keyword": "steal a brainrot fortnite codes",
+          "keyword": "lookout3d floor is lava",
           "coverage": 1.0
         },
         {
-          "keyword": "escape tsunami for brainrots fortnite",
-          "coverage": 1.0
+          "keyword": "lookout3d reaction",
+          "coverage": 0.8
         },
         {
-          "keyword": "escape tsunami for brainrots fortnite codes",
-          "coverage": 0.8182
+          "keyword": "lookout3d chicken jockey",
+          "coverage": 0.8
         },
         {
-          "keyword": "steal a brainrot",
-          "coverage": 0.4545
+          "keyword": "minecraft grox reaction",
+          "coverage": 0.6
         },
         {
-          "keyword": "roblox shorts",
-          "coverage": 0.1818
+          "keyword": "minecraft grox manhunt reaction",
+          "coverage": 0.6
         },
         {
-          "keyword": "roblox",
-          "coverage": 0.1818
+          "keyword": "lookout3d smug bro",
+          "coverage": 0.6
         },
         {
-          "keyword": "escape tsunami for brainrots secrets",
-          "coverage": 0.1818
+          "keyword": "lookout3d chill guy",
+          "coverage": 0.6
         },
         {
-          "keyword": "99 nights in the forest in real life",
-          "coverage": 0.1818
+          "keyword": "lookout3d oh warden",
+          "coverage": 0.6
         },
         {
-          "keyword": "steal a brainrot shorts",
-          "coverage": 0.1818
+          "keyword": "lookout3d villager",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "lookout3d oh warden reaction",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "lookout3d fiberglass",
+          "coverage": 0.6
+        },
+        {
+          "keyword": "lookout3d reaction gacha life",
+          "coverage": 0.5
+        },
+        {
+          "keyword": "minecraft grox edit",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "minecraft grox sus",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "minecraft grox",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "lookout3d vs grox",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "lookout3d grox",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "lookout3d and grox",
+          "coverage": 0.4
+        },
+        {
+          "keyword": "lookout3d warden",
+          "coverage": 0.4
         }
       ]
     }

@@ -90,12 +90,51 @@ class CommunityDetector:
             result[nid] = ranked[:top_n]
         return result
 
+    @staticmethod
+    def _find_top_channels(
+        members: List[str],
+        channel_data: Dict[str, Dict],
+        real_stats: Optional[Dict[str, Dict]] = None,
+        ch_to_cid: Optional[Dict[str, str]] = None,
+        top_n: int = 3,
+    ) -> List[Dict]:
+        """Find top N channels by subscriber count in a niche."""
+        def sub_count(ch_name: str) -> int:
+            if real_stats and ch_to_cid:
+                cid = ch_to_cid.get(ch_name, "")
+                if cid:
+                    raw = real_stats.get(cid, {}).get("subscriberCount", "0")
+                    try:
+                        return int(raw)
+                    except (ValueError, TypeError):
+                        pass
+            return int(channel_data.get(ch_name, {}).get("subscriber_count", 0))
+
+        def fmt_subs(s: int) -> str:
+            if s >= 1_000_000:
+                return f"{s/1_000_000:.1f}M"
+            elif s >= 1_000:
+                return f"{s/1_000:.0f}K"
+            return str(s)
+
+        ranked = []
+        for ch in members:
+            score = sub_count(ch)
+            cid = ch_to_cid.get(ch, "") if ch_to_cid else ""
+            ranked.append({"name": ch, "subscribers": score, "channelId": cid, "subs_display": fmt_subs(score)})
+
+        ranked.sort(key=lambda x: -x["subscribers"])
+        return ranked[:top_n]
+
     def export_niche_wordcloud(
         self,
         niches: Dict[int, List[str]],
         niche_concepts: Dict[int, List[Dict]],
         output_path: str = "output/niche_wordcloud.html",
         concepts_per_niche: int = 30,
+        channel_data: Optional[Dict[str, Dict]] = None,
+        real_stats: Optional[Dict[str, Dict]] = None,
+        ch_to_cid: Optional[Dict[str, str]] = None,
     ) -> str:
         """Generate interactive HTML with canvas-based word cloud per niche sorted descending by channel count."""
         # Prepare JSON data for client-side rendering
@@ -105,24 +144,37 @@ class CommunityDetector:
             key=lambda nid: len(niches[nid]),
             reverse=False,  # ascending by channel count (smallest = 0)
         )
-        for nid in sorted_nids:
-            concepts = niche_concepts.get(nid, [])[:concepts_per_niche]
+
+        # HSL color palette (same spread as export_network)
+        num_colors = max(len(sorted_nids), 5)
+        niche_colors = []
+        for i in range(num_colors):
+            hue = (i * 360 / num_colors) % 360
+            sat = 70 + (i % 3) * 10
+            lit = 50 + (i % 5) * 5
+            niche_colors.append((hue, sat, lit))
+
+        for idx, nid in enumerate(sorted_nids):
+            concepts = niche_concepts.get(nid, [])
             if not concepts:
                 continue
-            max_coverage = max(c["coverage"] for c in concepts) or 1
-            words = []
-            for c in concepts:
-                weight = c["coverage"] / max_coverage
-                words.append({
-                    "text": c["keyword"],
-                    "weight": round(weight, 4),
-                    "coverage": c["coverage"],
-                })
-            data.append({
+            # Single biggest concept keyword (highest coverage)
+            top_concept = concepts[0]["keyword"] if concepts else ""
+            h, s, l = niche_colors[idx]
+            entry = {
                 "id": nid,
                 "channel_count": len(niches[nid]),
-                "words": words,
-            })
+                "color": f"hsl({h},{s}%,{l}%)",
+                "keyword": top_concept,
+                "top_channels": [],
+            }
+            # Top 3 channels per niche
+            members = niches.get(nid, [])
+            if channel_data:
+                entry["top_channels"] = self._find_top_channels(
+                    members, channel_data, real_stats, ch_to_cid, top_n=3,
+                )
+            data.append(entry)
 
         niches_json = json_mod.dumps(data, ensure_ascii=False)
 
@@ -131,7 +183,7 @@ class CommunityDetector:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Niche Keywords Word Clouds</title>
+<title>Niche Report</title>
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 body {{
@@ -166,33 +218,67 @@ h1 {{
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 14px 16px 8px;
+    padding: 16px;
     backdrop-filter: blur(8px);
 }}
 .niche-header {{
     display: flex;
     align-items: baseline;
     gap: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
 }}
 .niche-title {{
-    font-weight: 500;
-    font-size: 15px;
-    color: #c8b8ff;
+    font-weight: 600;
+    font-size: 16px;
 }}
 .niche-count {{
     color: #8878b0;
     font-size: 12px;
     font-weight: 400;
 }}
-canvas {{
-    display: block;
-    width: 100%;
-    height: 200px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #1a1740, #2d2860);
+.niche-tag {{
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #c8b8ff;
 }}
-.no-concepts {{
+.niche-desc {{
+    font-size: 13px;
+    line-height: 1.5;
+    color: #d0c8e0;
+    margin: 6px 0 10px;
+}}
+.channel-list {{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}}
+.channel-item {{
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+}}
+.channel-item a {{
+    color: #c8b8ff;
+    text-decoration: none;
+    font-weight: 500;
+}}
+.channel-item a:hover {{
+    color: #fff;
+    text-decoration: underline;
+}}
+.channel-item .subs {{
+    color: #8878b0;
+    font-size: 11px;
+    margin-left: 4px;
+}}
+.no-niches {{
     text-align: center;
     color: #665;
     padding: 40px;
@@ -201,8 +287,8 @@ canvas {{
 </style>
 </head>
 <body>
-<h1>Niche Keywords</h1>
-<p class="subtitle">Each niche&rsquo;s defining keywords &mdash; word size reflects coverage</p>
+<h1>Niche Report</h1>
+<p class="subtitle">Each niche&rsquo;s top concept &amp; leading channels</p>
 <div id="container" class="grid"></div>
 
 <script>
@@ -211,7 +297,7 @@ canvas {{
     var container = document.getElementById('container');
 
     if (niches.length === 0) {{
-        container.innerHTML = '<div class="no-concepts">No niche concepts found.</div>';
+        container.innerHTML = '<div class="no-niches">No niches found.</div>';
         return;
     }}
 
@@ -221,111 +307,44 @@ canvas {{
 
         var header = document.createElement('div');
         header.className = 'niche-header';
-        header.innerHTML = '<span class="niche-title">Niche ' + niche.id + '</span><span class="niche-count">' + niche.channel_count + ' channels</span>';
+        header.innerHTML = '<span class="niche-title" style="color:' + niche.color + '">Niche ' + niche.id + '</span>' +
+            '<span class="niche-count">' + niche.channel_count + ' channels</span>' +
+            (niche.keyword ? '<span class="niche-tag">' + niche.keyword + '</span>' : '');
         card.appendChild(header);
 
-        var canvas = document.createElement('canvas');
-        canvas.width = 860;
-        canvas.height = 280;
-        card.appendChild(canvas);
+        if (niche.description) {{
+            var desc = document.createElement('div');
+            desc.className = 'niche-desc';
+            desc.textContent = niche.description;
+            card.appendChild(desc);
+        }}
+
+        if (niche.top_channels && niche.top_channels.length > 0) {{
+            var clist = document.createElement('div');
+            clist.className = 'channel-list';
+            niche.top_channels.forEach(function(ch, idx) {{
+                var item = document.createElement('div');
+                item.className = 'channel-item';
+                var medal = idx === 0 ? '&#129351;' : idx === 1 ? '&#129352;' : '&#129353;';
+                item.innerHTML = medal + ' <a href="https://www.youtube.com/channel/' + ch.channelId + '" target="_blank">' + ch.name + '</a><span class="subs">' + ch.subs_display + '</span>';
+                clist.appendChild(item);
+            }});
+            card.appendChild(clist);
+        }}
 
         container.appendChild(card);
-        drawWordCloud(canvas, niche.words);
     }});
 
-    // Pagination: 4 per page
     var cards = container.getElementsByClassName('niche-card');
     var pageSize = 4, page = 0, totalPages = Math.ceil(cards.length / pageSize);
     function showPage(p){{page = Math.max(0, Math.min(p, totalPages - 1));for (var i = 0; i < cards.length; i++)cards[i].style.display = (i >= page * pageSize && i < (page + 1) * pageSize) ? '' : 'none';pgText.textContent = (page + 1) + ' / ' + totalPages;}}
     var nav = document.createElement('div');nav.style.cssText = 'text-align:center;margin-bottom:24px;';
-    var prevBtn = document.createElement('button');prevBtn.textContent = '← Previous';prevBtn.style.cssText = 'background:rgba(255,255,255,0.1);color:#c8b8ff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 20px;font-size:14px;cursor:pointer;margin:0 8px;';prevBtn.onclick = function(){{ showPage(page - 1); }};
-    var nextBtn = document.createElement('button');nextBtn.textContent = 'Next →';nextBtn.style.cssText = prevBtn.style.cssText;nextBtn.onclick = function(){{ showPage(page + 1); }};
+    var prevBtn = document.createElement('button');prevBtn.textContent = '&#8592; Previous';prevBtn.style.cssText = 'background:rgba(255,255,255,0.1);color:#c8b8ff;border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 20px;font-size:14px;cursor:pointer;margin:0 8px;';prevBtn.onclick = function(){{ showPage(page - 1); }};
+    var nextBtn = document.createElement('button');nextBtn.textContent = 'Next &#8594;';nextBtn.style.cssText = prevBtn.style.cssText;nextBtn.onclick = function(){{ showPage(page + 1); }};
     var pgText = document.createElement('span');pgText.style.cssText = 'color:#8878b0;font-size:14px;margin:0 12px;';
     nav.appendChild(prevBtn);nav.appendChild(pgText);nav.appendChild(nextBtn);
     container.parentNode.insertBefore(nav, container);
     showPage(0);
-
-    function drawWordCloud(canvas, words) {{
-        var ctx = canvas.getContext('2d');
-        var cx = canvas.width / 2;
-        var cy = canvas.height / 2;
-
-        if (!words || words.length === 0) return;
-
-        var maxWeight = 0;
-        for (var i = 0; i < words.length; i++) {{
-            if (words[i].weight > maxWeight) maxWeight = words[i].weight;
-        }}
-        if (maxWeight === 0) maxWeight = 1;
-
-        var bgGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        bgGrad.addColorStop(0, '#1a1740');
-        bgGrad.addColorStop(1, '#2d2860');
-        ctx.fillStyle = bgGrad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        words.sort(function(a, b) {{ return b.weight - a.weight; }});
-
-        var placed = [];
-        var step = 0.15;
-        var maxAngle = Math.PI * 30;
-
-        for (var wi = 0; wi < words.length; wi++) {{
-            var word = words[wi];
-            var ratio = word.weight / maxWeight;
-            var fontSize = 14 + ratio * 42;
-            ctx.font = (ratio > 0.3 ? 'bold ' : '') + fontSize + 'px "Segoe UI", "Arial", sans-serif';
-            var tw = ctx.measureText(word.text).width;
-            var th = fontSize * 1.3;
-
-            var placedFlag = false;
-            for (var angle = 0; angle < maxAngle; angle += step) {{
-                var radius = angle * 2.5;
-                var x = cx + radius * Math.cos(angle) - tw / 2;
-                var y = cy + radius * Math.sin(angle) - th / 2;
-
-                if (x < 5 || y < 5 || x + tw > canvas.width - 5 || y + th > canvas.height - 5) continue;
-
-                var overlap = false;
-                for (var p = 0; p < placed.length; p++) {{
-                    if (x < placed[p].x + placed[p].w && x + tw > placed[p].x &&
-                        y < placed[p].y + placed[p].h && y + th > placed[p].y) {{
-                        overlap = true;
-                        break;
-                    }}
-                }}
-
-                if (!overlap) {{
-                    placed.push({{ x: x, y: y, w: tw, h: th }});
-                    ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.5 + 0.5 * ratio).toFixed(2) + ')';
-                    ctx.fillText(word.text, x, y + fontSize - 2);
-                    placedFlag = true;
-                    break;
-                }}
-            }}
-
-            if (!placedFlag) {{
-                for (var att = 0; att < 50; att++) {{
-                    var rx = 20 + Math.random() * (canvas.width - 40 - tw);
-                    var ry = 20 + Math.random() * (canvas.height - 40 - th);
-                    var hit = false;
-                    for (var p = 0; p < placed.length; p++) {{
-                        if (rx < placed[p].x + placed[p].w && rx + tw > placed[p].x &&
-                            ry < placed[p].y + placed[p].h && ry + th > placed[p].y) {{
-                            hit = true;
-                            break;
-                        }}
-                    }}
-                    if (!hit) {{
-                        placed.push({{ x: rx, y: ry, w: tw, h: th }});
-                        ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.5 + 0.5 * ratio).toFixed(2) + ')';
-                        ctx.fillText(word.text, rx, ry + fontSize - 2);
-                        break;
-                    }}
-                }}
-            }}
-        }}
-    }}
 }})();
 </script>
 </body>
@@ -415,7 +434,7 @@ canvas {{
                 views_extra += f"Views (30d): {views_30d:,}\n"
             tooltip_text = (
                 f"{channel}\n{sep}\n"
-                f"Niche {nid}\n{sep}\n"
+                f"Niche {nid} — {len(niches[nid])} ch\n{sep}\n"
                 f"Keywords:\n{kw_lines}\n{sep}\n"
                 f"Views: {total_views:,}\n"
                 f"{views_extra}"

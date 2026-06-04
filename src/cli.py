@@ -3,17 +3,23 @@
 import argparse
 import asyncio
 import json
+import math
+import random
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional
 
+import httpx
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src._patched import patch_tubescrape, PatchedYouTube
+from src._patched import patch_tubescrape, PatchedYouTube, _BROWSER_HEADERS, _USER_AGENTS
 from src._token import get_po_token, inject_po_token
 from src.config import Config
 from src.analysis.propagator import KeywordPropagator
 from src.analysis.community import CommunityDetector
+from src.youtube_api import YouTubeAPI
+from src.innertube import InnerTubeClient
 
 
 
@@ -46,6 +52,299 @@ def _build_channel_data(
             "demand_growth": 0,
         }
     return channel_data
+
+
+async def filter_shorts_channels(
+    channel_urls: Dict[str, str],
+    config: Config,
+    threshold: int = 3,
+    max_concurrent: int = 20,
+) -> set:
+    """Check each channel's /shorts tab via httpx, reuse anti-ban headers from _patched.
+
+    Uses richItemRenderer count in the HTML as signal:
+      - > threshold = channel has Shorts content
+      - <= threshold = empty / no Shorts tab
+
+    Inherits anti-ban from _patched.py:
+      - UA rotation (cyclic)
+      - Browser-grade headers (Sec-Fetch-*, DNT, etc.)
+      - Random delay (config.delay_min/max)
+    """
+    sem = asyncio.Semaphore(max_concurrent)
+    ua_index = random.randint(0, len(_USER_AGENTS) - 1)
+    request_count = 0
+    shorts_set = set()
+
+    print(f"  [shorts] Checking {len(channel_urls)} channels (threshold={threshold}, "
+          f"concurrent={max_concurrent}, delay={config.delay_min}-{config.delay_max}s)")
+
+    async def _check(ch_name: str, ch_url: str):
+        nonlocal ua_index, request_count
+        async with sem:
+            # Anti-ban: random delay
+            delay = random.uniform(config.delay_min, config.delay_max)
+            if delay > 0:
+                await asyncio.sleep(delay)
+
+            # Anti-ban: cyclic UA rotation
+            ua_index = (ua_index + 1) % len(_USER_AGENTS)
+            request_count += 1
+
+            headers = {
+                **_BROWSER_HEADERS,
+                "User-Agent": _USER_AGENTS[ua_index],
+            }
+
+            try:
+                async with httpx.AsyncClient(
+                    headers=headers,
+                    follow_redirects=True,
+                    timeout=15,
+                ) as client:
+                    resp = await client.get(f"{ch_url}/shorts")
+
+                if resp.status_code == 200:
+                    count = resp.text.count("richItemRenderer")
+                    if count > threshold:
+                        shorts_set.add(ch_name)
+                    elif count > 0:
+                        print(f"    [skip] {ch_name}: richItemRenderer={count} (<=threshold)")
+            except Exception as exc:
+                pass
+
+    tasks = [_check(name, url) for name, url in channel_urls.items()]
+    await asyncio.gather(*tasks)
+    return shorts_set
+
+
+async def _fetch_api_stats(
+    api: YouTubeAPI,
+    channel_keywords: Dict[str, Dict[str, float]],
+    channel_urls: Dict[str, str],
+) -> tuple:
+    """Step A: channels.list → real stats + ch_to_cid mapping."""
+    ch_to_cid: Dict[str, str] = {}
+    channel_ids = []
+    for ch_name, ch_url in channel_urls.items():
+        if ch_name in channel_keywords:
+            cid = ch_url.rstrip("/").split("/")[-1]
+            ch_to_cid[ch_name] = cid
+            channel_ids.append(cid)
+
+    print()
+    print("[pipeline] Fetching real channel statistics via YouTube API...")
+    real_stats = await api.channels_list(channel_ids)
+    print(f"  [API] Got stats for {len(real_stats)} channels ({len(channel_ids)} requested)")
+    return real_stats, ch_to_cid
+
+
+def _inject_views(
+    channel_keywords: Dict[str, Dict[str, float]],
+    real_stats: Dict[str, Dict],
+    ch_to_cid: Dict[str, str],
+) -> None:
+    """Inject real viewCount into keyword vectors (log-scale normalized)."""
+    view_counts = {}
+    for ch_name in channel_keywords:
+        cid = ch_to_cid.get(ch_name, "")
+        vc = int(real_stats.get(cid, {}).get("viewCount", 0))
+        view_counts[ch_name] = vc
+
+    max_vc = max(view_counts.values()) if view_counts else 1
+    for ch_name in channel_keywords:
+        vc = view_counts.get(ch_name, 0)
+        normalized = math.log10(vc + 1) / math.log10(max_vc + 1)
+        channel_keywords[ch_name]["__views__"] = normalized
+    print(f"  [views] Injected viewCount into keyword vectors (max={max_vc:,})")
+
+
+def _strip_views(dicts: List[Dict]) -> None:
+    """Remove __views__ synthetic keyword from all channel dicts."""
+    for d in dicts:
+        d.pop("__views__", None)
+
+
+def _filter_channels(
+    channel_keywords: Dict[str, Dict[str, float]],
+    channel_data: Dict[str, Dict],
+    clusters: Dict[int, List[str]],
+    G: "nx.Graph",
+    real_stats: Dict[str, Dict],
+    ch_to_cid: Dict[str, str],
+    min_views: int,
+    min_niche_size: int,
+    propagated: Dict[str, Dict[str, float]],
+    detector: CommunityDetector,
+) -> tuple:
+    """Step D: views filter → niche size filter → renumber.
+
+    Returns (channel_keywords, channel_data, clusters, G, cluster_kws).
+    """
+    # Filter 1: Keep only channels with >= min_views
+    surviving = set()
+    for ch_name in channel_keywords:
+        cid = ch_to_cid.get(ch_name, "")
+        vc = int(real_stats.get(cid, {}).get("viewCount", 0))
+        if vc >= min_views:
+            surviving.add(ch_name)
+
+    old_ch_count = sum(len(m) for m in clusters.values())
+    channel_keywords = {ch: kw for ch, kw in channel_keywords.items() if ch in surviving}
+    channel_data = {ch: data for ch, data in channel_data.items() if ch in surviving}
+
+    # Sync G: remove filtered-out nodes
+    nodes_to_remove = [n for n in G.nodes() if n not in surviving]
+    G.remove_nodes_from(nodes_to_remove)
+
+    # Filter 2: Drop niches that fell below min_niche_size
+    new_clusters = {}
+    for nid, members in clusters.items():
+        filtered = [ch for ch in members if ch in surviving]
+        if len(filtered) >= min_niche_size:
+            new_clusters[nid] = filtered
+    clusters = new_clusters
+
+    # Renumber niches by size ascending (smallest = 0)
+    sorted_nids = sorted(clusters.keys(), key=lambda nid: len(clusters[nid]))
+    remap = {old: new for new, old in enumerate(sorted_nids)}
+    clusters = {remap[old]: members for old, members in clusters.items()}
+
+    new_ch_count = sum(len(m) for m in clusters.values()) if clusters else 0
+    print(f"  [filter] ViewCount > {min_views:,}: {old_ch_count} → {new_ch_count} channels, "
+          f"{len(clusters)} niches (min {min_niche_size} ch/niche)")
+
+    # Recompute niche concepts
+    cluster_kws = detector.compute_niche_concepts(clusters, propagated) if clusters else {}
+
+    return channel_keywords, channel_data, clusters, G, cluster_kws
+
+
+async def _expand_step(
+    api: YouTubeAPI | None,
+    itube: InnerTubeClient | None,
+    channel_keywords: Dict[str, Dict[str, float]],
+    channel_data: Dict[str, Dict],
+    clusters: Dict[int, List[str]],
+    G: "nx.Graph",
+    ch_to_cid: Dict[str, str],
+    real_stats: Dict[str, Dict],
+    channel_urls: Dict[str, str],
+    propagated: Dict[str, Dict[str, float]],
+    detector: CommunityDetector,
+    max_expand: int = 50,
+    config: Optional["Config"] = None,
+) -> tuple:
+    """Step E: InnerTube browse → related channels → vote assignment → G/data sync.
+
+    Priority: InnerTubeClient (zero quota cost) > YouTubeAPI (100 quota/call, broken).
+    Returns (clusters, channel_data, channel_keywords, channel_urls, G, cluster_kws).
+    """
+    if not itube and not api:
+        print("  [expand] No API client available, skipping.")
+        cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+        return clusters, channel_data, channel_keywords, channel_urls, G, cluster_kws
+
+    from collections import defaultdict
+
+    # Sort surviving channels by viewCount desc
+    view_counts_local = {}
+    for ch_name in channel_keywords:
+        cid = ch_to_cid.get(ch_name, "")
+        view_counts_local[ch_name] = int(real_stats.get(cid, {}).get("viewCount", 0))
+    sorted_chs = sorted(view_counts_local.keys(), key=lambda ch: view_counts_local[ch], reverse=True)[:max_expand]
+
+    print(f"  [expand] Expanding from top {len(sorted_chs)} channels by viewCount")
+    print(f"  [expand] Source: {'InnerTube' if itube else 'YouTube API (legacy)'}")
+
+    # Channel → niche mapping
+    ch_to_niche = {}
+    for nid, members in clusters.items():
+        for ch in members:
+            ch_to_niche[ch] = nid
+
+    votes = defaultdict(lambda: defaultdict(int))
+    new_ch_titles: Dict[str, str] = {}
+    # Track which source channels found each new channel (for graph edges)
+    new_ch_sources: Dict[str, set] = defaultdict(set)
+
+    for ch_name in sorted_chs:
+        cid = ch_to_cid.get(ch_name, "")
+        if not cid:
+            continue
+        try:
+            if itube:
+                # InnerTube browse → related channels (zero quota cost)
+                related = await itube.get_related_channels(cid)
+                for ch in related:
+                    new_id = ch["channelId"]
+                    new_title = ch["title"]
+                    if not new_id or not new_title:
+                        continue
+                    votes[new_id][ch_to_niche.get(ch_name, 0)] += 1
+                    if new_id not in new_ch_titles:
+                        new_ch_titles[new_id] = new_title
+                    new_ch_sources[new_id].add(ch_name)
+            elif api:
+                # Legacy: YouTube Data API search.list (broken on most keys)
+                related = await api.search_related(cid)
+                for video in related:
+                    new_id = video["channelId"]
+                    new_title = video["channelTitle"]
+                    votes[new_id][ch_to_niche.get(ch_name, 0)] += 1
+                    if new_id not in new_ch_titles:
+                        new_ch_titles[new_id] = new_title
+                    new_ch_sources[new_id].add(ch_name)
+        except Exception as exc:
+            print(f"    [expand] Error expanding {ch_name}: {exc}")
+            continue
+
+    # ── Shorts filter: only keep expanded channels that produce Shorts ──
+    if config and votes:
+        new_urls = {}
+        for new_id in votes:
+            new_name = new_ch_titles.get(new_id, f"ch_{new_id[:8]}")
+            new_urls[new_name] = f"https://www.youtube.com/channel/{new_id}"
+        print(f"  [expand] Verifying {len(new_urls)} new channels for Shorts...")
+        shorts_pass = await filter_shorts_channels(
+            new_urls, config, threshold=3, max_concurrent=20,
+        )
+        before = len(votes)
+        votes = {new_id: v for new_id, v in votes.items()
+                 if new_ch_titles.get(new_id, f"ch_{new_id[:8]}") in shorts_pass}
+        dropped = before - len(votes)
+        if dropped:
+            print(f"  [expand] Dropped {dropped} non-Shorts channels from expand results")
+
+    # Assign via majority voting + sync all data structures
+    total_new = 0
+    for new_id, niche_votes in votes.items():
+        winner = max(niche_votes, key=niche_votes.get)
+        new_name = new_ch_titles.get(new_id, f"ch_{new_id[:8]}")
+        clusters[winner].append(new_name)
+        channel_urls[new_name] = f"https://www.youtube.com/channel/{new_id}"
+        G.add_node(new_name)
+        # Add edges to source channels (so new channels aren't isolated dots)
+        for src_name in new_ch_sources.get(new_id, set()):
+            if src_name in G:
+                G.add_edge(new_name, src_name, weight=0.9)
+        if new_name not in channel_keywords:
+            channel_keywords[new_name] = {}
+        if new_name not in channel_data:
+            channel_data[new_name] = {
+                "total_views": 0, "video_count": 0,
+                "views_7d": 0, "views_30d": 0,
+                "opportunity_score": 0,
+                "supply_growth": 0, "demand_growth": 0,
+            }
+        total_new += 1
+
+    print(f"  [expand] Added {total_new} new channels across {len(clusters)} niches")
+
+    # Recompute niche concepts
+    cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+
+    return clusters, channel_data, channel_keywords, channel_urls, G, cluster_kws
 
 
 async def run_pipeline(keywords: List[str], config: Config | None = None) -> dict:
@@ -91,51 +390,167 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
         print(f"  [7geo] Found {len(channel_keywords)} channels")
 
     total_channels = len(channel_keywords)
-    print(f"[pipeline] 7+7 — Total unique channels: {total_channels}")
+    print(f"[pipeline] Total unique channels: {total_channels}")
 
     if not channel_keywords:
         print("[pipeline] No channels found, skipping.")
         return {}
 
-    if not channel_keywords:
-        print("[pipeline] No channels found, skipping.")
+    # ── Shorts filter: verify each channel produces Shorts via /shorts URL check ──
+    print()
+    print("[pipeline] Verifying Shorts channels via /shorts URL check...")
+    shorts_channels = await filter_shorts_channels(
+        propagator.channel_urls, config,
+        threshold=3, max_concurrent=20,
+    )
+    print(f"  [shorts] {len(shorts_channels)} / {len(propagator.channel_urls)} channels produce Shorts")
+
+    # Only keep channels that have Shorts
+    channel_keywords = {
+        ch: kw for ch, kw in channel_keywords.items()
+        if ch in shorts_channels
+    }
+    print(f"  [shorts] Remaining channels after filter: {len(channel_keywords)}")
+
+    if len(channel_keywords) < 10:
+        print("[pipeline] Too few Shorts channels (<10), skipping.")
         return {}
 
-    # Step 3: Similarity + Propagation (keyword induction for niche concept)
+    # ── Step A: YouTube API — channels.list (real stats) ──
+    real_stats: Dict[str, Dict] = {}
+    ch_to_cid: Dict[str, str] = {}
+    if config.youtube_api_key:
+        api = YouTubeAPI(config.youtube_api_key)
+        real_stats, ch_to_cid = await _fetch_api_stats(api, channel_keywords, propagator.channel_urls)
+        _inject_views(channel_keywords, real_stats, ch_to_cid)
+    else:
+        print()
+        print("[pipeline] No YouTube API key — skipping real stats, using discovery data")
+
+    # ── Step B: Cosine Similarity + Keyword Propagation ──
     print("[pipeline] Computing cosine similarity...")
     similarities = propagator.compute_similarity(channel_keywords, min_similarity=0.5)
     print(f"[pipeline] Found {len(similarities)} channel similarity pairs")
 
     propagated = propagator.propagate(channel_keywords, similarities)
 
-    # Step 4: Community detection + cluster keywords
+    # Strip __views__ from keyword vectors (no longer needed, shouldn't pollute concepts)
+    if config.youtube_api_key:
+        _strip_views(propagated.values())
+        _strip_views(channel_keywords.values())
+
+    # ── Step C: Louvain Community Detection ──
     detector = CommunityDetector(propagator)
     G = detector.build_channel_graph(similarities)
 
     paths: Dict[str, str] = {}
-
-    # Step 5: Export
     enriched_clusters = {}
 
     if G.number_of_nodes() > 0:
+        # Build channel_data (pre-filter, for downstream use)
         channel_data = _build_channel_data(channel_keywords, propagator.channel_stats)
 
-        # Cluster keywords (Louvain communities → keyword aggregation)
+        # Louvain
         clusters = detector.detect_niches(G)
-        # Renumber niches by size ascending (smallest = 0)
         sorted_nids = sorted(clusters.keys(), key=lambda nid: len(clusters[nid]))
         remap = {old: new for new, old in enumerate(sorted_nids)}
         clusters = {remap[old]: members for old, members in clusters.items()}
         cluster_kws = detector.compute_niche_concepts(clusters, propagated)
 
-        # Export graph with niche-based colors
+        # ── Step D: YouTube API — Filter by real viewCount ──
+        if config.youtube_api_key and real_stats:
+            print()
+            channel_keywords, channel_data, clusters, G, cluster_kws = _filter_channels(
+                channel_keywords, channel_data, clusters, G,
+                real_stats, ch_to_cid,
+                min_views=config.min_total_views, min_niche_size=1,
+                propagated=propagated, detector=detector,
+            )
+
+            if not clusters:
+                print("[pipeline] No channels surviving filter, skipping.")
+                return {}
+
+            # Export filtered graph (before expand)
+            filtered_path = detector.export_network(
+                G, channel_keywords,
+                channel_data=channel_data,
+                channel_urls=propagator.channel_urls,
+                seed_keywords=keywords,
+                niches=clusters,
+                output_path=str(Path(config.output_dir) / "graph_filtered.html"),
+            )
+            paths["graph_filtered"] = filtered_path
+            print(f"  [filter] Graph exported: {filtered_path}")
+
+        # ── Step E: InnerTube browse → Expand All ──
+        itube: "InnerTubeClient | None" = None
+        if clusters:
+            proxy_list = getattr(config, "proxy_list", None) or []
+            itube = InnerTubeClient(
+                delay_min=config.delay_min,
+                delay_max=config.delay_max,
+                proxy_list=proxy_list,
+            )
+            clusters, channel_data, channel_keywords, propagator.channel_urls, G, cluster_kws = await _expand_step(
+                api if config.youtube_api_key else None,
+                itube,
+                channel_keywords, channel_data, clusters, G,
+                ch_to_cid, real_stats, propagator.channel_urls,
+                propagated, detector,
+                config=config,
+            )
+            await itube.close()
+
+        # ── Post-expand: drop niches with < 10 channels OR total views >= 100M ──
+        if clusters:
+            min_channels = 10
+            min_niche_views = 500_000_000
+            before = len(clusters)
+            new_clusters = {}
+            for nid, members in clusters.items():
+                total_views = 0
+                for ch in members:
+                    cid = ch_to_cid.get(ch, "")
+                    if cid in real_stats:
+                        total_views += int(real_stats[cid].get("viewCount", 0))
+                if len(members) >= min_channels and total_views > min_niche_views:
+                    new_clusters[nid] = members
+                else:
+                    reason = "channels" if len(members) < min_channels else "views"
+                    print(f"  [cleanup] Dropped niche {nid}: {len(members)} ch, "
+                          f"{total_views:,} views ({reason})")
+            dropped = before - len(new_clusters)
+            if dropped:
+                kept = {ch for members in new_clusters.values() for ch in members}
+                orphans = [n for n in G.nodes() if n not in kept]
+                G.remove_nodes_from(orphans)
+                sorted_nids = sorted(new_clusters.keys(), key=lambda nid: len(new_clusters[nid]))
+                remap = {old: new for new, old in enumerate(sorted_nids)}
+                clusters = {remap[old]: members for old, members in new_clusters.items()}
+                cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+            print(f"  [cleanup] {len(clusters)} niches remain "
+                  f"(min {min_channels} ch, min {min_niche_views:,} total views)")
+
+        # ── Step F: Export ──
+        # Override channel_data with real API stats if available
+        if config.youtube_api_key and real_stats:
+            for ch_name in channel_data:
+                cid = ch_to_cid.get(ch_name, "")
+                api_stats = real_stats.get(cid, {})
+                if api_stats:
+                    channel_data[ch_name].update({
+                        "total_views": int(api_stats.get("viewCount", 0)),
+                        "video_count": int(api_stats.get("videoCount", 0)),
+                        "subscriber_count": int(api_stats.get("subscriberCount", 0)),
+                    })
         graph_path = detector.export_network(
             G, channel_keywords,
             channel_data=channel_data,
             channel_urls=propagator.channel_urls,
             seed_keywords=keywords,
             niches=clusters,
-            output_path=str(Path(config.output_dir) / "graph_7plus7.html"),
+            output_path=str(Path(config.output_dir) / "graph_expanded.html"),
         )
         paths["graph"] = graph_path
 
@@ -143,6 +558,9 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
         wordcloud_path = detector.export_niche_wordcloud(
             clusters, cluster_kws,
             output_path=str(Path(config.output_dir) / "niche_wordcloud.html"),
+            channel_data=channel_data,
+            real_stats=real_stats if config.youtube_api_key else None,
+            ch_to_cid=ch_to_cid if config.youtube_api_key else None,
         )
         paths["wordcloud"] = wordcloud_path
 
@@ -170,6 +588,12 @@ async def run_pipeline(keywords: List[str], config: Config | None = None) -> dic
     for name, path in paths.items():
         if path:
             print(f"  {name}: {path}")
+
+    # Cleanup API client
+    try:
+        await api.close()
+    except (NameError, AttributeError):
+        pass
 
     return paths
 
