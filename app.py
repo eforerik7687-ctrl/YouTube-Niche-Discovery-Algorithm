@@ -324,7 +324,7 @@ if __name__ == "__main__":
     try:
         import webview
         webview.create_window(
-            "Niche Tools",
+            "Niche Research Analyzer",
             "http://127.0.0.1:5000",
             width=1400,
             height=900,
