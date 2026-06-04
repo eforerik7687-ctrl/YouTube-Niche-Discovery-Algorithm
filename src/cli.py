@@ -374,37 +374,38 @@ async def _discover_from_seeds(seeds: List[str], config) -> tuple:
             print(f"  [seed] Could not resolve: {handle}")
             continue
 
-        # Get channel metadata keywords (no related channels — YouTube doesn't support it for Shorts)
+        # Get channel title
         meta = await itube.get_channel_metadata(cid)
         title = meta.get("title", "") or handle
         if not title or cid in seen:
             continue
         seen.add(cid)
 
-        # Build keyword vector from metadata (keywords → topics → description fallback)
+        # Extract keywords from Shorts video titles on the channel page
+        shorts_kw = await itube.get_shorts_keywords(cid)
         kw_dict: Dict[str, float] = defaultdict(float)
-        if meta.get("keywords"):
-            for kw in meta["keywords"].split(","):
-                kw = kw.strip().lower().strip('"').strip("'")
-                if kw and len(kw) > 2 and kw not in ("minecraft", "gaming", "game"):
+        if shorts_kw:
+            for kw in shorts_kw.split(","):
+                kw = kw.strip().lower()
+                if kw and len(kw) > 2 and kw not in ("minecraft", "gaming", "game", "roblox"):
                     kw_dict[kw] += 1.0
-        for topic in meta.get("topics", []):
-            clean = topic.lower().replace("_", " ").replace("https://en.wikipedia.org/wiki/", "")
-            if clean and len(clean) > 2:
-                kw_dict[clean] = 0.8
-        # Fallback: extract keywords from description
-        if not kw_dict and meta.get("description"):
-            desc = meta["description"].lower()
-            words = desc.replace("\n", " ").replace(",", " ").replace(".", " ").split()
-            for w in words:
-                w = w.strip().strip('"')
-                if len(w) > 3 and w not in ("minecraft", "gaming", "game", "this", "that", "with", "from"):
-                    kw_dict[w] = 0.3
+
+        # Fallback: metadata keywords if no Shorts found
+        if not kw_dict:
+            if meta.get("keywords"):
+                for kw in meta["keywords"].split(","):
+                    kw = kw.strip().lower().strip('"').strip("'")
+                    if kw and len(kw) > 2:
+                        kw_dict[kw] += 1.0
+            for topic in meta.get("topics", []):
+                clean = topic.lower().replace("_", " ").replace("https://en.wikipedia.org/wiki/", "")
+                if clean and len(clean) > 2:
+                    kw_dict[clean] = 0.8
 
         channel_keywords[title] = dict(kw_dict)
         channel_urls[title] = f"https://www.youtube.com/channel/{cid}"
 
-        print(f"  [seed] {title}: {len(kw_dict)} keywords (added to pool)")
+        print(f"  [seed] {title}: {len(kw_dict)} keywords from Shorts (added to pool)")
 
     await itube.close()
     return channel_keywords, channel_urls
@@ -631,6 +632,43 @@ async def run_pipeline(keywords: List[str], config: Config | None = None,
             print(f"  [cleanup] {len(clusters)} niches remain "
                   f"(min {min_channels} ch, min {min_niche_views:,} total views)")
 
+        # ── Sub-niche splitting: break up super-niches (>= 50 channels) ──
+        sub_niche_parent = {}  # {sub_niche_id: parent_niche_id}
+        if clusters:
+            split_threshold = 50
+            to_split = [nid for nid, m in clusters.items() if len(m) >= split_threshold]
+            if to_split:
+                print(f"  [split] Checking {len(to_split)} large niches for sub-division...")
+                for parent_nid in to_split:
+                    members = clusters[parent_nid]
+                    sub_G = G.subgraph(members)
+                    if sub_G.number_of_edges() < 5:
+                        continue
+                    try:
+                        sub_clusters = detector.detect_niches(sub_G)
+                    except Exception:
+                        continue
+                    valid_sub = {k: v for k, v in sub_clusters.items() if len(v) >= 5}
+                    if len(valid_sub) <= 1:
+                        continue
+                    # Replace the parent with sub-niches
+                    del clusters[parent_nid]
+                    for sub_nid, sub_members in valid_sub.items():
+                        new_id = max(clusters.keys()) + 1 if clusters else 1
+                        clusters[new_id] = sub_members
+                        sub_niche_parent[new_id] = parent_nid
+                    print(f"  [split] Niche {parent_nid} ({len(members)}ch) → {len(valid_sub)} sub-niches")
+
+                if sub_niche_parent:
+                    # Renumber after split
+                    sorted_nids = sorted(clusters.keys(), key=lambda n: len(clusters[n]))
+                    remap = {old: idx + 1 for idx, old in enumerate(sorted_nids)}
+                    clusters = {remap[old]: members for old, members in clusters.items()}
+                    # Update parent map
+                    sub_niche_parent = {remap[k]: v for k, v in sub_niche_parent.items() if k in remap}
+                    cluster_kws = detector.compute_niche_concepts(clusters, propagated)
+                    print(f"  [split] Total niches after split: {len(clusters)}")
+
         # ── Step F: Export ──
         # Override channel_data with real API stats if available
         if config.youtube_api_key and real_stats:
@@ -662,6 +700,15 @@ async def run_pipeline(keywords: List[str], config: Config | None = None,
             ch_to_cid=ch_to_cid if config.youtube_api_key else None,
         )
         paths["wordcloud"] = wordcloud_path
+
+        # Export channel → niche mapping for Growth Analyzer
+        ch_to_niche_export = {}
+        for nid, members in clusters.items():
+            for ch in members:
+                ch_to_niche_export[ch] = nid
+        (Path(config.output_dir) / "channel_to_niche.json").write_text(
+            json.dumps(ch_to_niche_export, indent=2), encoding="utf-8")
+        print(f"  [export] channel_to_niche.json saved ({len(ch_to_niche_export)} channels)")
 
         # Populate enriched_clusters
         for nid, keywords in cluster_kws.items():

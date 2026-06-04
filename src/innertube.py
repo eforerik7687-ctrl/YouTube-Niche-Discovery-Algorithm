@@ -156,6 +156,71 @@ class InnerTubeClient:
             "description": meta.get("description", ""),
         }
 
+    async def get_shorts_keywords(self, channel_id: str) -> str:
+        """Extract keywords from a channel's Shorts video titles.
+
+        Looks for reelShelfRenderer (Shorts shelf) on the channel page,
+        extracts video titles, and returns deduplicated keyword string.
+        """
+        data = await self._browse_channel(channel_id)
+        if "error" in data or "contents" not in data:
+            return ""
+
+        keywords = []
+        seen = set()
+
+        try:
+            tabs = data["contents"]["twoColumnBrowseResultsRenderer"]["tabs"]
+            for tab in tabs:
+                tr = tab.get("tabRenderer", {}) or tab.get("expandableTabRenderer", {})
+                sections = tr.get("content", {}).get("sectionListRenderer", {}).get("contents", [])
+                for section in sections:
+                    items = section.get("itemSectionRenderer", {}).get("contents", [])
+                    for item in items:
+                        # reelShelfRenderer = mobile-style Shorts shelf
+                        reel = item.get("reelShelfRenderer", {})
+                        if reel:
+                            for entry in reel.get("items", []):
+                                title = (entry.get("reelItemRenderer", {}).get("headline", {}).get("simpleText", "") or
+                                         entry.get("reelItemRenderer", {}).get("title", {}).get("runs", [{}])[0].get("text", ""))
+                                if title and title not in seen:
+                                    seen.add(title)
+                                    keywords.extend(self._extract_words(title))
+                        # Regular shelf might contain Shorts
+                        shelf = item.get("shelfRenderer", {})
+                        if shelf:
+                            horiz = shelf.get("content", {}).get("horizontalListRenderer", {})
+                            if not horiz:
+                                continue
+                            for grid_item in horiz.get("items", []):
+                                vr = grid_item.get("videoRenderer", {}) or grid_item.get("gridVideoRenderer", {})
+                                title = ""
+                                if "title" in vr:
+                                    title = vr["title"].get("simpleText", "") or "".join(r.get("text", "") for r in vr["title"].get("runs", []))
+                                if title and title not in seen:
+                                    seen.add(title)
+                                    # Check if it looks like a Shorts video (title contains #shorts or similar)
+                                    if "#shorts" in title.lower() or "shorts" in title.lower() or len(keywords) < 30:
+                                        keywords.extend(self._extract_words(title))
+        except (KeyError, TypeError):
+            pass
+
+        return ", ".join(dict.fromkeys(keywords))
+
+    @staticmethod
+    def _extract_words(title: str) -> list:
+        """Extract meaningful words from a video title."""
+        import re
+        words = re.findall(r"[a-zA-Z]{3,}", title)
+        stopwords = {"the", "this", "that", "with", "from", "what", "when",
+                     "where", "your", "will", "have", "been", "they", "them",
+                     "their", "some", "into", "about", "would", "could", "should",
+                     "there", "these", "those", "after", "also", "than", "then",
+                     "very", "just", "make", "made", "doing", "does", "done",
+                     "much", "many", "more", "most", "only", "over", "such",
+                     "even", "back", "here", "well", "down", "like"}
+        return [w.lower() for w in words if w.lower() not in stopwords and len(w) >= 3]
+
     async def close(self):
         await self._client.aclose()
 

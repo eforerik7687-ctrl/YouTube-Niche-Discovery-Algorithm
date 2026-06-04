@@ -19,7 +19,18 @@ OUTPUT = Path("output/growth_report.html")
 def generate(sb_path="socialblade_data.json"):
     sb_data = json.loads(Path(sb_path).read_text())
 
-    # Load niche data from wordcloud (correct 1-based numbering)
+    # Load channel → niche mapping from pipeline export (exact, no guessing)
+    ch_to_niche = {}
+    cn_file = Path("output/channel_to_niche.json")
+    if cn_file.exists():
+        ch_to_niche = json.loads(cn_file.read_text())
+    # Fallback: try repo root
+    if not ch_to_niche:
+        cn_file = Path("channel_to_niche.json")
+        if cn_file.exists():
+            ch_to_niche = json.loads(cn_file.read_text())
+
+    # Load niche metadata from wordcloud
     niche_meta = {}
     wc = Path("niche_wordcloud.html")
     if wc.exists():
@@ -28,11 +39,10 @@ def generate(sb_path="socialblade_data.json"):
             for n in json.loads(m.group(1)):
                 niche_meta[n['id']] = n
 
-    # Load graph for channelId lookup
+    # Load graph for channelId lookup (fallback)
     graph_html = Path("graph_expanded.html").read_text(encoding="utf-8")
     match = re.search(r'nodes = new vis\.DataSet\((\[.*?\])\s*\)', graph_html, re.DOTALL)
     nodes = json.loads(match.group(1)) if match else []
-
     ch_id_lookup = {}
     for n in nodes:
         l, t = n.get('label',''), n.get('title','')
@@ -40,61 +50,42 @@ def generate(sb_path="socialblade_data.json"):
         if l and cm:
             ch_id_lookup[l] = cm.group(1)
 
-    # Build niche mapping from ALL graph nodes (not just top 3)
-    # graph has niche IDs from first-pass Louvain, not final 1-based numbering
-    graph_niche_map = {}  # channel name -> graph niche ID
-    for n in nodes:
-        l, t = n.get('label',''), n.get('title','')
-        nm = re.search(r'Niche (\d+)', t)
-        if l and nm:
-            graph_niche_map[l] = int(nm.group(1))
-
-    # Map graph niche IDs to wordcloud niche IDs by matching channel names
-    # For each graph niche, find which wordcloud niche has the most overlapping channels
-    from collections import Counter
-    graph_to_wc = {}
-    for graph_nid in set(graph_niche_map.values()):
-        # Channels in this graph niche
-        chs_in_graph = [ch for ch, gn in graph_niche_map.items() if gn == graph_nid]
-        # Count which wordcloud niche they appear in (via top_channels)
-        wc_votes = Counter()
-        for wc_nid, ndata in niche_meta.items():
-            top_names = [tc['name'] for tc in ndata.get('top_channels', [])]
-            match_count = sum(1 for ch in chs_in_graph if ch in top_names)
-            wc_votes[wc_nid] = match_count
-        if wc_votes:
-            best_wc = wc_votes.most_common(1)[0]
-            graph_to_wc[graph_nid] = best_wc[0]
-
-    # Build final channel lookup: name -> wordcloud niche_id
-    ch_to_niche = {}
-    for ch_name, graph_nid in graph_niche_map.items():
-        ch_to_niche[ch_name] = graph_to_wc.get(graph_nid, 0)
-
     # Channel level
     channels = []
     for handle, raw in sb_data.items():
         if not raw.get('total',{}).get('subs'): continue
         m = compute_channel(raw)
-        # Clamp negative values
         views_30d = max(0, raw.get('periods',{}).get('views_30d',0))
         videos_30d = max(0, raw.get('periods',{}).get('videos_30d',0))
-        # Fallback: if views_30d=0 but daily data exists, use sum of daily
         if views_30d == 0 and raw.get('daily'):
             views_30d = max(0, sum(r.get('views_delta',0) for r in raw['daily']))
         if videos_30d == 0 and raw.get('daily'):
             videos_30d = max(0, sum(r.get('videos_delta',0) for r in raw['daily']))
 
-        # Find channel name
+        # Find channel name + niche from channel_to_niche.json
         name = handle
-        for n in nodes:
-            nl = n.get('label','').lower().replace(' ','')
-            if nl == handle:
-                name = n['label']
-                break
+        niche_id = 0
+        # Try exact match first, then case-insensitive
+        if handle in ch_to_niche:
+            niche_id = ch_to_niche[handle]
+            name = handle
+        else:
+            for cname, cnid in ch_to_niche.items():
+                if cname.lower().replace(' ','') == handle:
+                    name = cname
+                    niche_id = cnid
+                    break
+        # Last resort: search in graph nodes
+        if niche_id == 0:
+            for n in nodes:
+                nl = n.get('label','').lower().replace(' ','')
+                if nl == handle:
+                    name = n['label']
+                    break
+
         channels.append({
             'name': name,
-            'niche_id': ch_to_niche.get(name, 0),
+            'niche_id': niche_id,
             'channelId': ch_id_lookup.get(name, ''),
             'subs': parse_subs(raw.get('total',{}).get('subs',0)),
             'views_7d': max(0, raw.get('periods',{}).get('views_7d',0)),
