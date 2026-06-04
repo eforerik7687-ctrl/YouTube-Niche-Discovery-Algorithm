@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niche {{ niche.id }} — All Channels</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0b0e1a;color:#e0d8ff;font-family:'Inter','Segoe UI',sans-serif;padding:32px}
+h1{font-weight:500;font-size:22px;color:#c8b8ff;margin-bottom:4px}
+.subtitle{color:#8878b0;font-size:14px;margin-bottom:24px}
+.back{color:#8878b0;text-decoration:none;font-size:13px;display:inline-block;margin-bottom:20px}
+.back:hover{color:#c8b8ff}
+.ch-list{max-width:800px}
+.ch-row{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);gap:12px}
+.ch-row:hover{background:rgba(255,255,255,0.02)}
+.ch-rank{width:32px;color:#8878b0;font-size:13px;text-align:right}
+.ch-name{flex:1}
+.ch-name a{color:#c8b8ff;text-decoration:none;font-weight:500;font-size:14px}
+.ch-name a:hover{color:#fff;text-decoration:underline}
+.ch-stats{color:#8878b0;font-size:12px;min-width:120px;text-align:right}
+</style>
+</head>
+<body>
+<a href="/" class="back">← Back to Researcher</a>
+<h1>Niche {{ niche.id }}: <span style="color:{{ niche.color }}">{{ niche.keyword }}</span></h1>
+<p class="subtitle">{{ niche.channel_count }} channels · {{ "{:,}".format(niche.total_views) }} total views</p>
+
+<div class="ch-list">
+{% for ch in channels %}
+<div class="ch-row">
+  <div class="ch-rank">#{{ loop.index }}</div>
+  <div class="ch-name">
+    <a href="https://www.youtube.com/channel/{{ ch.channelId }}/shorts" target="_blank">{{ ch.name }}</a>
+  </div>
+  <div class="ch-stats">{{ ch.subs_display }} subs</div>
+</div>
+{% endfor %}
+</div>
+</body>
+</html>

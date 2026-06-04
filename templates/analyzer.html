@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}Growth Analyzer{% endblock %}
+{% block content %}
+
+<div class="card">
+  <h2>Growth Analyzer</h2>
+  <p style="color:#8878b0;font-size:13px;margin-bottom:16px">
+    Crawl Social Blade → compute DGR/SGR/Opportunity for each channel and niche.
+  </p>
+  <p style="color:#8878b0;font-size:12px;margin-bottom:12px">
+    Data source: latest Researcher output
+  </p>
+  <button id="runBtn" class="btn btn-primary" onclick="runAnalyzer()">▶ Crawl & Analyze</button>
+</div>
+
+<div id="progress" class="progress-wrap">
+  <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+  <div id="progressText" class="progress-text"></div>
+</div>
+
+<div id="results" class="results">
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('niche',this)">Niche Level</div>
+    <div class="tab" onclick="switchTab('channel',this)">Channel Level</div>
+  </div>
+
+  <div id="tab-niche" class="tab-content active">
+    <div class="sort-links">
+      Sort by: <a class="active" onclick="sortNiche('opportunity','desc')">Opportunity</a>
+      <a onclick="sortNiche('dgr','desc')">DGR</a>
+      <a onclick="sortNiche('sgr','desc')">SGR</a>
+    </div>
+    <table><thead><tr>
+      <th>Niche</th><th>Keyword</th><th>Channels</th><th>Views 30d</th><th>Videos 30d</th><th>DGR</th><th>SGR</th><th>Opportunity</th>
+    </tr></thead><tbody id="nicheBody"></tbody></table>
+  </div>
+
+  <div id="tab-channel" class="tab-content">
+    <div class="sort-links">
+      Sort by: <a class="active" onclick="sortChannel('opportunity','desc')">Opportunity</a>
+      <a onclick="sortChannel('dgr','desc')">DGR</a>
+      <a onclick="sortChannel('sgr','desc')">SGR</a>
+    </div>
+    <table><thead><tr>
+      <th>Channel</th><th>Niche</th><th>Subs</th><th>Views 30d</th><th>Videos 30d</th><th>DGR</th><th>SGR</th><th>Opportunity</th>
+    </tr></thead><tbody id="channelBody"></tbody></table>
+  </div>
+</div>
+
+<script>
+var nicheData = [], channelData = [];
+
+function runAnalyzer(){
+  document.getElementById('runBtn').disabled = true;
+  document.getElementById('progress').classList.add('active');
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressText').textContent = '';
+  document.getElementById('results').classList.remove('active');
+
+  const evtSource = new EventSource('/api/run_analyzer');
+  evtSource.onmessage = function(e){
+    const msg = JSON.parse(e.data);
+    if(msg.type === 'progress'){
+      document.getElementById('progressFill').style.width = msg.pct + '%';
+      document.getElementById('progressText').textContent += msg.text + '\n';
+      document.getElementById('progressText').scrollTop = document.getElementById('progressText').scrollHeight;
+    } else if(msg.type === 'done'){
+      evtSource.close();
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('runBtn').disabled = false;
+      showAnalysis(msg.data);
+    } else if(msg.type === 'error'){
+      evtSource.close();
+      document.getElementById('progressText').textContent += 'ERROR: ' + msg.text;
+      document.getElementById('runBtn').disabled = false;
+    }
+  };
+}
+
+function showAnalysis(data){
+  document.getElementById('results').classList.add('active');
+  nicheData = data.niches || [];
+  channelData = data.channels || [];
+
+  renderNiche();
+  renderChannel();
+}
+
+function renderNiche(){
+  const body = document.getElementById('nicheBody');
+  body.innerHTML = '';
+  nicheData.forEach(function(n){
+    const opp = n.opportunity || 0;
+    const oppClass = opp > 1.5 ? 'opp-high' : opp > 1.0 ? 'opp-mid' : 'opp-low';
+    body.innerHTML +=
+      '<tr>' +
+        '<td><span class="niche-tag" style="border-color:'+n.color+'">Niche '+n.id+'</span></td>' +
+        '<td>'+n.keyword+'</td>' +
+        '<td>'+n.channel_count+'</td>' +
+        '<td>'+fmt(n.views_30d)+'</td>' +
+        '<td>'+n.videos_30d+'</td>' +
+        '<td>'+n.dgr.toFixed(2)+'</td>' +
+        '<td>'+n.sgr.toFixed(2)+'</td>' +
+        '<td class="'+oppClass+'"><b>'+opp.toFixed(2)+'</b></td>' +
+      '</tr>';
+  });
+}
+
+function renderChannel(){
+  const body = document.getElementById('channelBody');
+  body.innerHTML = '';
+  channelData.forEach(function(c){
+    const opp = c.opportunity || 0;
+    const oppClass = opp > 1.5 ? 'opp-high' : opp > 1.0 ? 'opp-mid' : 'opp-low';
+    const shortsUrl = c.channelId ? 'https://www.youtube.com/channel/'+c.channelId+'/shorts' : '#';
+    body.innerHTML +=
+      '<tr>' +
+        '<td><a href="'+shortsUrl+'" target="_blank">'+c.name+'</a></td>' +
+        '<td><span style="color:'+c.niche_color+'">Niche '+c.niche_id+'</span></td>' +
+        '<td>'+fmt(c.subs)+'</td>' +
+        '<td>'+fmt(c.views_30d)+'</td>' +
+        '<td>'+c.videos_30d+'</td>' +
+        '<td>'+c.dgr.toFixed(2)+'</td>' +
+        '<td>'+c.sgr.toFixed(2)+'</td>' +
+        '<td class="'+oppClass+'"><b>'+opp.toFixed(2)+'</b></td>' +
+      '</tr>';
+  });
+}
+
+function switchTab(name,el){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active')});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+function sortNiche(key,dir){
+  nicheData.sort(function(a,b){return dir==='desc'?b[key]-a[key]:a[key]-b[key]});
+  renderNiche();
+  document.querySelectorAll('#tab-niche .sort-links a').forEach(function(a){a.classList.remove('active')});
+  event.target.classList.add('active');
+}
+
+function sortChannel(key,dir){
+  channelData.sort(function(a,b){return dir==='desc'?b[key]-a[key]:a[key]-b[key]});
+  renderChannel();
+  document.querySelectorAll('#tab-channel .sort-links a').forEach(function(a){a.classList.remove('active')});
+  event.target.classList.add('active');
+}
+</script>
+{% endblock %}
