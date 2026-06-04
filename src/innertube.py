@@ -142,10 +142,10 @@ class InnerTubeClient:
         return None
 
     async def get_channel_metadata(self, channel_id: str) -> Dict[str, Any]:
-        """Get channel metadata keywords/topics from InnerTube browse."""
+        """Get channel metadata keywords/topics/description from InnerTube browse."""
         data = await self._browse_channel(channel_id)
         if "error" in data or "contents" not in data:
-            return {"keywords": "", "topics": [], "title": ""}
+            return {"keywords": "", "topics": [], "title": "", "description": ""}
 
         meta = data.get("metadata", {}).get("channelMetadataRenderer", {})
         topics = [t.rstrip("/").split("/")[-1] for t in meta.get("topicCategories", [])]
@@ -153,6 +153,7 @@ class InnerTubeClient:
             "keywords": meta.get("keywords", ""),
             "topics": topics,
             "title": meta.get("title", ""),
+            "description": meta.get("description", ""),
         }
 
     async def close(self):

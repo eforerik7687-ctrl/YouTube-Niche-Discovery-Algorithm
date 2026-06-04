@@ -494,15 +494,15 @@ h1 {{
         net.set_options("""
         {
           "physics": {
-            "stabilization": {"iterations": 50},
+            "stabilization": {"iterations": 100},
             "barnesHut": {
-              "gravitationalConstant": -800,
-              "centralGravity": 0.3,
-              "springLength": 95,
-              "springConstant": 0.04,
-              "damping": 0.09
+              "gravitationalConstant": -300,
+              "centralGravity": 0.1,
+              "springLength": 250,
+              "springConstant": 0.02,
+              "damping": 0.12
             },
-            "maxVelocity": 5,
+            "maxVelocity": 15,
             "minVelocity": 0.1,
             "solver": "barnesHut"
           },

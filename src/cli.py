@@ -351,7 +351,9 @@ async def _expand_step(
 
 
 async def _discover_from_seeds(seeds: List[str], config) -> tuple:
-    """Resolve seed channel handles → InnerTube browse → keyword vectors."""
+    """Resolve seed channel handles → metadata keywords → add to pool.
+    No related channels (YouTube doesn't expose them for Shorts creators).
+    Channels get added directly to the keyword pool → cosine sim → Louvain."""
     from src.innertube import InnerTubeClient
     from collections import defaultdict
 
@@ -371,37 +373,37 @@ async def _discover_from_seeds(seeds: List[str], config) -> tuple:
             print(f"  [seed] Could not resolve: {handle}")
             continue
 
-        # Browse channel for metadata + related
+        # Get channel metadata keywords (no related channels — YouTube doesn't support it for Shorts)
         meta = await itube.get_channel_metadata(cid)
         title = meta.get("title", "") or handle
         if not title or cid in seen:
             continue
         seen.add(cid)
 
-        # Build keyword vector from metadata
+        # Build keyword vector from metadata (keywords → topics → description fallback)
         kw_dict: Dict[str, float] = defaultdict(float)
         if meta.get("keywords"):
             for kw in meta["keywords"].split(","):
-                kw = kw.strip().lower()
-                if kw and len(kw) > 2:
+                kw = kw.strip().lower().strip('"').strip("'")
+                if kw and len(kw) > 2 and kw not in ("minecraft", "gaming", "game"):
                     kw_dict[kw] += 1.0
         for topic in meta.get("topics", []):
-            kw_dict[topic.lower().replace("_", " ")] = 0.8
+            clean = topic.lower().replace("_", " ").replace("https://en.wikipedia.org/wiki/", "")
+            if clean and len(clean) > 2:
+                kw_dict[clean] = 0.8
+        # Fallback: extract keywords from description
+        if not kw_dict and meta.get("description"):
+            desc = meta["description"].lower()
+            words = desc.replace("\n", " ").replace(",", " ").replace(".", " ").split()
+            for w in words:
+                w = w.strip().strip('"')
+                if len(w) > 3 and w not in ("minecraft", "gaming", "game", "this", "that", "with", "from"):
+                    kw_dict[w] = 0.3
 
         channel_keywords[title] = dict(kw_dict)
         channel_urls[title] = f"https://www.youtube.com/channel/{cid}"
 
-        # Also add related channels' handles (without weights, for reference)
-        related = await itube.get_related_channels(cid)
-        for ch in related:
-            r_title = ch["title"]
-            r_id = ch["channelId"]
-            if r_title and r_id not in seen:
-                seen.add(r_id)
-                channel_keywords[r_title] = {}
-                channel_urls[r_title] = f"https://www.youtube.com/channel/{r_id}"
-
-        print(f"  [seed] {title}: {len(kw_dict)} keywords, {len(related)} related")
+        print(f"  [seed] {title}: {len(kw_dict)} keywords (added to pool)")
 
     await itube.close()
     return channel_keywords, channel_urls
