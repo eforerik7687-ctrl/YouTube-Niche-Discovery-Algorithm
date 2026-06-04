@@ -1,14 +1,1 @@
-__pycache__/
-*.py[cod]
-*.egg-info/
-.pytest_cache/
-.venv/
-venv/
-.env
-output/
-# tracked manually at repo root for Pages
-.claude/
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
+dist/
