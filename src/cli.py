@@ -311,7 +311,7 @@ async def _expand_step(
             new_urls[new_name] = f"https://www.youtube.com/channel/{new_id}"
         print(f"  [expand] Verifying {len(new_urls)} new channels for Shorts...")
         shorts_pass = await filter_shorts_channels(
-            new_urls, config, threshold=3, max_concurrent=20,
+            new_urls, config, threshold=5, max_concurrent=20,
         )
         before = len(votes)
         votes = {new_id: v for new_id, v in votes.items()
@@ -457,6 +457,7 @@ async def run_pipeline(keywords: List[str], config: Config | None = None,
     total_channels = len(channel_keywords)
     print(f"[pipeline] Total unique channels: {total_channels}")
 
+    seed_channel_names: set = set()
     # ── Seed Channel Discovery (InnerTube browse) ──
     if seed_channels:
         print()
@@ -480,7 +481,7 @@ async def run_pipeline(keywords: List[str], config: Config | None = None,
         print("[pipeline] Verifying Shorts channels via /shorts URL check...")
         shorts_channels = await filter_shorts_channels(
             propagator.channel_urls, config,
-            threshold=3, max_concurrent=20,
+            threshold=5, max_concurrent=20,
         )
         print(f"  [shorts] {len(shorts_channels)} / {len(propagator.channel_urls)} channels produce Shorts")
         channel_keywords = {
