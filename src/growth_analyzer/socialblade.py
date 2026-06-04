@@ -195,11 +195,12 @@ class SocialBladeCrawler:
         """Compute 7d (from daily rows) + 30d (from summary line)."""
         periods = {"views_7d": 0, "videos_7d": 0, "views_30d": 0, "videos_30d": 0}
 
-        # 7d from daily table (last 7 rows)
-        for i, row in enumerate(daily):
-            if i < 7:
-                periods["views_7d"] += row.get("views_delta", 0)
-                periods["videos_7d"] += row.get("videos_delta", 0)
+        # 7d from daily table (last 7 rows = most recent)
+        # daily is ordered oldest → newest, so [-7:] = most recent 7 days
+        recent = daily[-7:]
+        for row in recent:
+            periods["views_7d"] += row.get("views_delta", 0)
+            periods["videos_7d"] += row.get("videos_delta", 0)
 
         # 30d from summary line
         if summary and "last_30d" in summary:

@@ -1,13 +1,25 @@
-# YouTube Niche Discovery Researcher
+# Niche Research Analyzer
 
-Discover blue-ocean YouTube niches via keyword co-occurrence networks and Louvain community detection.
+YouTube Shorts 藍海利基發現 + 成長分析工具。
 
-## How it works
+## Quick Start
 
-1. **Keyword Expansion** — YouTube Search Suggestions API (7 languages × 7 geographies)
-2. **Channel Matrix** — Search all expanded keywords, build channel×keyword matrix
-3. **Cosine Similarity** — Connect channels with similarity > 0.5
-4. **Community Detection** — Louvain algorithm finds natural niche clusters
+```bash
+# Researcher — 找利基
+python src/cli.py "minecraft animation" "roblox" -o output
+
+# 看結果
+open output/niche_wordcloud.html
+open output/graph_expanded.html
+
+# Growth Analyzer — 分析成長
+python src/growth_analyzer/report.py
+open output/growth_report.html
+```
+
+## Documentation
+
+完整架構說明 → **[ARCHITECTURE.md](ARCHITECTURE.md)**
 5. **Keyword Coverage** — Each niche's defining keywords ranked by channel coverage
 
 ## Quick Start
