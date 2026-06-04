@@ -240,6 +240,7 @@ class KeywordPropagator:
         languages: Optional[List[str]] = None,
         geos: Optional[List[str]] = None,
         max_concurrent: int = 8,
+        direct: bool = False,
     ) -> Dict[str, Dict[str, float]]:
         """Async version of discover() with concurrent anti-ban search.
 
@@ -332,11 +333,14 @@ class KeywordPropagator:
                     channel_keywords[channel][suggestion] = 1.0
 
         for seed in seed_keywords:
-            suggestions = KeywordPropagator.fetch_suggestions(seed, languages, geos)
-            # Always include seed keyword itself as a discovery target
-            if seed not in suggestions:
-                suggestions.insert(0, seed)
-            print(f"  [{label}] {seed}: {len(suggestions)} related keywords")
+            if direct:
+                suggestions = [seed]
+                print(f"  [direct] {seed}: 1 keyword (no expansion)")
+            else:
+                suggestions = KeywordPropagator.fetch_suggestions(seed, languages, geos)
+                if seed not in suggestions:
+                    suggestions.insert(0, seed)
+                print(f"  [{label}] {seed}: {len(suggestions)} related keywords")
 
             tasks = [_search_one(s, seed) for s in suggestions]
             await asyncio.gather(*tasks)

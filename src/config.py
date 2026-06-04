@@ -44,9 +44,16 @@ class Config:
     po_token_enabled: bool = False
     po_token_timeout: int = 30
 
+    # Subscriber filter (0 = disabled)
+    min_subscribers: int = 0
+
     # yt-dlp settings (optional verification step)
     ytdlp_path: str = "yt-dlp"
     ytdlp_workers: int = 4
+
+    # YouTube Data API v3
+    youtube_api_key: str = ""
+    min_total_views: int = 10_000_000
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -75,4 +82,6 @@ class Config:
             po_token_timeout=int(os.getenv("PO_TOKEN_TIMEOUT", "30")),
             ytdlp_path=os.getenv("YTDLP_PATH", "yt-dlp"),
             ytdlp_workers=int(os.getenv("YTDLP_WORKERS", "4")),
+            youtube_api_key=os.getenv("YOUTUBE_API_KEY", ""),
+            min_total_views=int(os.getenv("MIN_TOTAL_VIEWS", "10000000")),
         )

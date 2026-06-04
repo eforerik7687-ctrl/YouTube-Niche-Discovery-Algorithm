@@ -32,6 +32,7 @@ def _build_channel_data(
         channel_stats = {}
 
     channel_data = {}
+    seed_channel_names: set = set()
     for ch, kws in channel_keywords.items():
         stats = channel_stats.get(ch, {})
         merge_views = stats.get("total_views", 0)
@@ -460,6 +461,7 @@ async def run_pipeline(keywords: List[str], config: Config | None = None,
         print()
         print("[pipeline] Discovering from seed channels via InnerTube...")
         seed_kw, seed_urls = await _discover_from_seeds(seed_channels, config)
+        seed_channel_names = set(seed_kw.keys())
         channel_keywords.update(seed_kw)
         propagator.channel_urls.update(seed_urls)
         total_channels = len(channel_keywords)
@@ -513,6 +515,18 @@ async def run_pipeline(keywords: List[str], config: Config | None = None,
     if config.youtube_api_key:
         _strip_views(propagated.values())
         _strip_views(channel_keywords.values())
+
+    # Seed channel isolation: don't propagate their keywords to other channels
+    if seed_channel_names:
+        seed_kws = set()
+        for ch_name in seed_channel_names:
+            seed_kws.update(channel_keywords.get(ch_name, {}).keys())
+        for ch_name, kw_dict in propagated.items():
+            if ch_name in seed_channel_names:
+                continue
+            for kw in seed_kws:
+                kw_dict.pop(kw, None)
+        print(f"  [seed] Isolated {len(seed_channel_names)} seed channels ({len(seed_kws)} keywords blocked from propagation)")
 
     # ── Step C: Louvain Community Detection ──
     detector = CommunityDetector(propagator)
