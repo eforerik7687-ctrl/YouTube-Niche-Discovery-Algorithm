@@ -312,7 +312,30 @@ def _parse_subs(s):
 # ─── Main ──────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    import webbrowser
-    print("Starting Niche Tools at http://localhost:5000")
-    webbrowser.open("http://localhost:5000")
-    app.run(debug=False, port=5000)
+    import threading
+    import time
+
+    flask_ready = threading.Event()
+    def start_flask():
+        app.run(host="127.0.0.1", port=5000, debug=False, use_reloader=False)
+    threading.Thread(target=start_flask, daemon=True).start()
+    time.sleep(1.5)  # Wait for Flask to start
+
+    try:
+        import webview
+        webview.create_window(
+            "Niche Tools",
+            "http://127.0.0.1:5000",
+            width=1400,
+            height=900,
+            resizable=True,
+            icon="niche_icon.ico",
+            min_size=(900, 600),
+        )
+        webview.start()
+    except ImportError:
+        import webbrowser
+        print("PyWebView not installed. Opening in browser instead.")
+        print("Install with: pip install pywebview")
+        webbrowser.open("http://127.0.0.1:5000")
+        input("Press Enter to stop...")
