@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>YT Shorts Topic Pools</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/dist/vis-network.min.js"></script>
+<style>
+/* ── Reset & Base ── */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(135deg,#0c0a1d 0%,#1a1040 40%,#0d1b2a 100%);color:#cfd8e3;min-height:100vh;line-height:1.5}
+
+/* ── Header ── */
+.hd{background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);padding:28px 36px;backdrop-filter:blur(10px)}
+.hd h1{font-size:30px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,#a78bfa 0%,#22d3ee 50%,#34d399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px}
+.hd .st{display:flex;gap:36px;flex-wrap:wrap;font-size:13px;color:#7080a0}
+.hd .st .stat-item{display:flex;flex-direction:column;gap:2px}
+.hd .st .stat-item .label{font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#506080}
+.hd .st .stat-item .value{font-size:18px;font-weight:700;color:var(--accent,#a78bfa)}
+
+/* ── Tabs ── */
+.tb{display:flex;gap:0;padding:0 36px;background:rgba(255,255,255,0.015);border-bottom:1px solid rgba(255,255,255,0.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tb button{padding:14px 28px;background:none;border:none;color:#607590;cursor:pointer;font-size:14px;font-weight:500;border-bottom:2px solid transparent;transition:all .25s;white-space:nowrap;position:relative}
+.tb button:hover{color:#b0c0d8;background:rgba(255,255,255,0.03)}
+.tb button.on{color:#a78bfa;border-bottom-color:#a78bfa;background:rgba(167,139,250,0.06)}
+.tb button .badge{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;background:rgba(167,139,250,0.2);color:#a78bfa}
+.tb button.on .badge{background:rgba(167,139,250,0.35)}
+
+/* ── Tab Content ── */
+.tc{display:none;padding:28px 36px}
+.tc.on{display:block}
+
+/* ── Pool Grid ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:22px}
+
+/* ── Collapsible Card ── */
+.card{background:rgba(15,12,30,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+.card:hover{border-color:rgba(255,255,255,0.14);box-shadow:0 4px 24px rgba(0,0,0,0.3)}
+.card-header{padding:18px 20px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;gap:14px;transition:background .2s}
+.card-header:hover{background:rgba(255,255,255,0.025)}
+.card-header .pool-badge{flex-shrink:0;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;color:#fff;letter-spacing:0.5px;margin-top:1px}
+.card-header .pool-info{flex:1;min-width:0}
+.card-header .pool-info h3{font-size:17px;font-weight:700;color:#e8e8f0;margin-bottom:4px;line-height:1.3}
+.card-header .pool-info .pool-subtitle{font-size:12px;color:#607590;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-header .pool-meta{display:flex;gap:16px;margin-top:6px;font-size:12px}
+.card-header .pool-meta span{color:#8090b0}
+.card-header .pool-meta span b{color:#c8d0e0;font-weight:600}
+.card-header .chevron{flex-shrink:0;font-size:20px;color:#506080;transition:transform .3s;width:24px;text-align:center;line-height:1}
+.card.expanded .card-header .chevron{transform:rotate(90deg)}
+
+/* ── Card Body (collapsed by default) ── */
+.card-body{display:none;padding:0 20px 20px;border-top:1px solid rgba(255,255,255,0.06)}
+.card.expanded .card-body{display:block}
+
+/* ── Keywords ── */
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 10px}
+.kw span{font-size:11px;padding:4px 10px;border-radius:14px;background:rgba(167,139,250,0.12);color:#c4b5fd;font-weight:500}
+.kw .ai-topic{background:rgba(34,211,238,0.1);color:#67e8f9;font-size:11px;padding:4px 10px;border-radius:14px;font-weight:500}
+.kw .ai-topic .count{color:#a5f3fc;font-size:10px;margin-left:4px}
+
+/* ── Top Videos ── */
+.vl{list-style:none;margin:8px 0}
+.vl li{padding:7px 10px;border-radius:8px;transition:background .15s;display:flex;align-items:center;gap:8px;border:1px solid transparent}
+.vl li:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.06)}
+.vl li .rank{font-size:11px;font-weight:800;color:#506080;width:20px;flex-shrink:0;text-align:center}
+.vl li a{color:#a78bfa;text-decoration:none;font-size:13px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .15s}
+.vl li a:hover{color:#c4b5fd;text-decoration:underline}
+.vl li .vid-views{font-size:11px;color:#7080a0;font-weight:600;white-space:nowrap;flex-shrink:0}
+.vl li .vid-channel{font-size:10px;color:#506080;white-space:nowrap;flex-shrink:0;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+
+/* ── Channels row ── */
+.ch-row{font-size:11px;color:#607590;margin:6px 0;display:flex;flex-wrap:wrap;gap:4px 12px}
+.ch-row b{color:#8090b0;font-weight:600}
+
+/* ── AI Section ── */
+.ais{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06)}
+.ais .ais-title{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#506080;font-weight:700;margin-bottom:8px}
+.ais .seg{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:10px;padding:12px 14px;margin-bottom:8px;transition:border-color .15s}
+.ais .seg:hover{border-color:rgba(255,255,255,0.1)}
+.ais .seg .seg-name{font-size:13px;font-weight:700;color:#c8d0e0;margin-bottom:3px}
+.ais .seg .seg-pct{font-size:11px;color:#a78bfa;font-weight:600}
+.ais .seg .seg-drivers{font-size:11px;color:#7080a0;margin-top:4px;line-height:1.5}
+.ais .seg .seg-drivers span{display:inline-block;background:rgba(167,139,250,0.08);padding:2px 8px;border-radius:10px;margin:1px 3px 1px 0}
+.ais .gap{background:rgba(253,203,110,0.05);border:1px solid rgba(253,203,110,0.12);border-radius:10px;padding:12px 14px;margin-bottom:8px;position:relative}
+.ais .gap .gap-topic{font-size:13px;font-weight:700;color:#fde68a;margin-bottom:4px}
+.ais .gap .gap-level{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;letter-spacing:0.5px;margin-bottom:4px}
+.ais .gap .gap-level.high{background:rgba(255,107,107,0.2);color:#ff6b6b}
+.ais .gap .gap-level.medium{background:rgba(253,203,110,0.2);color:#fde68a}
+.ais .gap .gap-level.emerging{background:rgba(52,211,153,0.2);color:#34d399}
+.ais .gap .gap-opp{font-size:11px;color:#8090b0;margin-top:3px;line-height:1.5}
+.ais .hook-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#7080a0;margin:4px 0}
+.ais .hook-badge .bar{width:80px;height:5px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden}
+.ais .hook-badge .bar .fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#a78bfa,#22d3ee);transition:width .5s}
+
+/* ── Network Graph ── */
+#gc{width:100%;height:650px;border-radius:14px;background:#0f0c1e;border:1px solid rgba(255,255,255,0.08)}
+
+/* ── Tables ── */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{padding:12px 16px;text-align:left;background:rgba(255,255,255,0.04);font-weight:600;color:#8090b0;border-bottom:2px solid rgba(255,255,255,0.08);font-size:12px;letter-spacing:0.5px;text-transform:uppercase}
+.tbl td{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+.tbl tr:hover td{background:rgba(255,255,255,0.02)}
+.tbl a{color:#74B9FF;text-decoration:none;transition:color .15s}
+.tbl a:hover{color:#a5d8ff;text-decoration:underline}
+.tbl .dup-count{color:#FDCB6E;font-weight:700;font-size:14px}
+.tbl .views-cell{color:#c8d0e0;font-weight:600}
+
+/* ── Section Headers ── */
+.sec-hd{font-size:13px;font-weight:700;color:#506080;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sec-hd::after{content:'';flex:1;height:1px;background:rgba(255,255,255,0.05)}
+
+/* ── Empty State ── */
+.empty{text-align:center;color:#506080;padding:60px 20px;font-size:14px}
+
+/* ── Responsive ── */
+@media(max-width:768px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+
+<div class="hd">
+  <h1>YT Shorts Topic Pools</h1>
+  <div class="st">
+    <div class="stat-item">
+      <span class="label">Run</span>
+      <span class="value" style="font-size:13px;color:#8090b0">2026-07-15 19:17</span>
+    </div>
+    <div class="stat-item">
+      <span class="label">Videos</span>
+      <span class="value">214</span>
+    </div>
+    <div class="stat-item">
+      <span class="label">Edges</span>
+      <span class="value">317</span>
+    </div>
+    <div class="stat-item">
+      <span class="label">Pools</span>
+      <span class="value">4</span>
+    </div>
+    <div class="stat-item">
+      <span class="label">Modularity Q</span>
+      <span class="value">0.3488</span>
+    </div>
+  </div>
+</div>
+
+<div class="tb">
+  <button class="on" data-tab="pools">Traffic Pools <span class="badge" id="poolsBadge"></span></button>
+  <button data-tab="graph">Network Graph</button>
+  <button data-tab="dup">Top Duplicated</button>
+  <button data-tab="data">Raw Data</button>
+</div>
+
+<div class="tc on" id="tpools"><div class="grid" id="pgrid"></div></div>
+<div class="tc" id="tgraph"><div id="gc"></div></div>
+<div class="tc" id="tdup">
+  <table class="tbl">
+    <thead><tr><th>#</th><th>Video</th><th>Duplications</th><th>Sessions</th><th>Views</th></tr></thead>
+    <tbody id="duptbody"></tbody>
+  </table>
+</div>
+<div class="tc" id="tdata">
+  <table class="tbl">
+    <thead><tr><th>Pool</th><th>Name</th><th>Videos</th><th>Views</th><th>Top Channels</th></tr></thead>
+    <tbody id="dtbody"></tbody>
+  </table>
+</div>
+
+<script>
+var POOLS=[{"pool_id": 1, "name": "roblox + animal", "description": "", "videos": ["FBDVq0pbyiE", "3XL5GhgI2VQ", "1CS5oIC9SFU", "rguLien5EpU", "sUqb_Hie-hY", "IIqU549H-Fg", "uhbtZZpeg4Q", "b85ut7fr4Ro", "3ssoCQiZDAQ", "KLelVnZpoFY", "6ek8RFz1QXg", "UySaxsuLp90", "DlwsiblmLUU", "0y8f6W5aCGc", "EW3rTftXFmE", "5GYcbUX1l1Q", "mMXpxLBHFpI"], "video_count": 17, "total_views": 197332975, "top_videos": [{"video_id": "KLelVnZpoFY", "title": "When You Know Mom TOO WELL", "channel": "MiniMoochi", "view_count": 58402583}, {"video_id": "sUqb_Hie-hY", "title": "When Lil bro keeps following you in Hide and seek💀😭 #roblox #shorts #robloxanimation #usa", "channel": "Mashles", "view_count": 42060951}, {"video_id": "IIqU549H-Fg", "title": "When you are confused how Light in Fridge works😭😂 #roblox #shorts #robloxanimation #usa", "channel": "Mashles", "view_count": 32741521}, {"video_id": "b85ut7fr4Ro", "title": "Perfect Hot Chocolate Hack! 🍫@zackdfilms", "channel": "JOMBOSPICE", "view_count": 20275400}, {"video_id": "6ek8RFz1QXg", "title": "Intern is an Anomaly? Animal Hospital Roblox #animalhospital #roblox", "channel": "Sona Extra X", "view_count": 15814386}], "top_channels": [{"name": "Mashles", "videos": 2}, {"name": "RobloxGamerz", "videos": 2}, {"name": "Tarazzhana", "videos": 1}, {"name": "Fish Doe", "videos": 1}, {"name": "Xorbixu Ranks", "videos": 1}], "top_keywords": ["roblox", "animal", "hospital", "animalhospital", "animation", "shorts", "update", "ranking", "robloxanimation", "usa"], "content_theme": "", "audience_psychographics": "", "modularity_contribution": 0.0}, {"pool_id": 2, "name": "animal + hospital", "description": "", "videos": ["7bEzw0BgI6E", "kdS8O_t9Ohs", "ViF1R4ZA5RE", "AqNVz_3dTD4", "5_btpluiaQs", "fO-O91VDIoY", "t6AZ6CNmRe4", "iCAt9aNEMVE", "DgGJeYqmjhY", "xqUeQmtmDP8"], "video_count": 10, "total_views": 80422074, "top_videos": [{"video_id": "ViF1R4ZA5RE", "title": "Tricking my MOM into eating foods she DOESN’T LIKE", "channel": "Chef Tyler", "view_count": 38119141}, {"video_id": "iCAt9aNEMVE", "title": "Why Squirrels Plant Oak Trees 🤔", "channel": "Zack D. Films", "view_count": 20843902}, {"video_id": "xqUeQmtmDP8", "title": "Two Different Worlds 🩷", "channel": "Speed McQueen", "view_count": 13625772}, {"video_id": "fO-O91VDIoY", "title": "Ranking Funniest Animal Hospital Animations #roblox #animalhospital", "channel": "Xorbixu Ranks", "view_count": 4440693}, {"video_id": "7bEzw0BgI6E", "title": "EVERYTHING YOU NEED TO KNOW ABOUT THE ANIMAL HOSPITAL UPDATE!", "channel": "SKYROBLOX", "view_count": 838707}], "top_channels": [{"name": "SKYROBLOX", "videos": 1}, {"name": "김태순", "videos": 1}, {"name": "Chef Tyler", "videos": 1}, {"name": "O1G", "videos": 1}, {"name": "Sarahlyn Arts", "videos": 1}], "top_keywords": ["animal", "hospital", "roblox", "animalhospital", "everything", "need", "know", "update", "student", "studentlife"], "content_theme": "", "audience_psychographics": "", "modularity_contribution": 0.0}, {"pool_id": 3, "name": "animal + hospital", "description": "", "videos": ["MFxO43UiBgU", "Yb-tM4UEjbU", "fb9ydofEAEw", "f6kqvJ4_KDs", "TBIT198H3O0", "AwHESP8SWpQ"], "video_count": 6, "total_views": 27017577, "top_videos": [{"video_id": "TBIT198H3O0", "title": "Animal Hospital Roblox: Ratthew meets the Stalker #roblox #animalhospital", "channel": "Sona Extra X", "view_count": 9332847}, {"video_id": "MFxO43UiBgU", "title": "I give bro the real coffee😭😭 in animal hospital #roblox #animalhospital  #update #nobatidao", "channel": "lyrics", "view_count": 5971668}, {"video_id": "Yb-tM4UEjbU", "title": "Secretary Doesn't Like His Replacement In Animal Hospital Animation #roblox #animalhospital #update", "channel": "Fish Doe", "view_count": 3779848}, {"video_id": "AwHESP8SWpQ", "title": "9 TIPS TO SURVIVE EVERY MONSTER IN ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 3441487}, {"video_id": "f6kqvJ4_KDs", "title": "Is THIS Animal Hospital's NEXT Anomaly?! (Roblox)", "channel": "O1G", "view_count": 3370291}], "top_channels": [{"name": "lyrics", "videos": 1}, {"name": "Fish Doe", "videos": 1}, {"name": "Crano", "videos": 1}, {"name": "O1G", "videos": 1}, {"name": "Sona Extra X", "videos": 1}], "top_keywords": ["animal", "hospital", "roblox", "animalhospital", "update", "give", "bro", "real", "coffee", "nobatidao"], "content_theme": "", "audience_psychographics": "", "modularity_contribution": 0.0}, {"pool_id": 4, "name": "roblox + animal", "description": "", "videos": ["QgYaEn2So9U", "Pkck1HQ-uvI", "9R2Cp8UHcG0", "cMEDR9r9MSk", "67t9dWhKnBc", "n40i4FT_iV8", "LMUK1F8dLmw", "yOqubLKbkyw", "KXIb6H8LHa8", "FobqtWGBHAs", "haUnnC-MXbo"], "video_count": 11, "total_views": 24302671, "top_videos": [{"video_id": "n40i4FT_iV8", "title": "Playing at 12am be like #roblox #shorts", "channel": "Janruary", "view_count": 8477046}, {"video_id": "KXIb6H8LHa8", "title": "From a Giant Poop to a Robot… This Hide-and-Seek Was Unhinged 🤣🤖💩 #shorts #funny #comedy", "channel": "Yana Yana", "view_count": 7821044}, {"video_id": "67t9dWhKnBc", "title": "TIPS & TRICKS TO SURVIVE ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 4479769}, {"video_id": "FobqtWGBHAs", "title": "Animal Hospital RATTHEW IS SECRETLY AN ANOMALY (Roblox)", "channel": "O1G", "view_count": 1442100}, {"video_id": "Pkck1HQ-uvI", "title": "Animal Hospital [Anomaly]🧪- This door is KILLING me!!!😭😭- Roblox", "channel": "AnyaRoblox", "view_count": 1220637}], "top_channels": [{"name": "XYT ME", "videos": 1}, {"name": "AnyaRoblox", "videos": 1}, {"name": "Crownster", "videos": 1}, {"name": "FLOPPY_MX", "videos": 1}, {"name": "RobloxGamerz", "videos": 1}], "top_keywords": ["roblox", "animal", "hospital", "anomaly", "update", "animalhospital", "doctor", "shorts", "funny", "omg"], "content_theme": "", "audience_psychographics": "", "modularity_contribution": 0.0}];
+var RESULT={"seed_video_ids": [], "virtual_user_count": 0, "total_requests": 0, "videos_discovered": 214, "edges_formed": 317, "pools_detected": 4, "duration_seconds": 0.0, "errors": [], "rate_limits_hit": 0, "modularity_q": 0.34880455107261454};
+var GRAPH={"node_count": 214, "edge_count": 101, "nodes": [{"video_id": "0y8f6W5aCGc", "title": "ROBLOX ANIMAL HOSPITAL - Lily, Rumi and a day at work at the Animal Hospital Part 6", "channel": "Inkori", "view_count": 1431907}, {"video_id": "AqNVz_3dTD4", "title": "The DOCTOR Got Updated In Animal Hospital (Roblox)", "channel": "O1G", "view_count": 814113}, {"video_id": "6ek8RFz1QXg", "title": "Intern is an Anomaly? Animal Hospital Roblox #animalhospital #roblox", "channel": "Sona Extra X", "view_count": 15814386}, {"video_id": "1CS5oIC9SFU", "title": "Ranking Funniest Animal Hospital Animations #roblox #animalhospital", "channel": "Xorbixu Ranks", "view_count": 1655945}, {"video_id": "3XL5GhgI2VQ", "title": "Secretary Makes Pancakes For Ratthew In Animal Hospital Animation #roblox #animalhospital #update", "channel": "Fish Doe", "view_count": 1831718}, {"video_id": "DlwsiblmLUU", "title": "These \"Teammates\" are COMPLETE IDIOTS! | Animal Hospital", "channel": "CyberHaptic", "view_count": 43486}, {"video_id": "FBDVq0pbyiE", "title": "Animal Hospital funny animation #roblox #animalhospital", "channel": "Tarazzhana", "view_count": 1693642}, {"video_id": "mMXpxLBHFpI", "title": "NEW OP TIPS & TRICKS TO SURVIVE IN ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 1741703}, {"video_id": "uhbtZZpeg4Q", "title": "Poor Intern 😅 | Animal Hospital Animation #animalhospital #roblox #shorts #fyp #viral #trending", "channel": "Qurez_apples52", "view_count": 2289505}, {"video_id": "6k0c8oRWw1w", "title": "#roblox", "channel": "bloxinhahxRP", "view_count": 1946506}, {"video_id": "5VdFkJBKnaE", "title": "@airel_officialyt", "channel": "greencrew0", "view_count": 363}, {"video_id": "9wRYfJHGK1o", "title": "Part sixty-six: Building a coin tower #satisfying", "channel": "Uad", "view_count": 424105}, {"video_id": "5GYcbUX1l1Q", "title": "42 TIPS & TRICKS TO GET YOU STARTED IN ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 446447}, {"video_id": "67t9dWhKnBc", "title": "TIPS & TRICKS TO SURVIVE ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 4479769}, {"video_id": "f6kqvJ4_KDs", "title": "Is THIS Animal Hospital's NEXT Anomaly?! (Roblox)", "channel": "O1G", "view_count": 3370291}, {"video_id": "5_btpluiaQs", "title": "⚠️A PATIENT IS ANOMALY💀⚠️// Animal Hospital Animation Meme #animalhospital #animation #roblox", "channel": "Sarahlyn Arts", "view_count": 625768}, {"video_id": "TBIT198H3O0", "title": "Animal Hospital Roblox: Ratthew meets the Stalker #roblox #animalhospital", "channel": "Sona Extra X", "view_count": 9332847}, {"video_id": "MFxO43UiBgU", "title": "I give bro the real coffee😭😭 in animal hospital #roblox #animalhospital  #update #nobatidao", "channel": "lyrics", "view_count": 5971668}, {"video_id": "2VbKne0T5pc", "title": "Normal pet VS King of pets", "channel": "RandomDude", "view_count": 84709368}, {"video_id": "zzYajvAaU5E", "title": "#banaraslitfest", "channel": "Ashford South", "view_count": 5396526}, {"video_id": "TQ4dU_Oh53w", "title": "Animal Hospital UPDATE SECRETS (Roblox)", "channel": "O1G", "view_count": 76158}, {"video_id": "_Gj6YVCQxE0", "title": "This MECHANIC Should Be In Animal Hospital (Roblox)", "channel": "O1G", "view_count": 266341}, {"video_id": "7bEzw0BgI6E", "title": "EVERYTHING YOU NEED TO KNOW ABOUT THE ANIMAL HOSPITAL UPDATE!", "channel": "SKYROBLOX", "view_count": 838707}, {"video_id": "sUqb_Hie-hY", "title": "When Lil bro keeps following you in Hide and seek💀😭 #roblox #shorts #robloxanimation #usa", "channel": "Mashles", "view_count": 42060951}, {"video_id": "NApYf5kDDQ4", "title": "This was an emotional roller coaster 🎢 😂", "channel": "Thomas Manley", "view_count": 35927951}, {"video_id": "FioBhooakMw", "title": "1% vs 30% vs 50% vs 100% #beatbox #tiktok", "channel": "BeatboxJCOP", "view_count": 69458508}, {"video_id": "b85ut7fr4Ro", "title": "Perfect Hot Chocolate Hack! 🍫@zackdfilms", "channel": "JOMBOSPICE", "view_count": 20275400}, {"video_id": "asW9Udw1gkY", "title": "I Regret Buying Shoes from Temu! 😭🛍️ @tyler.vitelli #shorts #funny", "channel": "AbcFactsi", "view_count": 5416}, {"video_id": "SuuDafuSPY8", "title": "猫の世界にも序列は存在する🐈 #動物 #猫 #shorts #viral", "channel": "やさしい心", "view_count": 45097834}, {"video_id": "puMxDYBQzrA", "title": "How To Make Your Parents Say Yes🤔😂", "channel": "Jie GamingStudio", "view_count": 2479440}, {"video_id": "xLvb8Sy0uHU", "title": "Click The Sound 🥀💔", "channel": "Vebroosy", "view_count": 1637}, {"video_id": "MMOKSgTvbiE", "title": "The Entire Class Relied On One Girl", "channel": "Unlocked Crack", "view_count": 18659803}, {"video_id": "Fik-Gpl_dd8", "title": "Which Sound is better? 😂", "channel": "Ya Janu", "view_count": 8917511}, {"video_id": "ItZ7AmXT0wQ", "title": "Ghost 👻 | ORIGINAL | #animalhospital  #art  #edit", "channel": "PoeyPepto", "view_count": 43961259}, {"video_id": "xPbHt2IDauY", "title": "The Little Ocean We Shared 🐳", "channel": "もこまるファミリー【赤ちゃんと猫2匹との暮らし】", "view_count": 28207132}, {"video_id": "koBJgyMjtJw", "title": "Intern squad 😂 #animalhospital #roblox #usa", "channel": "Catfish Blox", "view_count": 6128599}, {"video_id": "4uEFnKWpS-g", "title": "Hero Cat Saves the Day! 🐾", "channel": "もこまるファミリー【赤ちゃんと猫2匹との暮らし】", "view_count": 17853101}, {"video_id": "0qjiNaAC1EE", "title": "Animal Hospital: Dr. Harlow and Anomaly #animalhospital #roblox", "channel": "Sona Extra X", "view_count": 18589826}, {"video_id": "o3FH-xUtGyo", "title": "LORE Explained Liz! | Animal Hospital Roblox", "channel": "iiEternix", "view_count": 1369498}, {"video_id": "7bTK1tEcC7E", "title": "boy girl mini plush outfit if you...💖😇#robloxshorts #roblox", "channel": "Layla Roblox", "view_count": 5212993}, {"video_id": "6xLjRyaeRgQ", "title": "Barney squad 😭 #animalhospital #roblox #usa", "channel": "Catfish Blox", "view_count": 11501421}, {"video_id": "fb9ydofEAEw", "title": "Animal Hospital (Update) - New Lore Character, Interactions, Items & More | Roblox", "channel": "Crano", "view_count": 1121436}, {"video_id": "Yb-tM4UEjbU", "title": "Secretary Doesn't Like His Replacement In Animal Hospital Animation #roblox #animalhospital #update", "channel": "Fish Doe", "view_count": 3779848}, {"video_id": "v6fm4hcWszw", "title": "Introducing the \"VitaWear SmartBand,\" anext-generation wearablegadget#shortsfeed#trending", "channel": "Talha NSG", "view_count": 33773232}, {"video_id": "wcRZCxKTHeg", "title": "I'm a chud I'm a chud #forsaken", "channel": "Robloxplays", "view_count": 617}, {"video_id": "81CMoz_qC1o", "title": "474 layers 💀 🥀 #animation #verity #alightmotion #minecraft #flipaclip", "channel": "Bald_qiqi", "view_count": 5723920}, {"video_id": "doMc7Ndr-X4", "title": "4 TIPS & TRICKS TO SURVIVE ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 440949}, {"video_id": "879gLFcSAMc", "title": "#blowthisaccountup", "channel": "Unfiltered Reel", "view_count": 2191}, {"video_id": "FKKWtCrD_UM", "title": "Last Animl Catching Moment Is Insane 🥶☠️", "channel": "Zurnyxx", "view_count": 22904451}, {"video_id": "EW3rTftXFmE", "title": "Ranking the best ice moments pt.4", "channel": "Tales Untold", "view_count": 7723497}, {"video_id": "Qi1J32c5xsU", "title": "I Got a Portal into the BACKROOMS", "channel": "Kyle Krueger", "view_count": 5914112}, {"video_id": "6fKgji7hqbo", "title": "Ratthew tries to warn me 😭 #animalhospital #roblox #usa", "channel": "Catfish Blox", "view_count": 6281052}, {"video_id": "RsBOx6cMRJ8", "title": "What is the Hottest Object? 🤔🤔", "channel": "BlobbyClips", "view_count": 15853735}, {"video_id": "IeBm87gWEuE", "title": "I'm Never Speedrunning Verity Again #usa #shorts #minecraft", "channel": "Kajuto", "view_count": 20711983}, {"video_id": "YYCa9af--pQ", "title": "Bed Monster vs Everything (Full) 💀🔥 in Animal Hospital #shorts #roblox #animalhospital", "channel": "Talayn", "view_count": 1660680}, {"video_id": "HYX7K0cD8W0", "title": "Is This the New Animal Hospital Update?! 😱", "channel": "Avaz Forge", "view_count": 2036678}, {"video_id": "PL2M7y5bPk4", "title": "NEW RATTINA SECRET 😭", "channel": "PopCornPanda", "view_count": 4719993}, {"video_id": "dFsA9kCcUXw", "title": "bro is getting more confident.😭😭 in animal hospital #roblox #animalhospital  #update #nobatidao", "channel": "lyrics", "view_count": 5238623}, {"video_id": "KLelVnZpoFY", "title": "When You Know Mom TOO WELL", "channel": "MiniMoochi", "view_count": 58402583}, {"video_id": "P4a7ho2oXnE", "title": "im a coconut", "channel": "broeattheice", "view_count": 237}, {"video_id": "cpur_KltrTE", "title": "10 korrik 2026", "channel": "meme", "view_count": 1447}, {"video_id": "X_1hLJIpvRE", "title": "She Turned Bed Making Into Internet Fame! 🤯", "channel": "Blizzy", "view_count": 3105}, {"video_id": "3JASaZRUK9E", "title": "Nobita put on a magical pair of \"Peeling Finger Covers.\" #anime #doraemon #foryou#usa #fyp", "channel": "StoryUnveil", "view_count": 4022218}, {"video_id": "nAZNn_Zvr9U", "title": "15 July 2026", "channel": "Dandantheman6767", "view_count": 429}, {"video_id": "4RZcVgyqWqY", "title": "Funniest piano #funny #piano #funnyvideo #funnyshorts", "channel": "Bushman536", "view_count": 2856530}, {"video_id": "cCLpGeMf_MA", "title": "The BANNED Room In Animal Hospital (Roblox)", "channel": "O1G", "view_count": 1272856}, {"video_id": "3Qv-_3sIC7o", "title": "Bro's love letter became his worst nightmare 💀 #roblox #shorts #robloxanimation #usa", "channel": "Mashles", "view_count": 100645489}, {"video_id": "koQNpaF0-2w", "title": "Satisfying Japan 🇯🇵🇯🇵🇯🇵 flag color mixing 🎨  #subscribe", "channel": "QUAREZ", "view_count": 21650154}, {"video_id": "OALtkmQVIWg", "title": "How To Choose Hot Pot Date Night! Pt.2", "channel": "Jojo Sim", "view_count": 1444177418}, {"video_id": "UL_1YEX_PKE", "title": "Seoul", "channel": "Donatur yang ngatur", "view_count": 7}, {"video_id": "t3nsRz8uR18", "title": "I died And Return To The Same Spot #roblox #brookhaven", "channel": "AditRblx", "view_count": 10946}, {"video_id": "fO-O91VDIoY", "title": "Ranking Funniest Animal Hospital Animations #roblox #animalhospital", "channel": "Xorbixu Ranks", "view_count": 4440693}, {"video_id": "AwHESP8SWpQ", "title": "9 TIPS TO SURVIVE EVERY MONSTER IN ANIMAL HOSPITAL (ROBLOX)", "channel": "RobloxGamerz", "view_count": 3441487}, {"video_id": "WYWBMOeKGHc", "title": "Meccha Chameleon IRL in Japan", "channel": "Megan and Ben", "view_count": 11421895}, {"video_id": "vDfqc65uMi8", "title": "#shorts #short #ytshorts #facts #science #tech #vlog #minivlog #shortsfeed #animation #edit #anime", "channel": "JBB2", "view_count": 1682}, {"video_id": "avGRGpUOhHs", "title": "I'm Allergic To Water 😨", "channel": "His Story", "view_count": 2947806}, {"video_id": "ZDOoegXfrgg", "title": "Which Footballer Will Have The SADDEST Retirement 😥💔 #robloxrant #roblox", "channel": "SpideyRants", "view_count": 54655}, {"video_id": "T9Ggf25cdaE", "title": "Butter vs Oil (Part 2)", "channel": "DoubleBite", "view_count": 102917050}, {"video_id": "rn4MxA0HZ3Y", "title": "#catmemes", "channel": "domanic", "view_count": 3895504}, {"video_id": "w8mxr7XPvC0", "title": "When Candy Melted, Kindness Spread 🌈", "channel": "もこまるファミリー【赤ちゃんと猫2匹との暮らし】", "view_count": 134411652}, {"video_id": "y0qSDkuCfpM", "title": "When i was a kid", "channel": "Capybluh", "view_count": 9497474}, {"video_id": "TyZb41a2rOU", "title": "Which Gut Genug is BETTER 😅", "channel": "MiAnimation🎬", "view_count": 9365240}, {"video_id": "aUJismi_814", "title": "They saw Giant Bacons transformed into their future selves... 😨 #shorts", "channel": "Junell Dominic", "view_count": 24591914}, {"video_id": "m7FipmDpFpM", "title": "Benimle Dalga Geçti Ama… 🐭😂✨ #roblox #shorts", "channel": "Pinky Star", "view_count": 6725822}, {"video_id": "kWpk51r8Od4", "title": "POV: U hide like a sheep! #minecraft", "channel": "Cuty Block", "view_count": 4168322}, {"video_id": "cFT7zRYCl8w", "title": "play time", "channel": "Gabriel svarstikles", "view_count": 522}, {"video_id": "n40i4FT_iV8", "title": "Playing at 12am be like #roblox #shorts", "channel": "Janruary", "view_count": 8477046}, {"video_id": "ovH0lw4R-eE", "title": "créditos al creador #roblox #haveitoldyoulatelythatiloveyou #mlp #amnewbutnottheleast #edit", "channel": "D4ux", "view_count": 49433}, {"video_id": "YAFLZxUHImA", "title": "111 - Ella’s Evil Neighbor Bibi😈👿  | #myghostfriend #animation #shorts #dsand #anime #cute", "channel": "dsand", "view_count": 77854844}, {"video_id": "KtO3hBD3CGU", "title": "Different Siblings when MOM is LATE 😱", "channel": "MiniMoochi", "view_count": 80658615}, {"video_id": "ievaSU9vsoQ", "title": "I Faced My Biggest Fear 😨", "channel": "His Story", "view_count": 4775437}, {"video_id": "r2SfHqdg-20", "title": "KPop Demon Hunters] ルミが病気になったので、すべてが混乱しました #jinu #kpopdemonhunters", "channel": "Play Vex", "view_count": 3851711}, {"video_id": "roWOerpraYI", "title": "If Exam = Sleep", "channel": "im_siowei", "view_count": 86361726}, {"video_id": "_SbPV1uAcFk", "title": "Not a real family 😳 #tocaboca #tocalifeworld", "channel": "Toca Croissant", "view_count": 216058}, {"video_id": "0ybupWKjzu4", "title": "Asking A Stranger If I Can Upgrade Her T-Shirt", "channel": "Mr. Spray", "view_count": 3752336}, {"video_id": "U9hXBSDZQDY", "title": "その着せ替え人形は恋をする/きたがわまりん", "channel": "白雨旋小雨Bai Yuxuan", "view_count": 9903056}, {"video_id": "mZD3L0yiG1s", "title": "How to draw body #artshorts #art #drawing #sketch", "channel": "Jahon Art", "view_count": 200279}, {"video_id": "fTKdxQTGmGU", "title": "You've Never Heard These Starfish Facts Before!!", "channel": "Voice Of Rise", "view_count": 5562}, {"video_id": "xWj4GqyTxcc", "title": "Moving Vehicle Physics Explained !😨", "channel": "SmartifyRam", "view_count": 3092}, {"video_id": "RxFuNpxVfng", "title": "She had the better gift 😳", "channel": "sneaksi", "view_count": 5894861}, {"video_id": "3ssoCQiZDAQ", "title": "they CHANGED EVERY CLASS... in Animal Hospital Update #roblox #animalhospital #robloxgames", "channel": "khronic", "view_count": 327296}, {"video_id": "UySaxsuLp90", "title": "This made me Cry 😢", "channel": "Speed McQueen", "view_count": 4191549}, {"video_id": "H1xjoKGXUTk", "title": "Animal Hospital", "channel": "Moonlight_BE", "view_count": 465}, {"video_id": "JAG02TAJtFY", "title": "What If Black Disappeared from Country Flags #countryballs", "channel": "Globee Purple", "view_count": 1627841}, {"video_id": "9-orDxVKmhs", "title": "Earthquake-Proof Bed Exists‼️😱 #shorts", "channel": "BeenTana", "view_count": 2536}, {"video_id": "4GNoF1pSQNw", "title": "HE TRIED WWE MOVES ON HIS BROTHER 😳", "channel": "TONII", "view_count": 4422339}, {"video_id": "gfNtWT9u-28", "title": "Small content creators didn’t get support💔", "channel": "bacon gaming", "view_count": 331}, {"video_id": "-wApKjOHdzo", "title": "Ranking TOP 5 Snowball Moments 😂😭❄️", "channel": "MangoRanks", "view_count": 449421}, {"video_id": "u969TqmRPwk", "title": "How To ACTUALLY Escape North Korea 🤯", "channel": "James Films", "view_count": 4649636}, {"video_id": "mS36JtfCtx8", "title": "Did i do good?", "channel": "Bloxshadow", "view_count": 499}, {"video_id": "_3-wywCFSbE", "title": "😁 Bacon VS Evil Superman", "channel": "Erian", "view_count": 59753}, {"video_id": "hBknoFhzKrY", "title": "#dontletthisflop", "channel": "Fact X Mayank", "view_count": 8256}, {"video_id": "sGtI79BisM0", "title": "We should stop hiding ourself and accept who we are", "channel": "Movie in Minutes", "view_count": 76836}, {"video_id": "5XgwJgmWCsA", "title": "How We Domesticated Dogs...", "channel": "Hoodie Guy", "view_count": 24189623}, {"video_id": "XfXG9KQA21w", "title": "POV you found the backrooms", "channel": "TrendyGuy", "view_count": 188}, {"video_id": "iBo4D-PQ6dY", "title": "#shorts quizzzz!", "channel": "Cookie_ShortsYT", "view_count": 930623}, {"video_id": "Q6Dq_83CGzw", "title": "Normal player VS Pure ❤️‍🩹 Heartsportsmanship, players with woman, kindness, kind, humanity, wholes.", "channel": "Özgür Yılmaz", "view_count": 4925223}, {"video_id": "_cI_xxRYYgw", "title": "I Had Strange Hair… Everyone Avoided Me #roblox #robloxshorts #berry", "channel": "Kindora Blox", "view_count": 836858}, {"video_id": "nxy36-wN-Hs", "title": "Noob vs Team in Animal Hospital (Anomaly)😱 #animalhospital #roblox #robloxhorror", "channel": "Roblox Noob", "view_count": 19877700}, {"video_id": "cuoadhg1H0g", "title": "Things We Did As Kids 🧒 👧", "channel": "Speed McQueen", "view_count": 49396132}, {"video_id": "mOYB_t0Hxlw", "title": "哦 是關中王來了！！！ #賽博跳動cyberdance #團建聚會 #創作者大會 #二創激勵計劃 #親子互動", "channel": "maria vargas", "view_count": 113210551}, {"video_id": "HArtlWzePxg", "title": "Mesii❌️  Ronaldo ✅️", "channel": "Yusuf Salih Kayra", "view_count": 31845027}, {"video_id": "haUnnC-MXbo", "title": "Roblox animal hospital funny moments!", "channel": "Bloxie", "view_count": 229344}, {"video_id": "g2K3z3ebyiA", "title": "Which one is the best??| #short #fypシ #kpop #katseye #song", "channel": "Fan_de_kpop", "view_count": 1056591}, {"video_id": "AEmsY6jv0cI", "title": "Did you know that Ratthew HATES when you kill an ANOMALY????", "channel": "ZerryBlox", "view_count": 3497287}, {"video_id": "K0Q_-xvEgp4", "title": "GUM CARPET HACK @zackdfilms", "channel": "SeanDoesMagic", "view_count": 39738686}, {"video_id": "U-7lomA7i_8", "title": "teacher and student #publictalk #funny #shortvideo #comedy", "channel": "daily Giggle", "view_count": 955255}, {"video_id": "m1Ho0RsaoZU", "title": "she's scared of the BIGGEST drop ride", "channel": "zooder loopers", "view_count": 8117515}, {"video_id": "ipcZmr8Leh0", "title": "The Red Giant Arc?? #solarballs #alightmotion #redgiant", "channel": "AstroDUDE Ñírôñ", "view_count": 146}, {"video_id": "M8tYWa25hS8", "title": "THE END HAD ME IN LITERAL TEARS..", "channel": "Cheetify", "view_count": 4475660}, {"video_id": "OSpqMDJka80", "title": "SUMMER?? ❤️‍🔥🌴🌺|#roblox#robloxedit#viral#summer#trending#shorts", "channel": "bloop", "view_count": 1973}, {"video_id": "Nt8kJP7SCxU", "title": "The boy copies Kobe and throws down a dunk over a car.", "channel": "XiaoHai Movie", "view_count": 10276166}, {"video_id": "XOivIpr9hlg", "title": "Student Outsmarts Teacher & Gets Him FIRED!😳", "channel": "Gabriel Saidy", "view_count": 10018893}, {"video_id": "reMeyM299H0", "title": "Small girl, huge appetite！ #animetiktok #anime #fyp #animeedit #foryou", "channel": "Люба Кот", "view_count": 1884384}, {"video_id": "iOxZ5Yi1u3c", "title": "1s vs 1m", "channel": "Capybluh", "view_count": 91770051}, {"video_id": "xqmtjt4orhY", "title": "Lil bro got his revenge and karma at the same time😭 #roblox #shorts #robloxanimation #usa", "channel": "Mashles", "view_count": 73117341}, {"video_id": "NPq9kTcftxw", "title": "I Tried Every Drive Thru’s BLUEST Item 🥶", "channel": "Morgan Teafeather", "view_count": 3651304}, {"video_id": "ZVqP7giAkx4", "title": "Amazing!! #beatbox #tiktok", "channel": "Beatbox Klim", "view_count": 59532870}, {"video_id": "0WR-d0fvuqE", "title": "Colorful Warmth in a Square World#fyp#usa#little cartoon#anime#cartoon", "channel": "ChillPop", "view_count": 3452129}, {"video_id": "Il_J3D8nh2U", "title": "Hair reveal✨ || #roblox #robloxedit #fyp #hairreveal", "channel": "Charl #roadto4k", "view_count": 352}, {"video_id": "UwnbGXBV_SA", "title": "#Shorts#Viral#shorts#parkour#freerunning#extreme#viral", "channel": "SHADOWX", "view_count": 5359878}, {"video_id": "5hw6U47KslI", "title": "How Many Cast Iron Pans Would it Take to Stop a Bullet?", "channel": "Yee Yee Life", "view_count": 69904329}, {"video_id": "6uP4jc-k-ZE", "title": "How these Siblings don't waste food", "channel": "MiniMoochi", "view_count": 56245144}, {"video_id": "QSd8DUg6jIE", "title": "#illustration #tattoo #art #pov #drawing🤩", "channel": "andrew85", "view_count": 248386}, {"video_id": "GGa1zPQZUU8", "title": "Spiciest Ramen to Escape @patrickzeinali @ChefRush", "channel": "albert_cancook", "view_count": 329759254}, {"video_id": "rguLien5EpU", "title": "Acertaste o penúltimo?", "channel": "CIRILOVLOGS", "view_count": 4661439}, {"video_id": "IIqU549H-Fg", "title": "When you are confused how Light in Fridge works😭😂 #roblox #shorts #robloxanimation #usa", "channel": "Mashles", "view_count": 32741521}, {"video_id": "KlECcFzvmw8", "title": "TOM HOLLAND LAUGHING 😅🤣 #meme #funny #laugh #viralvideo #fyp #memes #tomholland", "channel": "LolLapse", "view_count": 55073342}, {"video_id": "D6QOOhFktdg", "title": "Airplane Oxygen Masks Don't Work the Way You Think    😳✈️", "channel": "Kevgel Films", "view_count": 2442}, {"video_id": "ayCwRkZslTE", "title": "Can I Beat The HARDEST Gut Genug Challenge? 🤔 #shorts #geometrydash", "channel": "GoonyDash", "view_count": 3929490}, {"video_id": "oA6Yz5Pvvu4", "title": "He's Healing! Intense Moment of Healing and Survival😱😱😱", "channel": "Maxiii", "view_count": 18}, {"video_id": "505yrpGgOHI", "title": "Marino son #cover #cute #music #acoustic #puppy g edits #fyp #explore #less #trending", "channel": "Stanz Edits", "view_count": 1531841}, {"video_id": "EdoJ5kAldNA", "title": "Creepy Disney sketch #trollface #troll #edit #moments #fyp", "channel": "heywatchthis", "view_count": 9668941}, {"video_id": "aazBxW2tgnE", "title": "3 Amazing Things in Japan You Won’t See Anywhere Else! 🇯🇵❤️ #japan #japanthings #shorts", "channel": "Kimono Says", "view_count": 2514421}, {"video_id": "mkc7VOiyLwA", "title": "\"The Boy Who Wore a Snake and Won the Championship!\" 😱#short #viral", "channel": "cine cube", "view_count": 606611}, {"video_id": "DgGJeYqmjhY", "title": "Animal Hospital MYTHS! | Animal Hospital Roblox", "channel": "iiEternix", "view_count": 687233}, {"video_id": "t6AZ6CNmRe4", "title": "If you want to laugh, go watch Khaby Lame’s work😆 #funnyvideo#KhabyLame#reaction#funny#shorts", "channel": "ijunbgy97", "view_count": 1376}, {"video_id": "kdS8O_t9Ohs", "title": "😂#student #studentlife #schoollife #school #teachers #teacherbelike", "channel": "김태순", "view_count": 425369}, {"video_id": "VofPPg9mxVY", "title": "In another life… || Dandy’s world || #dandysworld #angst #fyp #edit", "channel": "Onix🐰Flame_13", "view_count": 669}, {"video_id": "pdrMZ5Ro9E8", "title": "Qué es un ser humano? #shorts #soyleiken #humanity #amable #viralvideo #youtubeshorts #lore", "channel": "SoyLeiken", "view_count": 1322245}, {"video_id": "btdfIryeHQ8", "title": "+1 Speed Keyboard Escape 33s👟", "channel": "순록", "view_count": 40339680}, {"video_id": "qX20wiiy2hk", "title": "I Built a Door Trap… #shorts", "channel": "Dova", "view_count": 16957196}, {"video_id": "XOT00bp7uzY", "title": "The Invisible Barrier 😮", "channel": "Zack D. Films", "view_count": 15208464}, {"video_id": "-fxW7tdN5JU", "title": "This Cat Confused Nature 😱👀😍 #shorts #cat", "channel": "InfiniShortz", "view_count": 8131440}, {"video_id": "rHTqDKlbIQI", "title": "Ranking BEST “CAT HAVE 9 LIVES” Core Moments!! 🐱🤯", "channel": "AniRank", "view_count": 23671885}, {"video_id": "NMSUbJQ1J4M", "title": "Twins at the carousel (￼ft. Barney & Intern )", "channel": "RATTH3W", "view_count": 25}, {"video_id": "4E8-OFO8AHc", "title": "Help RATTHEW and BARNEY Cure Patiens in ANIMAL HOSPITAL ANOMALIES Challenge!", "channel": "Lampal", "view_count": 3289387}, {"video_id": "HC2lLVC1vgA", "title": "#illustration #tattoo #art #pov #procreate #drawing #whydidntmyexcomeback #digitalart", "channel": "Taira Branche", "view_count": 2229}, {"video_id": "8mzZk3Ydgp8", "title": "Draw A Line Around The FIFA World Cup Ball🏆✨ #shortvideo #shorts #couple #trend #filter", "channel": "Rylen and Chloe", "view_count": 1622806}, {"video_id": "PHE5L8lj8K4", "title": "try not to lough challenge#viral #trending #meme #funny #contentcreator", "channel": "gasxcccc", "view_count": 11726}, {"video_id": "6jYSlpiADhc", "title": "July 15, 2026", "channel": "announcer", "view_count": 3}, {"video_id": "fdjxa2lDbgQ", "title": "99% of PEOPLE Use These Stairs Wrong! 😱🤯", "channel": "FastN'Curios", "view_count": 5627}, {"video_id": "wlAsNZSB5DQ", "title": "TOP 10 Best Secret Talents #usa #american #ranking #top10 #trend", "channel": "xjgoddas8p0", "view_count": 16289622}, {"video_id": "KbawPLtZYXk", "title": "\"Swimsuit\" | 😂 Luca Funny #shorts", "channel": "FunLix Motion", "view_count": 866986}, {"video_id": "acHGAaeqyWM", "title": "THE ENDING WAS INSANE!!! 😱😱😭#roblox #keyboardescape", "channel": "AgeyBlox", "view_count": 981542}, {"video_id": "FNqIrSNitq4", "title": "Ranking Best Insect Traps 🤣", "channel": "Prizma Ranks", "view_count": 9675}, {"video_id": "IgH2yB_nRO0", "title": "She Is Not A Human 😱🔥 | Tomorrowland | FUNK ABNORMAL (Slowed) #trending #shorts", "channel": "Zynor-Edit", "view_count": 10283829}, {"video_id": "n6RkjgEKCqI", "title": "The Power of Your Words", "channel": "MiniMoochi", "view_count": 19854814}, {"video_id": "9R2Cp8UHcG0", "title": "😱 Doctor's SECRET In Animal Hospital! #usa #animalhospital #roblox", "channel": "Crownster", "view_count": 574810}, {"video_id": "QgYaEn2So9U", "title": "Omg! Animal Hospital UPDATE (Anomalies) #roblox #animalhospital #robloxhorror", "channel": "XYT ME", "view_count": 31823}, {"video_id": "FobqtWGBHAs", "title": "Animal Hospital RATTHEW IS SECRETLY AN ANOMALY (Roblox)", "channel": "O1G", "view_count": 1442100}, {"video_id": "yOqubLKbkyw", "title": "All The New Roblox ANIMAL HOSPITAL ANOMALY Update Skins..", "channel": "alRobertb Fox", "view_count": 542}, {"video_id": "LMUK1F8dLmw", "title": "DOCTOR HARLOW WORKS WITH THE STALKER?! 😱 | Animal Hospital Roblox", "channel": "SoxnnxYT", "view_count": 25204}, {"video_id": "Pkck1HQ-uvI", "title": "Animal Hospital [Anomaly]🧪- This door is KILLING me!!!😭😭- Roblox", "channel": "AnyaRoblox", "view_count": 1220637}, {"video_id": "cMEDR9r9MSk", "title": "Make this blow us", "channel": "FLOPPY_MX", "view_count": 352}, {"video_id": "KXIb6H8LHa8", "title": "From a Giant Poop to a Robot… This Hide-and-Seek Was Unhinged 🤣🤖💩 #shorts #funny #comedy", "channel": "Yana Yana", "view_count": 7821044}, {"video_id": "v1ZIXpcxV4c", "title": "15. heinäkuuta 2026", "channel": "Piirtäjä :D", "view_count": 275}, {"video_id": "IzFLjRT8PQI", "title": "Moments Jesus SAVED Them ✝️🔥 #jesussaves #faith #viralshorts #holyprotection", "channel": "DHGASKfa", "view_count": 31810}, {"video_id": "iCAt9aNEMVE", "title": "Why Squirrels Plant Oak Trees 🤔", "channel": "Zack D. Films", "view_count": 20843902}, {"video_id": "xqUeQmtmDP8", "title": "Two Different Worlds 🩷", "channel": "Speed McQueen", "view_count": 13625772}, {"video_id": "ViF1R4ZA5RE", "title": "Tricking my MOM into eating foods she DOESN’T LIKE", "channel": "Chef Tyler", "view_count": 38119141}, {"video_id": "3qSrCJcWN58", "title": "WAIT FOR THE LAST ONE!!!", "channel": "The Rank Tank", "view_count": 2933}, {"video_id": "jifWF46cJqA", "title": "Äpfel teilen 😁 #deutsch #animation #lustig", "channel": "AlansKatze", "view_count": 127831}, {"video_id": "tuTvAEL6PRM", "title": "Fortnite Player SAVED His Dad's Life.. 💙", "channel": "Jaymed", "view_count": 13293135}, {"video_id": "4-oBp9RaCRc", "title": "She couldn’t ask for a better sister #tvshow #edit", "channel": "Azinka Kniec", "view_count": 17456123}, {"video_id": "VYL83dZFBS8", "title": "Teaching my 4 year old to budget! #financialliteracy #familyvlog", "channel": "Michael Castro", "view_count": 8196250}, {"video_id": "cZzpyxrrp0g", "title": "Crayon magic trick", "channel": "EBB Super Star", "view_count": 12291932}, {"video_id": "TabSJJyg_R8", "title": "Ranking The Best Helium Voice Moments #usa", "channel": "Eagle Ranks", "view_count": 22914339}, {"video_id": "cBwhz577kdg", "title": "This saved me more time than any study tip ever did 😭Never going back #humanizer #uni #chatgpt", "channel": "Study Clutch", "view_count": 8189}, {"video_id": "C05Spb7I3vE", "title": "4 ОШИБКИ В МЕЙКЕ И ИХ КОНТРА #fypシ゚ #makeup #makeuptutorial", "channel": "маришель", "view_count": 5244076}, {"video_id": "U4YmqfnbMLs", "title": "I Found VERITY's Secret Room 🤯😱", "channel": "KenzuBoy", "view_count": 2769066}, {"video_id": "MhVMfqLJZ8s", "title": "Am I a “PRO” in  ANIMAL HOSPITAL on ROBLOX?!👩‍⚕️🩺🐱", "channel": "Lana's Life", "view_count": 1159595}, {"video_id": "JM92-ftoVic", "title": "Roblox funny animal hospital moments!", "channel": "Bloxie", "view_count": 363273}, {"video_id": "tEzpS5bjb0c", "title": "He turns noodles into art... #shorts #shortsfeed #youtubeshorts #cringe #lifehack #comedy #funny", "channel": "LouisAyy", "view_count": 60681489}, {"video_id": "9D9OFrXD9O8", "title": "The baker was terribly careless", "channel": "clever.film11", "view_count": 3473715}, {"video_id": "W-myR52LhJA", "title": "eye", "channel": "Charles the stormchaser. Charles Cadiz", "view_count": 815}, {"video_id": "UGFdHTeag4M", "title": "Ranking Insane Controlled Demolitions! ☠️😮😭 #usa", "channel": "CallMeRanks", "view_count": 3790478}, {"video_id": "hUE2SD3_h4U", "title": "9 Worse Things 😭 (Animation Meme) Anim: @C@Cartoonimation #shorts", "channel": "Nutshell Animations", "view_count": 10622932}, {"video_id": "PWCsmXfXD24", "title": "115 - ella's pink dress👗🩷😶😶  | #myghostfriend #animation #shorts #dsand #anime #cute", "channel": "dsand", "view_count": 44455305}, {"video_id": "WgF-mWg4fsY", "title": "The ending 🤭 #siblings #youngersibling #oldersibling #sisters #comedy #relatable #stephyanntomy", "channel": "Stephy Ann Tomy", "view_count": 14112418}, {"video_id": "LG5YJBcyE_0", "title": "He stole her food so she chose VIOLENCE😭#shinobu#giyu#kanao#inosuke#doma#edit#animation", "channel": "ᯓ★𝙈𝙞𝙨𝙨 𝙑𝙖𝙢𝙥𝙞𝙧𝙚", "view_count": 361353}, {"video_id": "dLBnXALxT_g", "title": "Watch This Beautiful Satisfying Epoxy Floor Turn Into Luxury! #satisfying #shorts", "channel": "Luxury Structural Design", "view_count": 6179038}, {"video_id": "RNUgp80fD9Y", "title": "5 July 2026", "channel": "legend bwoy1", "view_count": 463810}, {"video_id": "vJ-P84hIMqk", "title": "#experiment #ravinglifestyle", "channel": "Dipak Kumar", "view_count": 3670}], "edges": [{"source": "0y8f6W5aCGc", "target": "0y8f6W5aCGc", "weight": 0.08404802744425385, "raw_count": 49, "min_distance": 1}, {"source": "0y8f6W5aCGc", "target": "AqNVz_3dTD4", "weight": 0.07718696397941681, "raw_count": 45, "min_distance": 2}, {"source": "0y8f6W5aCGc", "target": "6ek8RFz1QXg", "weight": 0.08061749571183534, "raw_count": 47, "min_distance": 2}, {"source": "0y8f6W5aCGc", "target": "1CS5oIC9SFU", "weight": 0.07204116638078903, "raw_count": 42, "min_distance": 4}, {"source": "0y8f6W5aCGc", "target": "3XL5GhgI2VQ", "weight": 0.058319039451114926, "raw_count": 34, "min_distance": 5}, {"source": "0y8f6W5aCGc", "target": "DlwsiblmLUU", "weight": 0.05660377358490566, "raw_count": 33, "min_distance": 3}, {"source": "0y8f6W5aCGc", "target": "FBDVq0pbyiE", "weight": 0.03773584905660377, "raw_count": 22, "min_distance": 6}, {"source": "0y8f6W5aCGc", "target": "mMXpxLBHFpI", "weight": 0.048027444253859346, "raw_count": 28, "min_distance": 6}, {"source": "0y8f6W5aCGc", "target": "uhbtZZpeg4Q", "weight": 0.036020583190394515, "raw_count": 21, "min_distance": 7}, {"source": "0y8f6W5aCGc", "target": "sUqb_Hie-hY", "weight": 0.010291595197255575, "raw_count": 6, "min_distance": 10}, {"source": "0y8f6W5aCGc", "target": "MFxO43UiBgU", "weight": 0.04974271012006861, "raw_count": 29, "min_distance": 4}, {"source": "0y8f6W5aCGc", "target": "5_btpluiaQs", "weight": 0.029159519725557463, "raw_count": 17, "min_distance": 5}, {"source": "0y8f6W5aCGc", "target": "TBIT198H3O0", "weight": 0.0137221269296741, "raw_count": 8, "min_distance": 6}, {"source": "0y8f6W5aCGc", "target": "KLelVnZpoFY", "weight": 0.0137221269296741, "raw_count": 8, "min_distance": 10}, {"source": "0y8f6W5aCGc", "target": "Yb-tM4UEjbU", "weight": 0.017152658662092625, "raw_count": 10, "min_distance": 5}, {"source": "0y8f6W5aCGc", "target": "f6kqvJ4_KDs", "weight": 0.015437392795883362, "raw_count": 9, "min_distance": 7}, {"source": "AqNVz_3dTD4", "target": "AqNVz_3dTD4", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 1}, {"source": "AqNVz_3dTD4", "target": "0y8f6W5aCGc", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 2}, {"source": "AqNVz_3dTD4", "target": "6ek8RFz1QXg", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 2}, {"source": "AqNVz_3dTD4", "target": "1CS5oIC9SFU", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 4}, {"source": "AqNVz_3dTD4", "target": "3XL5GhgI2VQ", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 5}, {"source": "AqNVz_3dTD4", "target": "DlwsiblmLUU", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 6}, {"source": "AqNVz_3dTD4", "target": "FBDVq0pbyiE", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 7}, {"source": "AqNVz_3dTD4", "target": "mMXpxLBHFpI", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 8}, {"source": "AqNVz_3dTD4", "target": "3ssoCQiZDAQ", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 9}, {"source": "AqNVz_3dTD4", "target": "DgGJeYqmjhY", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 10}, {"source": "AqNVz_3dTD4", "target": "t6AZ6CNmRe4", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 11}, {"source": "AqNVz_3dTD4", "target": "kdS8O_t9Ohs", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 12}, {"source": "AqNVz_3dTD4", "target": "7bEzw0BgI6E", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 4}, {"source": "AqNVz_3dTD4", "target": "MFxO43UiBgU", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 5}, {"source": "AqNVz_3dTD4", "target": "f6kqvJ4_KDs", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 6}, {"source": "AqNVz_3dTD4", "target": "5_btpluiaQs", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 7}, {"source": "AqNVz_3dTD4", "target": "fO-O91VDIoY", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 8}, {"source": "AqNVz_3dTD4", "target": "TBIT198H3O0", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 9}, {"source": "AqNVz_3dTD4", "target": "iCAt9aNEMVE", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 10}, {"source": "AqNVz_3dTD4", "target": "xqUeQmtmDP8", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 11}, {"source": "AqNVz_3dTD4", "target": "ViF1R4ZA5RE", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 12}, {"source": "6ek8RFz1QXg", "target": "6ek8RFz1QXg", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 1}, {"source": "6ek8RFz1QXg", "target": "0y8f6W5aCGc", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 2}, {"source": "6ek8RFz1QXg", "target": "AqNVz_3dTD4", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 3}, {"source": "6ek8RFz1QXg", "target": "3XL5GhgI2VQ", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 4}, {"source": "6ek8RFz1QXg", "target": "1CS5oIC9SFU", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 4}, {"source": "6ek8RFz1QXg", "target": "DlwsiblmLUU", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 6}, {"source": "6ek8RFz1QXg", "target": "FBDVq0pbyiE", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 7}, {"source": "6ek8RFz1QXg", "target": "3ssoCQiZDAQ", "weight": 0.08333333333333333, "raw_count": 2, "min_distance": 8}, {"source": "6ek8RFz1QXg", "target": "uhbtZZpeg4Q", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 9}, {"source": "6ek8RFz1QXg", "target": "b85ut7fr4Ro", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 10}, {"source": "6ek8RFz1QXg", "target": "EW3rTftXFmE", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 11}, {"source": "6ek8RFz1QXg", "target": "UySaxsuLp90", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 12}, {"source": "6ek8RFz1QXg", "target": "mMXpxLBHFpI", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 7}, {"source": "6ek8RFz1QXg", "target": "KLelVnZpoFY", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 10}, {"source": "6ek8RFz1QXg", "target": "rguLien5EpU", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 11}, {"source": "6ek8RFz1QXg", "target": "IIqU549H-Fg", "weight": 0.041666666666666664, "raw_count": 1, "min_distance": 12}, {"source": "5GYcbUX1l1Q", "target": "5GYcbUX1l1Q", "weight": 0.0779816513761468, "raw_count": 17, "min_distance": 1}, {"source": "5GYcbUX1l1Q", "target": "AqNVz_3dTD4", "weight": 0.0779816513761468, "raw_count": 17, "min_distance": 2}, {"source": "5GYcbUX1l1Q", "target": "6ek8RFz1QXg", "weight": 0.07339449541284404, "raw_count": 16, "min_distance": 2}, {"source": "5GYcbUX1l1Q", "target": "0y8f6W5aCGc", "weight": 0.07339449541284404, "raw_count": 16, "min_distance": 2}, {"source": "5GYcbUX1l1Q", "target": "67t9dWhKnBc", "weight": 0.013761467889908258, "raw_count": 3, "min_distance": 5}, {"source": "5GYcbUX1l1Q", "target": "f6kqvJ4_KDs", "weight": 0.022935779816513763, "raw_count": 5, "min_distance": 6}, {"source": "5GYcbUX1l1Q", "target": "5_btpluiaQs", "weight": 0.022935779816513763, "raw_count": 5, "min_distance": 7}, {"source": "5GYcbUX1l1Q", "target": "TBIT198H3O0", "weight": 0.027522935779816515, "raw_count": 6, "min_distance": 7}, {"source": "5GYcbUX1l1Q", "target": "MFxO43UiBgU", "weight": 0.06422018348623854, "raw_count": 14, "min_distance": 5}, {"source": "5GYcbUX1l1Q", "target": "uhbtZZpeg4Q", "weight": 0.022935779816513763, "raw_count": 5, "min_distance": 9}, {"source": "5GYcbUX1l1Q", "target": "1CS5oIC9SFU", "weight": 0.05504587155963303, "raw_count": 12, "min_distance": 5}, {"source": "5GYcbUX1l1Q", "target": "3XL5GhgI2VQ", "weight": 0.045871559633027525, "raw_count": 10, "min_distance": 5}, {"source": "5GYcbUX1l1Q", "target": "DlwsiblmLUU", "weight": 0.04128440366972477, "raw_count": 9, "min_distance": 3}, {"source": "5GYcbUX1l1Q", "target": "mMXpxLBHFpI", "weight": 0.03211009174311927, "raw_count": 7, "min_distance": 8}, {"source": "5GYcbUX1l1Q", "target": "FBDVq0pbyiE", "weight": 0.022935779816513763, "raw_count": 5, "min_distance": 8}, {"source": "5GYcbUX1l1Q", "target": "EW3rTftXFmE", "weight": 0.013761467889908258, "raw_count": 3, "min_distance": 11}, {"source": "5GYcbUX1l1Q", "target": "Yb-tM4UEjbU", "weight": 0.013761467889908258, "raw_count": 3, "min_distance": 6}, {"source": "fb9ydofEAEw", "target": "fb9ydofEAEw", "weight": 0.0782608695652174, "raw_count": 9, "min_distance": 1}, {"source": "fb9ydofEAEw", "target": "0y8f6W5aCGc", "weight": 0.0782608695652174, "raw_count": 9, "min_distance": 2}, {"source": "fb9ydofEAEw", "target": "6ek8RFz1QXg", "weight": 0.0782608695652174, "raw_count": 9, "min_distance": 3}, {"source": "fb9ydofEAEw", "target": "AqNVz_3dTD4", "weight": 0.0782608695652174, "raw_count": 9, "min_distance": 2}, {"source": "fb9ydofEAEw", "target": "1CS5oIC9SFU", "weight": 0.06086956521739131, "raw_count": 7, "min_distance": 5}, {"source": "fb9ydofEAEw", "target": "Yb-tM4UEjbU", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 6}, {"source": "fb9ydofEAEw", "target": "MFxO43UiBgU", "weight": 0.06086956521739131, "raw_count": 7, "min_distance": 5}, {"source": "fb9ydofEAEw", "target": "TBIT198H3O0", "weight": 0.034782608695652174, "raw_count": 4, "min_distance": 9}, {"source": "fb9ydofEAEw", "target": "f6kqvJ4_KDs", "weight": 0.034782608695652174, "raw_count": 4, "min_distance": 8}, {"source": "fb9ydofEAEw", "target": "3XL5GhgI2VQ", "weight": 0.034782608695652174, "raw_count": 4, "min_distance": 6}, {"source": "fb9ydofEAEw", "target": "DlwsiblmLUU", "weight": 0.034782608695652174, "raw_count": 4, "min_distance": 6}, {"source": "fb9ydofEAEw", "target": "FBDVq0pbyiE", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 8}, {"source": "fb9ydofEAEw", "target": "mMXpxLBHFpI", "weight": 0.02608695652173913, "raw_count": 3, "min_distance": 5}, {"source": "fb9ydofEAEw", "target": "uhbtZZpeg4Q", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 10}, {"source": "fb9ydofEAEw", "target": "7bEzw0BgI6E", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 6}, {"source": "fb9ydofEAEw", "target": "KLelVnZpoFY", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 11}, {"source": "fb9ydofEAEw", "target": "5_btpluiaQs", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 8}, {"source": "fb9ydofEAEw", "target": "AwHESP8SWpQ", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 9}, {"source": "fb9ydofEAEw", "target": "haUnnC-MXbo", "weight": 0.017391304347826087, "raw_count": 2, "min_distance": 8}, {"source": "haUnnC-MXbo", "target": "haUnnC-MXbo", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 1}, {"source": "haUnnC-MXbo", "target": "AqNVz_3dTD4", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 2}, {"source": "haUnnC-MXbo", "target": "67t9dWhKnBc", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 3}, {"source": "haUnnC-MXbo", "target": "9R2Cp8UHcG0", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 4}, {"source": "haUnnC-MXbo", "target": "QgYaEn2So9U", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 5}, {"source": "haUnnC-MXbo", "target": "FobqtWGBHAs", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 6}, {"source": "haUnnC-MXbo", "target": "yOqubLKbkyw", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 7}, {"source": "haUnnC-MXbo", "target": "LMUK1F8dLmw", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 8}, {"source": "haUnnC-MXbo", "target": "Pkck1HQ-uvI", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 9}, {"source": "haUnnC-MXbo", "target": "n40i4FT_iV8", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 10}, {"source": "haUnnC-MXbo", "target": "cMEDR9r9MSk", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 11}, {"source": "haUnnC-MXbo", "target": "KXIb6H8LHa8", "weight": 0.08333333333333333, "raw_count": 1, "min_distance": 12}]};
+var COLORS=["#6C5CE7", "#00CEC9", "#FF6B6B", "#FDCB6E"];
+var DUPS=[{"video_id": "0y8f6W5aCGc", "title": "ROBLOX ANIMAL HOSPITAL - Lily, Rumi and a day at work at the Animal Hospital Part 6", "views": 1431907, "count": 78, "sessions": 5}, {"video_id": "AqNVz_3dTD4", "title": "The DOCTOR Got Updated In Animal Hospital (Roblox)", "views": 814113, "count": 76, "sessions": 6}, {"video_id": "6ek8RFz1QXg", "title": "Intern is an Anomaly? Animal Hospital Roblox #animalhospital #roblox", "views": 15814386, "count": 76, "sessions": 5}, {"video_id": "1CS5oIC9SFU", "title": "Ranking Funniest Animal Hospital Animations #roblox #animalhospital", "views": 1655945, "count": 64, "sessions": 5}, {"video_id": "3XL5GhgI2VQ", "title": "Secretary Makes Pancakes For Ratthew In Animal Hospital Animation #roblox #animalhospital #update", "views": 1831718, "count": 51, "sessions": 5}, {"video_id": "MFxO43UiBgU", "title": "I give bro the real coffee😭😭 in animal hospital #roblox #animalhospital  #update #nobatidao", "views": 5971668, "count": 51, "sessions": 4}, {"video_id": "DlwsiblmLUU", "title": "These \"Teammates\" are COMPLETE IDIOTS! | Animal Hospital", "views": 43486, "count": 49, "sessions": 5}, {"video_id": "mMXpxLBHFpI", "title": "NEW OP TIPS & TRICKS TO SURVIVE IN ANIMAL HOSPITAL (ROBLOX)", "views": 1741703, "count": 40, "sessions": 5}, {"video_id": "FBDVq0pbyiE", "title": "Animal Hospital funny animation #roblox #animalhospital", "views": 1693642, "count": 32, "sessions": 5}, {"video_id": "uhbtZZpeg4Q", "title": "Poor Intern 😅 | Animal Hospital Animation #animalhospital #roblox #shorts #fyp #viral #trending", "views": 2289505, "count": 29, "sessions": 4}, {"video_id": "5_btpluiaQs", "title": "⚠️A PATIENT IS ANOMALY💀⚠️// Animal Hospital Animation Meme #animalhospital #animation #roblox", "views": 625768, "count": 25, "sessions": 4}, {"video_id": "f6kqvJ4_KDs", "title": "Is THIS Animal Hospital's NEXT Anomaly?! (Roblox)", "views": 3370291, "count": 19, "sessions": 4}, {"video_id": "TBIT198H3O0", "title": "Animal Hospital Roblox: Ratthew meets the Stalker #roblox #animalhospital", "views": 9332847, "count": 19, "sessions": 4}, {"video_id": "5GYcbUX1l1Q", "title": "42 TIPS & TRICKS TO GET YOU STARTED IN ANIMAL HOSPITAL (ROBLOX)", "views": 446447, "count": 17, "sessions": 1}, {"video_id": "Yb-tM4UEjbU", "title": "Secretary Doesn't Like His Replacement In Animal Hospital Animation #roblox #animalhospital #update", "views": 3779848, "count": 15, "sessions": 3}, {"video_id": "KLelVnZpoFY", "title": "When You Know Mom TOO WELL", "views": 58402583, "count": 13, "sessions": 4}, {"video_id": "67t9dWhKnBc", "title": "TIPS & TRICKS TO SURVIVE ANIMAL HOSPITAL (ROBLOX)", "views": 4479769, "count": 9, "sessions": 4}, {"video_id": "fb9ydofEAEw", "title": "Animal Hospital (Update) - New Lore Character, Interactions, Items & More | Roblox", "views": 1121436, "count": 9, "sessions": 1}, {"video_id": "EW3rTftXFmE", "title": "Ranking the best ice moments pt.4", "views": 7723497, "count": 9, "sessions": 3}, {"video_id": "7bEzw0BgI6E", "title": "EVERYTHING YOU NEED TO KNOW ABOUT THE ANIMAL HOSPITAL UPDATE!", "views": 838707, "count": 8, "sessions": 4}];
+
+var defaultExpanded = POOLS && POOLS.length <= 3;
+document.addEventListener('click',function(e){var h=e.target.closest('.card-header');if(h)h.parentElement.classList.toggle('expanded');});
+var expandedPools = {};
+
+function fm(n){
+  if(n>=1e9) return (n/1e9).toFixed(1)+'B';
+  if(n>=1e6) return (n/1e6).toFixed(0)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(0)+'K';
+  return String(n);
+}
+
+function esc(s){
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Tabs ──
+document.querySelectorAll('.tb button').forEach(function(b){
+  b.onclick=function(){
+    var t=this.dataset.tab;
+    document.querySelectorAll('.tb button').forEach(function(x){x.classList.remove('on');});
+    this.classList.add('on');
+    document.querySelectorAll('.tc').forEach(function(x){x.classList.remove('on');});
+    document.getElementById('t'+t).classList.add('on');
+    if(t==='graph') initGraph();
+  };
+});
+
+// ═══════════════════════════════════════════════════════════════
+// Traffic Pools — Collapsible Cards with full AI display
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  var g = document.getElementById('pgrid');
+  var badg = document.getElementById('poolsBadge');
+  if(!POOLS||!POOLS.length){
+    g.innerHTML='<div class="empty">No pools detected</div>';
+    badg.textContent='0';
+    return;
+  }
+  badg.textContent = POOLS.length;
+
+  g.innerHTML = POOLS.map(function(p,i){
+    var c = COLORS[i % COLORS.length];
+    var poolKey = 'pool-'+i;
+
+    // ── Top 5 Videos ──
+    var tv = (p.top_videos||[]).slice(0,5).map(function(v,idx){
+      var u = 'https://www.youtube.com/shorts/'+v.video_id;
+      var t = esc((v.title||'?').substring(0,65));
+      var ch = esc((v.channel||'').substring(0,20));
+      return '<li><span class="rank">#'+(idx+1)+'</span><a href="'+u+'" target="_blank" rel="noopener" title="'+t+'">'+t+'</a><span class="vid-channel">'+ch+'</span><span class="vid-views">'+fm(v.view_count||0)+'</span></li>';
+    }).join('');
+
+    // ── Keywords ──
+    var kw = (p.top_keywords||[]).slice(0,8).map(function(k){return '<span>'+esc(k)+'</span>';}).join('');
+
+    // ── Channels ──
+    var ch = (p.top_channels||[]).slice(0,4).map(function(x){return esc(x.name)+' <span style="color:#506080">('+x.videos+')</span>';}).join(', ');
+
+    // ── AI Analysis ──
+    var ai = null;
+    try{ ai = JSON.parse(p.audience_psychographics||'null'); }catch(e){}
+
+    var aiHtml = '';
+    if(ai){
+      // ── AI Topics ──
+      var aiTopics = (ai.topics||[]).slice(0,6).map(function(t){
+        return '<span class="ai-topic">'+esc(t.topic)+'<span class="count">'+t.count+'</span></span>';
+      }).join('');
+
+      // ── Hook Strength ──
+      var hs = ai.avg_hook_strength||0;
+      var hookHtml = hs ? '<div class="hook-badge">Hook Strength: <b>'+hs+'</b> / 10<div class="bar"><div class="fill" style="width:'+(hs*10)+'%"></div></div></div>' : '';
+
+      // ── Audience Segments (Chinese) ──
+      var segsHtml = '';
+      var segs = ai.audience_segments||[];
+      if(segs.length){
+        segsHtml = '<div class="sec-hd">AI Audience Segments</div>';
+        segsHtml += segs.map(function(s){
+          var drivers = (s.behavior_drivers||[]).slice(0,3).map(function(d){return '<span>'+esc(d)+'</span>';}).join('');
+          var pains = (s.pain_points||[]).slice(0,2).map(function(p){return esc(p);}).join(' / ');
+          return '<div class="seg"><div class="seg-name">'+esc(s.name||'?')+' <span class="seg-pct">'+s.size_pct+'%</span></div>'+ (drivers?'<div class="seg-drivers">'+drivers+'</div>':'') + (pains?'<div style="font-size:10px;color:#506080;margin-top:3px">Pain: '+pains+'</div>':'') +'</div>';
+        }).join('');
+      }
+
+      // ── Content Gaps (Chinese) ──
+      var gapsHtml = '';
+      var gaps = ai.content_gaps||[];
+      if(gaps.length){
+        gapsHtml = '<div class="sec-hd">AI Content Gaps</div>';
+        gapsHtml += gaps.slice(0,4).map(function(g){
+          var lvl = esc(g.demand_level||'medium');
+          return '<div class="gap"><div class="gap-topic">'+esc(g.topic||'?')+'</div><span class="gap-level '+lvl+'">'+lvl+'</span>'+ (g.opportunity?'<div class="gap-opp">'+esc(g.opportunity.substring(0,150))+(g.opportunity.length>150?'...':'')+'</div>':'') +'</div>';
+        }).join('');
+      }
+
+      // ── Assemble AI section ──
+      var hasAI = aiTopics || hookHtml || segsHtml || gapsHtml;
+      if(hasAI){
+        aiHtml = '<div class="ais">'+
+          '<div class="ais-title">AI Analysis</div>'+
+          (aiTopics?'<div class="kw">'+aiTopics+'</div>':'')+
+          (hookHtml||'')+
+          segsHtml+
+          gapsHtml+
+        '</div>';
+      }
+    }
+
+    // ── Pool subtitle (description/theme) ──
+    var subtitle = esc(p.description||p.content_theme||'');
+
+    return '<div class="card'+(defaultExpanded?' expanded':'')+'" data-pool="'+poolKey+'" id="card-'+i+'">'+
+      '<div class="card-header" data-card="'+i+'">'+
+        '<span class="pool-badge" style="background:'+c+'">'+esc(p.name||'Pool '+p.pool_id).substring(0,3)+'</span>'+
+        '<div class="pool-info">'+
+          '<h3>'+esc(p.name||'Pool '+p.pool_id)+'</h3>'+
+          (subtitle?'<div class="pool-subtitle">'+subtitle+'</div>':'')+
+          '<div class="pool-meta">'+
+            '<span><b>'+p.video_count+'</b> videos</span>'+
+            '<span><b>'+fm(p.total_views)+'</b> views</span>'+
+            (p.modularity_contribution?'<span>Q: <b>'+p.modularity_contribution.toFixed(4)+'</b></span>':'')+
+          '</div>'+
+        '</div>'+
+        '<span class="chevron">&#9654;</span>'+
+      '</div>'+
+      '<div class="card-body">'+
+        '<div class="kw">'+kw+'</div>'+
+        (ch?'<div class="ch-row"><b>Channels:</b> '+ch+'</div>':'')+
+        '<div class="sec-hd">Top 5 Videos</div>'+
+        '<ul class="vl">'+tv+'</ul>'+
+        aiHtml+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  // Save base expanded state
+  if(defaultExpanded){
+    POOLS.forEach(function(p,i){ expandedPools[i]=true; });
+  }
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// Top Duplicated
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  var tb = document.getElementById('duptbody');
+  if(!DUPS||!DUPS.length){
+    tb.innerHTML='<tr><td colspan="5" class="empty">No duplication data</td></tr>';
+    return;
+  }
+  tb.innerHTML = DUPS.map(function(d,i){
+    var t = esc((d.title||'?').substring(0,60));
+    var u = 'https://www.youtube.com/shorts/'+d.video_id;
+    return '<tr><td>'+(i+1)+'</td><td><a href="'+u+'" target="_blank" rel="noopener">'+t+'</a></td><td class="dup-count">'+d.count+'x</td><td>'+d.sessions+'</td><td class="views-cell">'+fm(d.views||0)+'</td></tr>';
+  }).join('');
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// Raw Data Table
+// ═══════════════════════════════════════════════════════════════
+(function(){
+  var tb = document.getElementById('dtbody');
+  if(!POOLS||!POOLS.length){
+    tb.innerHTML='<tr><td colspan="5" class="empty">No pools detected</td></tr>';
+    return;
+  }
+  tb.innerHTML = POOLS.map(function(p){
+    var chNames = (p.top_channels||[]).slice(0,3).map(function(x){return esc(x.name);}).join(', ');
+    return '<tr><td style="font-weight:600">Pool '+p.pool_id+'</td><td>'+esc(p.name||'')+'</td><td>'+p.video_count+'</td><td class="views-cell">'+fm(p.total_views)+'</td><td>'+chNames+'</td></tr>';
+  }).join('');
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// Network Graph via vis.js
+// ═══════════════════════════════════════════════════════════════
+var network=null;
+function initGraph(){
+  if(network) return;
+  var c=document.getElementById('gc');
+  var v2p={};
+  POOLS.forEach(function(p){ p.videos.forEach(function(v){ v2p[v]=p.pool_id-1; }); });
+  var nP=Math.max(POOLS.length,5);
+  var nodes=new vis.DataSet((GRAPH.nodes||[]).map(function(n){
+    var pi=v2p[n.video_id]!=null?v2p[n.video_id]:-1;
+    var hue=(Math.max(pi,0)*360/nP)%360;
+    var color=pi>=0?'hsl('+hue+',70%,55%)':'#ccc';
+    var s=Math.max(8,Math.min(24,4+Math.log10((n.view_count||1000)+1)*2));
+    return{
+      id:n.video_id,
+      label:(n.video_id||'?').substring(0,11),
+      title:'<b>'+esc(n.title||'?')+'</b><br>Views: '+fm(n.view_count||0),
+      size:s,color:color,font:{size:10,color:'#ccc'},borderWidth:1
+    };
+  }));
+  var edges=new vis.DataSet((GRAPH.edges||[]).map(function(e){
+    return{
+      from:e.source,to:e.target,
+      value:e.weight||0.1,
+      width:Math.max(0.5,(e.weight||0.1)*8),
+      title:'Weight: '+((e.weight||0).toFixed(4)),
+      arrows:{to:{enabled:true,scaleFactor:0.6}},
+      color:{opacity:Math.min(0.7,(e.weight||0.1)*3+0.1)},
+      smooth:{enabled:false}
+    };
+  }));
+  network=new vis.Network(c,{nodes:nodes,edges:edges},{
+    physics:{
+      solver:'barnesHut',
+      barnesHut:{gravitationalConstant:-300,centralGravity:0.1,springLength:250,springConstant:0.02,damping:0.12},
+      stabilization:{iterations:100},
+      maxVelocity:15,minVelocity:0.1
+    },
+    interaction:{hover:true,tooltipDelay:200,dragNodes:true,zoomView:true,navigationButtons:true},
+    edges:{smooth:{enabled:false}}
+  });
+  network.once('stabilized',function(){network.setOptions({physics:{enabled:false}});});
+  network.on('click',function(p){if(p.nodes.length>0)window.open('https://www.youtube.com/shorts/'+p.nodes[0],'_blank');});
+}
+</script></body></html>
